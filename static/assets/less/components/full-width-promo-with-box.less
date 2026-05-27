@@ -8,6 +8,11 @@
   overflow: hidden;
   border-radius: 1.875rem; // 30px
   padding: 1.875rem; // 30px
+  isolation: isolate;
+}
+
+.sg-full-width-promo-with-box__frame > .container {
+  height: 100%;
 }
 
 .sg-full-width-promo-background {
@@ -33,10 +38,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
+  z-index: 3;
+  width: 36.125rem; // 578px (tail + card)
+  margin-left: auto;
 }
 
 .sg-full-width-promo-with-box--card-left .sg-full-width-promo-with-box__content {
   justify-content: flex-start;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .sg-full-width-promo-with-box--card-left .sg-full-width-promo-tail {
@@ -64,6 +75,13 @@
   width: 34.9375rem; // 559px
   padding: 3.125rem; // 50px
   border-radius: 1.875rem; // 30px
+}
+
+.sg-full-width-promo-with-box--lg .sg-full-width-promo-with-box__frame {
+  min-height: 42.5rem; // 680px
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0;
 }
 
 .sg-full-width-promo-with-box--lg .sg-full-width-promo-tail {
@@ -127,6 +145,8 @@
 
   .sg-full-width-promo-with-box__content {
     justify-content: center;
+    width: 100%;
+    margin-left: 0;
   }
 
   .sg-full-width-promo-card {
@@ -149,6 +169,10 @@
 
   .sg-full-width-promo-with-box__frame {
     padding: 1rem;
+  }
+
+  .sg-full-width-promo-with-box--lg .sg-full-width-promo-with-box__frame {
+    min-height: auto;
   }
 
   .sg-full-width-promo-headings h2,
