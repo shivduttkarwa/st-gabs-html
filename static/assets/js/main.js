@@ -1035,6 +1035,31 @@ if (accItems.length) {
 }
 
 function initAppSwipers() {
+    const gallerySliders = document.querySelectorAll('.sg-gallery-slider');
+    if (gallerySliders.length) {
+        gallerySliders.forEach(function(container) {
+            const swiperEl = container.querySelector('.sg-gallery-slider__swiper');
+            const caption = container.querySelector('.sg-gallery-slider__caption');
+            const prevBtn = container.querySelector('.sg-gallery-slider__arrow--prev');
+            const nextBtn = container.querySelector('.sg-gallery-slider__arrow--next');
+            if (!swiperEl) return;
+            const swiper = new Swiper(swiperEl, {
+                loop: true,
+                speed: 700,
+                on: {
+                    slideChange: function() {
+                        if (!caption) return;
+                        const active = this.slides[this.activeIndex];
+                        const text = active && active.dataset.caption;
+                        if (text) caption.textContent = text;
+                    }
+                }
+            });
+            if (prevBtn) prevBtn.addEventListener('click', () => swiper.slidePrev());
+            if (nextBtn) nextBtn.addEventListener('click', () => swiper.slideNext());
+        });
+    }
+
     const navRowSlider = document.querySelectorAll('.sg-nav-row__slider');
     if (navRowSlider.length) {
         new Swiper('.sg-nav-row__slider', {
@@ -1334,4 +1359,20 @@ if (window.SGAnimations) {
 }
 
 document.documentElement.classList.remove('js-loading');
+
+// Accordion
+document.querySelectorAll('.sg-accordion-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+        var item = this.closest('.sg-accordion-item');
+        var isOpen = item.classList.contains('is-open');
+        item.closest('.sg-accordion-list').querySelectorAll('.sg-accordion-item').forEach(function(el) {
+            el.classList.remove('is-open');
+            el.querySelector('.sg-accordion-trigger').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            item.classList.add('is-open');
+            this.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
 document.body.classList.add('scripts-loaded');
