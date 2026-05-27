@@ -193,6 +193,7 @@
                     <a href="about.html">About</a>
                     <a href="internal.html">Internal</a>
                     <a href="contact.html">Contact</a>
+                    <a href="extra-blocks.html">Extra Blocks</a>
                   </nav>
                 </div>
                 <div class="col-lg-4">
@@ -240,6 +241,7 @@
                       <a href="about.html">About</a>
                       <a href="internal.html">Internal</a>
                       <a href="contact.html">Contact</a>
+                      <a href="extra-blocks.html">Extra Blocks</a>
                     </nav>
                   </div>
                   <div class="col-lg-4">
@@ -737,8 +739,8 @@
 
           <div class="sg-accordion-list">
 
-            <div class="sg-accordion-item is-open">
-              <button class="sg-accordion-trigger" aria-expanded="true">
+            <div class="sg-accordion-item">
+              <button class="sg-accordion-trigger" aria-expanded="false">
                 <span class="sg-accordion-title">What is our approach to inclusive education?</span>
                 <span class="sg-accordion-icon" aria-hidden="true">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,8 +753,8 @@
               </div>
             </div>
 
-            <div class="sg-accordion-item">
-              <button class="sg-accordion-trigger" aria-expanded="false">
+            <div class="sg-accordion-item is-open">
+              <button class="sg-accordion-trigger" aria-expanded="true">
                 <span class="sg-accordion-title">How do we support students with complex needs?</span>
                 <span class="sg-accordion-icon" aria-hidden="true">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -834,16 +836,19 @@
             <div class="sg-gallery-slider__gradient" aria-hidden="true"></div>
             <div class="sg-gallery-slider__bar">
               <p class="sg-gallery-slider__caption">Gallery Slider caption explaining the photo</p>
+              <!-- SVG arrow icons — border rect + path baked into SVG, swap here to update artwork -->
               <div class="sg-gallery-slider__arrows">
                 <button class="sg-gallery-slider__arrow sg-gallery-slider__arrow--prev" aria-label="Previous slide">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M9.5 2L4.5 7L9.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
+<rect x="0.5" y="0.5" width="43" height="43" rx="5.23438" stroke="white"/>
+<path d="M14.5938 21.2008L19.6113 16.1832L20.1191 15.6755L21.1047 16.6909L20.5969 17.1986L16.8039 20.9917H29.6764V22.4253H16.8039L20.5969 26.2183L21.1047 26.7261L20.1191 27.7415L19.6113 27.2338L14.5938 22.2162L14.086 21.7085L14.5938 21.2008Z" fill="white"/>
+</svg>
                 </button>
                 <button class="sg-gallery-slider__arrow sg-gallery-slider__arrow--next" aria-label="Next slide">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M4.5 2L9.5 7L4.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
+<rect x="0.5" y="0.5" width="43" height="43" rx="5.23438" stroke="white"/>
+<path d="M29.4355 22.2162L24.4179 27.2338L23.9102 27.7415L22.9246 26.7261L23.4323 26.2183L27.2253 22.4253H14.3529V20.9917H27.2253L23.4323 17.1986L22.9246 16.6909L23.9102 15.6755L24.4179 16.1832L29.4355 21.2008L29.9432 21.7085L29.4355 22.2162Z" fill="white"/>
+</svg>
                 </button>
               </div>
             </div>
