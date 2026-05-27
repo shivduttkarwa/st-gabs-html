@@ -1360,19 +1360,67 @@ if (window.SGAnimations) {
 
 document.documentElement.classList.remove('js-loading');
 
-// Accordion
-document.querySelectorAll('.sg-accordion-trigger').forEach(function(trigger) {
-    trigger.addEventListener('click', function() {
-        var item = this.closest('.sg-accordion-item');
-        var isOpen = item.classList.contains('is-open');
-        item.closest('.sg-accordion-list').querySelectorAll('.sg-accordion-item').forEach(function(el) {
-            el.classList.remove('is-open');
-            el.querySelector('.sg-accordion-trigger').setAttribute('aria-expanded', 'false');
-        });
-        if (!isOpen) {
+// Accordion (GSAP — matches glen-v2 FAQ pattern)
+document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
+    var items = list.querySelectorAll('.sg-accordion-item');
+    if (!items.length || typeof gsap === 'undefined') return;
+
+    var animations = [];
+
+    items.forEach(function(item, index) {
+        var trigger = item.querySelector('.sg-accordion-trigger');
+        var body = item.querySelector('.sg-accordion-body');
+        if (!trigger || !body) return;
+
+        body.style.overflow = 'hidden';
+        gsap.set(body, { height: 'auto' });
+
+        var tl = gsap.timeline()
+            .from(body, {
+                height: 0,
+                duration: 0.32,
+                ease: 'power2.inOut',
+                onReverseComplete: function() { gsap.set(body, { height: 0 }); }
+            })
+            .reverse();
+
+        var isInitiallyOpen = item.classList.contains('is-open');
+        item.classList.remove('is-open');
+
+        if (isInitiallyOpen) {
+            tl.play();
+            trigger.setAttribute('aria-expanded', 'true');
             item.classList.add('is-open');
-            this.setAttribute('aria-expanded', 'true');
+        } else {
+            gsap.set(body, { height: 0 });
+            trigger.setAttribute('aria-expanded', 'false');
         }
+
+        animations.push({ item: item, trigger: trigger, tl: tl });
+    });
+
+    animations.forEach(function(entry) {
+        entry.trigger.addEventListener('click', function() {
+            var isOpen = entry.tl.reversed() === false;
+
+            animations.forEach(function(other) {
+                if (other !== entry) {
+                    other.tl.reverse();
+                    other.trigger.setAttribute('aria-expanded', 'false');
+                    other.item.classList.remove('is-open');
+                }
+            });
+
+            if (isOpen) {
+                entry.tl.reverse();
+                entry.trigger.setAttribute('aria-expanded', 'false');
+                entry.item.classList.remove('is-open');
+            } else {
+                entry.tl.play();
+                entry.trigger.setAttribute('aria-expanded', 'true');
+                entry.item.classList.add('is-open');
+            }
+        });
     });
 });
 document.body.classList.add('scripts-loaded');

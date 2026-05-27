@@ -1,0 +1,86 @@
+.sg-gallery-slider {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+}
+
+.sg-gallery-slider__swiper {
+  position: absolute;
+  inset: 0;
+}
+
+.sg-gallery-slider__swiper .swiper-wrapper,
+.sg-gallery-slider__swiper .swiper-slide {
+  height: 100%;
+}
+
+.sg-gallery-slider__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sg-gallery-slider__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 38, 78, 0) 72.42%,
+    rgba(0, 38, 78, 0.58) 83.28%,
+    #00264e 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sg-gallery-slider__bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.sg-gallery-slider__caption {
+  margin: 0;
+  flex: 1;
+  color: var(--basic-white, #fff);
+  font-family: var(--font-satoshi-variable);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.sg-gallery-slider__arrows {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sg-gallery-slider__arrow {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.16994rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sg-gallery-slider__arrow svg rect {
+  transition: fill 0.25s ease-in-out;
+}
+
+.sg-gallery-slider__arrow:hover svg rect {
+  fill: rgba(255, 255, 255, 0.16);
+}

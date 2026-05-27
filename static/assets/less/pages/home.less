@@ -150,35 +150,28 @@
   justify-content: center;
   width: 4.25rem;
   height: 4.25rem;
-  background: rgba(0, 57, 118, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  border-radius: 1rem;
-  color: var(--color-white);
+  padding: 0;
+  background: none;
+  border: none;
   cursor: pointer;
-  overflow: hidden;
   backface-visibility: hidden;
   transform: translateZ(0);
-  -webkit-font-smoothing: antialiased;
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.35),
-    0 0.375rem 1rem rgba(0, 0, 0, 0.18);
-  transition:
-    background 0.25s ease-in-out,
-    border-color 0.25s ease-in-out,
-    box-shadow 0.25s ease-in-out;
 }
 
 .sg-hero__arrow svg {
   display: block;
+  width: 100%;
+  height: 100%;
   shape-rendering: geometricPrecision;
 }
 
-.sg-hero__arrow:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: var(--basic-white, #fff);
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
-    0 0.5rem 1.125rem rgba(0, 0, 0, 0.22);
+.sg-hero__arrow svg rect {
+  fill: rgba(0, 57, 118, 0.2);
+  transition: fill 0.25s ease-in-out;
+}
+
+.sg-hero__arrow:hover svg rect {
+  fill: rgba(255, 255, 255, 0.16);
 }
 
 .sg-quick-links {

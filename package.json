@@ -1,0 +1,12 @@
+{
+  "name": "st-gabs-html",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "lessc static/assets/less/main.less static/assets/css/main.css",
+    "watch:css": "lessc --watch static/assets/less/main.less static/assets/css/main.css"
+  },
+  "devDependencies": {
+    "less": "^4.2.0"
+  }
+}
