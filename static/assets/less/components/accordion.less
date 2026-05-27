@@ -51,13 +51,31 @@
 
 .sg-accordion-body {
   overflow: hidden;
-}
-
-.sg-accordion-body p {
-  margin: 0;
-  padding: 0.625rem 1.25rem 3.125rem;
   color: var(--color-dark-grey);
   font-family: var(--font-satoshi-regular);
   font-size: var(--fz-b2);
   line-height: 1.4;
+}
+
+.sg-accordion-body > * {
+  margin: 0 1.25rem;
+}
+
+.sg-accordion-body > *:first-child {
+  margin-top: 0.625rem;
+}
+
+.sg-accordion-body > * + * {
+  margin-top: 1rem;
+}
+
+.sg-accordion-body > *:last-child {
+  margin-bottom: 3.125rem;
+}
+
+.sg-accordion-body img,
+.sg-accordion-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

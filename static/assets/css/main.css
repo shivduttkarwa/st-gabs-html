@@ -1853,6 +1853,12 @@ html {
   padding: 5.625rem 0;
   isolation: isolate;
 }
+.sg-full-width-promo-with-box__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.875rem;
+  padding: 1.875rem;
+}
 .sg-full-width-promo-background {
   z-index: 0;
 }
@@ -1868,6 +1874,20 @@ html {
   position: relative;
   z-index: 3;
 }
+.sg-full-width-promo-with-box__content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.sg-full-width-promo-with-box--card-left .sg-full-width-promo-with-box__content {
+  justify-content: flex-start;
+}
+.sg-full-width-promo-with-box--card-left .sg-full-width-promo-tail {
+  order: 2;
+  margin-left: 0;
+  margin-right: -2px;
+  transform: scaleX(-1);
+}
 .sg-full-width-promo-card {
   display: flex;
   width: 31.625rem;
@@ -1880,6 +1900,15 @@ html {
   border-radius: 3.125rem;
   background: var(--primary-navy, #003976);
   flex-shrink: 0;
+}
+.sg-full-width-promo-with-box--lg .sg-full-width-promo-card {
+  width: 34.9375rem;
+  padding: 3.125rem;
+  border-radius: 1.875rem;
+}
+.sg-full-width-promo-with-box--lg .sg-full-width-promo-tail {
+  width: 1.25rem;
+  height: 7.375rem;
 }
 .sg-full-width-promo-headings {
   display: flex;
@@ -1925,7 +1954,7 @@ html {
   .sg-full-width-promo-with-box {
     padding: 3.5rem 0;
   }
-  .sg-full-width-promo-with-box .col-12 {
+  .sg-full-width-promo-with-box__content {
     justify-content: center;
   }
   .sg-full-width-promo-card {
@@ -1935,6 +1964,16 @@ html {
     padding: 2rem;
     gap: 1.5rem;
     border-radius: 1.875rem;
+  }
+  .sg-full-width-promo-with-box--lg .sg-full-width-promo-card {
+    max-width: 34.9375rem;
+  }
+  .sg-full-width-promo-with-box--card-left .sg-full-width-promo-tail {
+    margin-right: 0;
+    transform: none;
+  }
+  .sg-full-width-promo-with-box__frame {
+    padding: 1rem;
   }
   .sg-full-width-promo-headings h2,
   .sg-full-width-promo-headings p {
@@ -2982,14 +3021,28 @@ html {
 }
 .sg-accordion-body {
   overflow: hidden;
-}
-.sg-accordion-body p {
-  margin: 0;
-  padding: 0.625rem 1.25rem 3.125rem;
   color: var(--color-dark-grey);
   font-family: var(--font-satoshi-regular);
   font-size: var(--fz-b2);
   line-height: 1.4;
+}
+.sg-accordion-body > * {
+  margin: 0 1.25rem;
+}
+.sg-accordion-body > *:first-child {
+  margin-top: 0.625rem;
+}
+.sg-accordion-body > * + * {
+  margin-top: 1rem;
+}
+.sg-accordion-body > *:last-child {
+  margin-bottom: 3.125rem;
+}
+.sg-accordion-body img,
+.sg-accordion-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 .sg-gallery-slider {
   position: relative;
