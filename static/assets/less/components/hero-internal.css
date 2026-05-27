@@ -1,0 +1,75 @@
+.sg-internal-hero {
+  height: 48rem;
+  min-height: 48rem;
+}
+.sg-internal-hero-bg-1,
+.sg-internal-hero-bg-2 {
+  z-index: 0;
+}
+.sg-internal-hero-overlay {
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 38, 78, 0.65) 0%, rgba(0, 38, 78, 0.37) 18.56%, rgba(0, 38, 78, 0) 27.33%), linear-gradient(180deg, rgba(0, 38, 78, 0) 38.35%, rgba(0, 38, 78, 0.4) 61.47%, rgba(0, 38, 78, 0.8) 74.95%, rgba(0, 38, 78, 0.95) 88.46%, #00264e 100%);
+}
+.sg-internal-hero .container {
+  z-index: 2;
+}
+.sg-internal-hero-content {
+  max-width: 52.25rem;
+  padding-bottom: 5.625rem;
+}
+.sg-internal-hero-label {
+  color: var(--color-white);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-b2);
+
+  line-height: 1;
+  letter-spacing: 0.05625rem;
+  text-transform: uppercase;
+}
+.sg-internal-hero-title-sans {
+  color: var(--color-white);
+  font-family: var(--font-satoshi-bold);
+  font-size: clamp(2.5rem, 8vw, 4.6875rem);
+
+  line-height: 1;
+  letter-spacing: -0.1875rem;
+}
+.sg-internal-hero-title-serif {
+  color: var(--color-cyan-bright);
+  font-family: var(--font-fraunces-9pt);
+  font-size: clamp(2.5rem, 8vw, 4.6875rem);
+
+  line-height: 1;
+  letter-spacing: -0.2344rem;
+}
+.sg-internal-hero-copy {
+  margin-top: 0.75rem;
+  color: var(--color-white);
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-b2);
+
+  line-height: 1.4;
+}
+/* Prevent first-paint flash before GSAP intro timeline starts. */
+.sg-internal-hero .sg-anim-hero-container .sg-internal-hero-label,
+.sg-internal-hero .sg-anim-hero-container .sg-internal-hero-title-sans,
+.sg-internal-hero .sg-anim-hero-container .sg-internal-hero-title-serif,
+.sg-internal-hero .sg-anim-hero-container .sg-internal-hero-copy {
+  opacity: 0;
+  visibility: hidden;
+}
+@media (max-width: 991px) {
+  .sg-internal-hero {
+    height: 95vh;
+    min-height: 95vh;
+  }
+  .sg-internal-hero-content {
+    padding-bottom: 3.5rem;
+  }
+  .sg-internal-hero-label {
+    font-size: var(--fz-label-sm);
+  }
+  .sg-internal-hero-copy {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,90 @@
+/* Blockquote vertical pair — filled card matches Figma node 10907:12638. */
+
+.sg-blockquote-vertical {
+  padding: 5rem 0;
+}
+
+.sg-blockquote-vertical__figure {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sg-blockquote-vertical__figure--filled {
+  gap: 1.6875rem;
+  padding: 1.875rem;
+  border-radius: 0.9375rem;
+  background: var(--color-cyan-tint);
+}
+
+.sg-blockquote-vertical__figure--plain {
+  gap: 1.5rem;
+  padding: 1.875rem 0;
+}
+
+.sg-blockquote-vertical__mark-wrap {
+  line-height: 0;
+}
+
+.sg-blockquote-vertical__mark {
+  width: 3.719625rem;
+  height: 2.7080625rem;
+  display: block;
+}
+
+.sg-blockquote-vertical__mark-wrap--plain {
+  margin-bottom: 0.1875rem;
+}
+
+.sg-blockquote-vertical__quote {
+  margin: 0;
+}
+
+.sg-blockquote-vertical__quote p {
+  margin: 0;
+  color: var(--color-navy);
+  font-family: var(--font-fraunces-9pt);
+
+}
+
+.sg-blockquote-vertical__figure--filled .sg-blockquote-vertical__quote p {
+  font-size: 1.5625rem;
+  line-height: 1.2;
+  letter-spacing: -0.046875rem;
+}
+
+.sg-blockquote-vertical__figure--plain .sg-blockquote-vertical__quote p {
+  font-size: 1.5625rem;
+  line-height: 1.24;
+  letter-spacing: -0.046875rem;
+}
+
+.sg-blockquote-vertical__cite {
+  margin: 0;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: 0.875rem;
+
+  line-height: 1;
+  letter-spacing: 0.04375rem;
+  text-transform: uppercase;
+}
+
+.sg-blockquote-vertical__figure--plain .sg-blockquote-vertical__cite {
+  opacity: 0.82;
+}
+
+@media (max-width: 991px) {
+  .sg-blockquote-vertical {
+    padding: 3rem 0;
+  }
+
+  .sg-blockquote-vertical__figure--filled,
+  .sg-blockquote-vertical__figure--plain {
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,44 @@
+/* ============================================================
+   GLOBAL CONTAINER — one horizontal rhythm site-wide
+   (aligned with wcc: fluid max-width + padding only)
+   Loaded after Bootstrap so these rules win.
+   ============================================================ */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+:root {
+  --sg-container-padding-x: 1rem;
+}
+/* Match previous site gutters: 5rem (~80px) each side from lg up */
+@media (min-width: 992px) {
+  :root {
+    --sg-container-padding-x: 5rem;
+  }
+}
+.container,
+.container-fluid {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--sg-container-padding-x);
+  padding-right: var(--sg-container-padding-x);
+  /* Side inset is independent; keep default-ish column gutters */
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+}
+@media (min-width: 1200px) {
+  .container {
+    padding: 0;
+    width: 88.8895vw;
+    max-width: 88.8895vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .container > .row {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    gap: 0;
+  }
+  .container > .row > div {
+    padding: 0 1.25rem;
+  }
+}

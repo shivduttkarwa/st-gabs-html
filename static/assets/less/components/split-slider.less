@@ -1,0 +1,393 @@
+.sg-split-slider {
+  padding: 5rem 0;
+}
+
+.sg-split-slider-top {
+  margin-bottom: 3.125rem;
+}
+
+.sg-split-slider-top h2 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 2.8125rem;
+
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+  color: var(--color-navy);
+}
+
+.sg-split-slider-top a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.125rem;
+
+  line-height: 1.4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.sg-split-slider-top a svg {
+  display: block;
+  flex-shrink: 0;
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.sg-split-slider-top a:hover {
+  transform: translateX(0.1875rem);
+  color: var(--color-cyan);
+}
+
+.sg-split-slider-top a:hover svg {
+  transform: translate(0.125rem, 1px);
+}
+
+.sg-split-slider .container > .row.sg-split-slider-row {
+  border-radius: 1.875rem;
+  overflow: hidden;
+  margin: 0 auto;
+
+  > div {
+    background: var(--color-cyan-tint);
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .sg-split-slider .container > .row.sg-split-slider-row {
+    > .sg-split-slider-col-2 {
+      padding-left: 1.25rem;
+    }
+  }
+}
+
+.sg-split-slider-pic-slider {
+  width: 100%;
+  aspect-ratio: 640 / 620;
+  height: auto;
+}
+
+.sg-split-slider-pic-slider .swiper-wrapper,
+.sg-split-slider-pic-slide {
+  height: 100%;
+}
+
+.sg-split-slider-frame {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sg-split-slider-text-slide {
+  height: auto;
+}
+
+.sg-split-slider-pic {
+  width: 100%;
+  height: 100%;
+  display: block;
+  -webkit-mask-image: url("../images/masks/sg-split-slider-mask.svg");
+  mask-image: url("../images/masks/sg-split-slider-mask.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Right column: text card + bottom bar share one horizontal inset (matches Figma rhythm). */
+.sg-split-slider-text-inner {
+  --sg-split-text-pad-x: 3.125rem;
+}
+
+.sg-split-slider-text-card {
+  display: flex;
+  width: 38.75rem;
+  padding: 4.6875rem 5.125rem  3.125rem  3.125rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  height: 100%;
+  max-width: 100%;
+}
+
+.sg-split-slider-bottom {
+  width: 100%;
+  margin-top: 2rem;
+  flex-shrink: 0;
+}
+
+.sg-split-slider-text-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5625rem;
+}
+
+.sg-split-slider-name {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 2.1875rem;
+
+  line-height: 1.1;
+  letter-spacing: -0.06563rem;
+  color: var(--color-navy);
+}
+
+.sg-split-slider-quote {
+  margin: 0;
+  font-family: var(--font-family-fraunces, "Fraunces 9pt");
+  font-size: var(--units-25, 1.5625rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  letter-spacing: -0.04688rem;
+  color: var(--primary-navy, #003976);
+}
+
+.sg-split-slider-story {
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+}
+
+.sg-split-slider-btns {
+  gap: 0.9375rem;
+}
+
+.sg-split-slider-btn {
+  width: 4.6875rem;
+  height: 4.6875rem;
+  border-radius: 0.9375rem;
+  border: 0.09375rem solid var(--color-navy);
+  background: transparent;
+  color: var(--color-navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+  pointer-events: auto;
+}
+
+.sg-split-slider-btn::after {
+  display: none;
+}
+
+.sg-split-slider-btn:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.sg-split-slider-btn.is-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
+}
+
+.sg-split-slider-btn svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.sg-split-slider-col-2 {
+  background: transparent;
+  position: relative;
+}
+
+@media (max-width: 1199px) {
+  .sg-split-slider-text-inner {
+    --sg-split-text-pad-x: 2rem;
+  }
+
+  .sg-split-slider-text-card {
+    padding: 2.5rem var(--sg-split-text-pad-x) 2rem;
+  }
+
+  .sg-split-slider-bottom {
+    margin-top: 1.5rem;
+  }
+
+  .sg-split-slider-nav-global {
+    right: var(--sg-split-text-pad-x);
+    bottom: 2rem;
+  }
+
+  .sg-split-slider-name {
+    font-size: 1.875rem;
+  }
+
+  .sg-split-slider-quote {
+    font-size: 1.375rem;
+  }
+}
+
+/* Split slider text slides — desktop (must come before mobile overrides) */
+.sg-split-slider-content-inner {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.sg-split-slider-nav-global {
+  position: absolute;
+  right: 5.125rem;
+  bottom: 3.125rem;
+  z-index: 3;
+}
+
+.sg-split-slider-text-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sg-split-slider-text-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sg-split-slider-anim-item {
+  will-change: transform, opacity;
+}
+
+@media (max-width: 991px) {
+  .sg-split-slider-text-inner {
+    --sg-split-text-pad-x: 1.25rem;
+  }
+
+  .sg-split-slider {
+    padding: 3rem 0;
+  }
+
+  .sg-split-slider-top {
+    flex-wrap: wrap;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .sg-split-slider-top h2 {
+    font-size: 2rem;
+  }
+
+  .sg-split-slider-row {
+    border-radius: 1.5rem;
+  }
+
+  .sg-split-slider-col-2 {
+    min-height: auto;
+  }
+
+  .sg-split-slider-pic-slider {
+    height: 24rem;
+    aspect-ratio: unset;
+  }
+
+  .sg-split-slider-text-slider {
+    height: auto;
+  }
+
+  /* Grid-stack all slides in the same cell so the container height is
+     always the tallest slide — no layout shift on transition */
+  .sg-split-slider-content-inner {
+    flex: 0 0 auto;
+    position: static;
+    display: grid;
+  }
+
+  .sg-split-slider-text-slide {
+    grid-area: 1 / 1;
+    position: static;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .sg-split-slider-text-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .sg-split-slider-text-card {
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 0;
+    gap: 1rem;
+    padding: 1.5rem var(--sg-split-text-pad-x) 0;
+  }
+
+  .sg-split-slider-text-card-content {
+    flex: 0 0 auto;
+    gap: 1rem;
+  }
+
+  .sg-split-slider-name {
+    font-size: 1.5rem;
+  }
+
+  .sg-split-slider-quote {
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    min-height: 0;
+  }
+
+  .sg-split-slider-bottom {
+    // flex-direction: column;
+    // align-items: stretch !important;
+    gap: 1rem !important;
+    margin-top: 1rem;
+  }
+
+  .sg-split-slider-nav-global {
+    position: static;
+    justify-content: center !important;
+    margin-top: 0.5rem;
+    padding: 0 var(--sg-split-text-pad-x) 1.5rem;
+  }
+
+  .sg-split-slider-btns {
+    justify-content: center !important;
+    gap: 0.625rem;
+  }
+
+  .sg-split-slider-btn {
+    width: 2.8125rem;
+    height: 2.8125rem;
+  }
+
+  .sg-split-slider-btn svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .sg-split-slider-story {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .sg-split-slider-pic-slider {
+    height: 20rem;
+    margin-top: 2rem;
+  }
+
+  .sg-split-slider-pic {
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-radius: 1.25rem;
+  }
+}

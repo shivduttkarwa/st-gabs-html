@@ -1,0 +1,95 @@
+.sg-full-width-promo-with-box {
+  padding: 5.625rem 0;
+  isolation: isolate;
+}
+.sg-full-width-promo-background {
+  z-index: 0;
+}
+.sg-full-width-promo-background-layer-2 {
+  z-index: 1;
+}
+.sg-full-width-promo-overlay {
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.26) 100%);
+}
+.sg-full-width-promo-with-box .container {
+  position: relative;
+  z-index: 3;
+}
+.sg-full-width-promo-card {
+  display: flex;
+  width: 31.625rem;
+  min-height: 32.75rem;
+  padding: 3.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.23419rem;
+  border-radius: 3.125rem;
+  background: var(--primary-navy, #003976);
+  flex-shrink: 0;
+}
+.sg-full-width-promo-headings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5495rem;
+  width: 100%;
+}
+.sg-full-width-promo-headings h2 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 2.8125rem;
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+  color: var(--basic-white, #FFF);
+}
+.sg-full-width-promo-headings p {
+  margin: 0;
+  font-family: var(--font-fraunces-9pt);
+  font-size: 2.8125rem;
+  line-height: 1;
+  letter-spacing: -0.15rem;
+  color: var(--primary-cyan-bright, #35C9BB);
+}
+.sg-full-width-promo-copy p {
+  margin: 0;
+  font-family: var(--font-satoshi-medium);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--basic-white, #FFF);
+}
+.sg-full-width-promo-tail {
+  width: 1.25rem;
+  height: 9.9375rem;
+  flex-shrink: 0;
+  margin-left: -2px;
+}
+.sg-full-width-promo-tail svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@media (max-width: 991px) {
+  .sg-full-width-promo-with-box {
+    padding: 3.5rem 0;
+  }
+  .sg-full-width-promo-with-box .col-12 {
+    justify-content: center;
+  }
+  .sg-full-width-promo-card {
+    width: 100%;
+    max-width: 31.625rem;
+    min-height: auto;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-radius: 1.875rem;
+  }
+  .sg-full-width-promo-headings h2,
+  .sg-full-width-promo-headings p {
+    font-size: clamp(2rem, 8vw, 2.8125rem);
+  }
+  .sg-full-width-promo-copy p {
+    font-size: 1rem;
+  }
+}

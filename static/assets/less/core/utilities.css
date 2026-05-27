@@ -1,0 +1,240 @@
+/* ============================================================
+   GLOBAL UTILITIES
+   ============================================================ */
+html,
+body {
+  background: #ffffff;
+  overflow-x: hidden;
+}
+#body-content-wrap,
+#body-content {
+  overflow-x: clip;
+  background: inherit;
+}
+/* Prevent first-paint flicker before GSAP applies initial states. */
+html.js-loading .sg-anim-header-item,
+html.js-loading .sg-hero__label,
+html.js-loading .sg-hero__h1-sans,
+html.js-loading .sg-hero__h1-serif,
+html.js-loading .sg-hero__body,
+html.js-loading .sg-hero__arrows,
+html.js-loading .sg-internal-hero .sg-internal-hero-label,
+html.js-loading .sg-internal-hero .sg-internal-hero-title-sans,
+html.js-loading .sg-internal-hero .sg-internal-hero-title-serif,
+html.js-loading .sg-internal-hero .sg-internal-hero-copy {
+  opacity: 0;
+  visibility: hidden;
+}
+.sg-title-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+/* ── Smooth scroll containers ─────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+.Lenis-init #body-content-wrap {
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 100vh;
+}
+.Scrollbar-init body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.Scrollbar-init #body-content-wrap {
+  height: 100vh;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+html {
+  font-size: 16px;
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1280px) {
+  html {
+    font-size: 12.8px;
+  }
+}
+@media (min-width: 1281px) and (max-width: 1399px) {
+  html {
+    font-size: 14.4px;
+  }
+}
+@media (min-width: 1400px) and (max-width: 1599px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1600px) and (max-width: 1919px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1920px) and (max-width: 2199px) {
+  html {
+    font-size: 18px;
+  }
+}
+@media (min-width: 2200px) and (max-width: 2439px) {
+  html {
+    font-size: 20px;
+  }
+}
+@media (min-width: 2440px) {
+  html {
+    font-size: 22px;
+  }
+}
+.sg-divider {
+  display: flex;
+  padding: 2.5rem 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+.sg-divider span {
+  display: block;
+  width: 100%;
+  height: 0.0625rem;
+  background: #e1e1e1;
+}
+.bg-none {
+  background: none !important;
+}
+.obj-cover {
+  object-fit: cover;
+}
+.obj-contain {
+  object-fit: contain;
+}
+/* ============================================================
+   BUTTON SYSTEM
+   ============================================================ */
+.btn {
+  font-family: var(--font-satoshi-bold);
+  line-height: 1;
+  letter-spacing: 0.044rem;
+  text-transform: uppercase;
+  border-radius: var(--radius-xsmall);
+  padding: 1rem 1.5rem;
+  transition: background 0.25s ease-in-out, color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+}
+.btn-primary {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-check:checked + .btn-primary,
+.btn-check:active + .btn-primary,
+.show > .btn-primary.dropdown-toggle {
+  background: var(--color-navy-dark);
+  border-color: var(--color-navy-dark);
+  color: var(--color-white);
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+}
+.btn-secondary:hover,
+.btn-secondary:focus-visible,
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-check:checked + .btn-secondary,
+.btn-check:active + .btn-secondary,
+.show > .btn-secondary.dropdown-toggle {
+  background: var(--color-white-alpha20);
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+.btn-outline-navy {
+  background: transparent;
+  border: 1px solid var(--color-navy);
+  color: var(--color-navy);
+}
+.btn-outline-navy:hover,
+.btn-outline-navy:focus-visible,
+.btn-outline-navy:active,
+.btn-outline-navy.active,
+.btn-outline-navy:not(:disabled):not(.disabled):active,
+.btn-check:checked + .btn-outline-navy,
+.btn-check:active + .btn-outline-navy,
+.show > .btn-outline-navy.dropdown-toggle {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-white);
+}
+.btn-cyan-navy {
+  background: var(--color-cyan-bright);
+  border-color: var(--color-cyan-bright);
+  color: var(--color-navy);
+}
+.btn-cyan-navy:hover,
+.btn-cyan-navy:focus-visible,
+.btn-cyan-navy:active,
+.btn-cyan-navy.active,
+.btn-cyan-navy:not(:disabled):not(.disabled):active,
+.btn-check:checked + .btn-cyan-navy,
+.btn-check:active + .btn-cyan-navy,
+.show > .btn-cyan-navy.dropdown-toggle {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+  color: var(--color-white);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+.btn-donate {
+  background: var(--color-cyan-bright);
+  border-color: var(--color-cyan-bright);
+  color: var(--color-navy);
+  font-size: var(--fz-label-sm);
+  padding: 0.9375rem 1.25rem;
+  border-radius: var(--radius-xsmall);
+}
+.btn-donate:hover,
+.btn-donate:focus-visible,
+.btn-donate:active,
+.btn-donate.active,
+.btn-donate:not(:disabled):not(.disabled):active,
+.btn-check:checked + .btn-donate,
+.btn-check:active + .btn-donate,
+.show > .btn-donate.dropdown-toggle {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+  color: var(--color-white);
+}
+@media (max-width: 767px) {
+  .sg-divider {
+    padding: 1rem 0;
+  }
+}

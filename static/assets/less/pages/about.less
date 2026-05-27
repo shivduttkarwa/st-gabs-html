@@ -1,0 +1,79 @@
+.sg-about-page-tail {
+  margin-top: -0.0625rem;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+
+.sg-about-page-tail svg {
+  display: block;
+}
+
+.sg-about-grid {
+  padding: 5rem 0;
+ // background: #f2f2f2;
+}
+
+.sg-about-grid-headings {
+  margin-bottom: 4.3125rem;
+}
+
+.sg-about-grid-title-sans {
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h2);
+
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+}
+
+.sg-about-grid-title-serif {
+  color: var(--color-cyan-bright);
+  font-family: var(--font-fraunces-9pt);
+  font-size: var(--fz-h2);
+
+  line-height: 1;
+  letter-spacing: -0.1125rem;
+}
+
+.sg-about-grid-row {
+  --bs-gutter-y: 5rem;
+}
+
+.sg-about-grid .sg-promo-card {
+  gap: 1.0625rem;
+}
+
+.sg-about-grid .sg-promo-card-title {
+  margin: 0;
+/* Website/Heading 05 Sans Bold */
+font-family: var(--font-satoshi-bold);
+font-size: var(--units-25, 1.5625rem);
+font-style: normal;
+line-height: 110%; /* 1.71875rem */
+letter-spacing: -0.03125rem;
+  max-width: 21rem;
+  a {
+    text-decoration: none;
+    color: var(--primary-navy, #003976);
+  }
+}
+
+@media (max-width: 991px) {
+  .sg-about-grid {
+    padding: 3rem 0;
+  }
+
+  .sg-about-grid-headings {
+    margin-bottom: 2.5rem;
+  }
+
+  .sg-about-grid-title-sans,
+  .sg-about-grid-title-serif {
+    font-size: clamp(2rem, 8vw, var(--fz-h2));
+  }
+
+  .sg-about-grid-row {
+    --bs-gutter-y: 2rem;
+  }
+}

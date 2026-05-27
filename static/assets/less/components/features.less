@@ -1,0 +1,134 @@
+.sg-features {
+  background: var(--basic-white, #FFF);
+  padding: 5rem 0;
+}
+
+.sg-features-top {
+  max-width: 52.5rem;
+}
+
+.sg-features h2 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 2.8125rem;
+
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+  color: var(--primary-navy, #003976);
+}
+
+.sg-features-top > p {
+  margin: 1.0625rem 0 0;
+  font-family: var(--font-satoshi-regular);
+  font-size: 1.25rem;
+
+  line-height: 1.4;
+  color: var(--primary-darkest-grey, #2C2E35);
+}
+
+.sg-features-item {
+  display: flex;
+  gap: 1.25rem;
+  height: 100%;
+  //min-height: 13.8125rem;
+}
+
+.sg-features-grid {
+  margin-top: 3.125rem;
+}
+
+.sg-features-icon {
+  width: 4.125rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.sg-features-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sg-features-content h3 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.25rem;
+
+  line-height: 1.4;
+  letter-spacing: -0.0625rem;
+  color: var(--primary-navy, #003976);
+}
+
+.sg-features-content p {
+  margin: 0.3125rem 0 0;
+  font-family: var(--font-satoshi-regular);
+  font-size: 1.125rem;
+
+  line-height: 1.4;
+  color: var(--primary-darkest-grey, #2C2E35);
+}
+
+.sg-features-link {
+  margin-top: auto;
+  padding-top: 2.375rem;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.125rem;
+
+  line-height: 1.4;
+  color: var(--primary-navy, #003976);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.sg-features-link svg {
+  display: block;
+  flex-shrink: 0;
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.sg-features-link:hover {
+  transform: translateX(0.1875rem);
+  color: var(--primary-cyan, #00A99D);
+}
+
+.sg-features-link:hover svg {
+  transform: translate(0.125rem, 1px);
+}
+
+@media (max-width: 991px) {
+  .sg-features {
+    padding: 3.5rem 0;
+  }
+
+  .sg-features h2 {
+    font-size: clamp(2rem, 8vw, 2.8125rem);
+  }
+
+  .sg-features-top > p {
+    font-size: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .sg-features-grid {
+    margin-top: 2rem;
+    gap: 1.25rem 0;
+  }
+
+  .sg-features-item {
+    min-height: auto;
+  }
+
+  .sg-features-content h3 {
+    font-size: 1.125rem;
+  }
+
+  .sg-features-content p,
+  .sg-features-link {
+    font-size: 1rem;
+  }
+  .sg-features-link{
+    padding-top: 1.25rem;
+  }
+}

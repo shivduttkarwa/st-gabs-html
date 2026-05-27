@@ -1,0 +1,120 @@
+.sg-full-promo-overlay {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 8rem 0;
+}
+.sg-full-promo-overlay-bg-1,
+.sg-full-promo-overlay-bg-2 {
+  z-index: 0;
+}
+.sg-full-promo-overlay-shade {
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
+.sg-full-promo-overlay .container {
+  position: relative;
+  z-index: 2;
+}
+.sg-full-promo-overlay-content {
+  max-width: 52.25rem;
+}
+.sg-full-promo-overlay-headings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+.sg-full-promo-overlay-title-sans,
+.sg-full-promo-overlay-title-serif {
+  margin: 0;
+  color: var(--color-white);
+  line-height: 1;
+}
+.sg-full-promo-overlay-title-sans {
+  font-family: var(--font-satoshi-bold);
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  letter-spacing: -0.15rem;
+}
+.sg-full-promo-overlay-title-serif {
+  font-family: var(--font-fraunces-9pt);
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  letter-spacing: -0.1875rem;
+}
+.sg-full-promo-overlay-copy {
+  max-width: 49.25rem;
+  margin: 0 auto 1.75rem;
+  color: var(--color-white);
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-b2);
+  line-height: 1.4;
+}
+.sg-full-promo-overlay-buttons .btn {
+  min-width: 10.625rem;
+}
+.sg-full-promo-overlay-buttons {
+  margin-top: 1.75rem;
+}
+.sg-full-promo-overlay-buttons .btn-secondary:hover {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+  color: var(--color-white);
+  box-shadow: 0 4px 14px rgba(0, 169, 157, 0.28);
+}
+.sg-full-promo-overlay-ribbon {
+  position: absolute;
+  left: 50%;
+  bottom: -3.25rem;
+  z-index: 3;
+  width: min(140.05rem, 160vw);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.sg-full-promo-overlay-ribbon-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 140.04483 / 34.5;
+  overflow: visible;
+}
+.sg-full-promo-overlay-ribbon-path {
+  stroke-dasharray: 4200;
+  stroke-dashoffset: 4200;
+}
+.sg-full-promo-overlay.is-ribbon-active .sg-full-promo-overlay-ribbon-path {
+  animation: sg-full-promo-ribbon-grow 2.4s ease-out forwards;
+}
+@keyframes sg-full-promo-ribbon-grow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (min-width: 992px) {
+  .sg-full-promo-overlay {
+    padding: 15.0625rem 0;
+  }
+  .sg-full-promo-overlay-ribbon {
+    bottom: -1.75rem;
+  }
+}
+@media only screen and (min-device-width: 380px) and (max-device-width: 991px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  .sg-full-promo-overlay-ribbon {
+    width: 105%;
+    bottom: -1rem;
+    z-index: 1;
+    pointer-events: auto;
+  }
+  body .sg-story-media {
+    max-width: 50%;
+    margin: auto;
+  }
+}
+@media (max-width: 767px) {
+  .sg-full-promo-overlay-ribbon {
+    width: 105%;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: auto;
+  }
+}

@@ -1,0 +1,87 @@
+.sg-school-life-slider {
+  padding: 3rem 0;
+  background: var(--color-cyan-tint);
+}
+
+.row.sg-school-life-slider-top {
+  margin-bottom: 1.5625rem;
+}
+
+.sg-school-life-slider-top h2 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 2.25rem;
+
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+  color: var(--color-navy);
+}
+
+.sg-school-life-slider-top a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-b2);
+
+  line-height: 1.4;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.sg-school-life-slider-top a svg {
+  display: block;
+  flex-shrink: 0;
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.sg-school-life-slider-top a:hover {
+  transform: translateX(0.1875rem);
+  color: var(--color-cyan);
+}
+
+.sg-school-life-slider-top a:hover svg {
+  transform: translate(0.125rem, 1px);
+}
+
+.sg-school-life-slider__slide {
+  width: 19.375rem;
+}
+
+.sg-school-life-tile {
+  position: relative;
+  display: block;
+  width: 19.375rem;
+  height: 19.375rem;
+}
+
+.sg-school-life-tile__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sg-school-life-tile__image {
+  z-index: 1;
+}
+
+@media (min-width: 992px) {
+  .sg-school-life-slider {
+    padding: 5rem 0;
+  }
+
+  .sg-school-life-slider-top h2 {
+    font-size: var(--fz-h2);
+  }
+}
+
+@media (max-width: 767px) {
+  .row.sg-school-life-slider-top {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}

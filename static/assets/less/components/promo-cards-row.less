@@ -1,0 +1,105 @@
+.promo-cards-row {
+  padding: 5rem 0;
+
+  .container{
+    >.row{
+      margin: 0 -1.25rem;
+      >div{
+        padding: 0 1.25rem;
+      }
+    }
+  }
+}
+
+.sg-promo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.sg-promo-card-frame {
+  width: 100%;
+  aspect-ratio: 400 / 257;
+}
+
+.sg-promo-card-frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sg-promo-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5625rem;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.sg-promo-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.sg-promo-card-copy h3 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.5625rem;
+
+  line-height: 1.1;
+  letter-spacing: -0.03125rem;
+  color: var(--color-navy);
+}
+
+.sg-promo-card-copy p {
+  margin: 0;
+  font-family: var(--font-satoshi-regular);
+  font-size: 1rem;
+
+  line-height: 1.4;
+  color: var(--color-darkest-grey);
+}
+
+.sg-promo-card-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.125rem;
+
+  line-height: 1.4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.sg-promo-card-link svg {
+  display: block;
+  flex-shrink: 0;
+  transform: translateY(1px);
+  transition: transform 0.2s ease;
+}
+
+.sg-promo-card-link:hover {
+  transform: translateX(0.1875rem);
+  color: var(--color-cyan);
+}
+
+.sg-promo-card-link:hover svg {
+  transform: translate(0.125rem, 1px);
+}
+
+.promo-cards-row--two-up .sg-promo-card-copy h3 {
+  max-width: none;
+}
+
+@media (max-width: 991px) {
+  .promo-cards-row {
+    padding: 3rem 0;
+    >.container{
+      >.row{
+        gap: 1rem 0;
+      }
+    }
+  }
+}

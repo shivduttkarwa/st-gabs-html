@@ -1,0 +1,149 @@
+/* ============================================================
+   ST GABRIEL'S SCHOOL — DESIGN TOKENS
+   Source: Figma — St Gabriel's School Kit
+   Node: 10899:8480 (Homepage)
+   ============================================================ */
+
+:root {
+
+  /* ----------------------------------------------------------
+     COLOURS
+  ---------------------------------------------------------- */
+
+  /* Primary */
+  --color-navy:          #003976;
+  --color-navy-dark:     #00264e;
+  --color-cyan:          #00a99d;
+  --color-cyan-bright:   #35c9bb;
+  --color-cyan-tint:     #e8fdfb;
+
+  /* Greys */
+  --color-darkest-grey:  #2c2e35;
+  --color-dark-grey:     #434c54;
+  --color-mid-grey:      #5e6a76;
+  --color-light-grey:    #e1e1e1;
+
+  /* Base */
+  --color-white:         #ffffff;
+  --color-white-sec:     #ffffffbf;  /* 75% opacity */
+  --color-white-alpha20: #ffffff33;  /* 20% opacity */
+
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — FONT FAMILIES
+  ---------------------------------------------------------- */
+
+  --font-satoshi-variable:       'Satoshi-Variable', sans-serif;
+  --font-satoshi-variable-italic:'Satoshi-VariableItalic', sans-serif;
+  --font-satoshi-regular:        'Satoshi-Regular', sans-serif;
+  --font-satoshi-medium:         'Satoshi-Medium', sans-serif;
+  --font-satoshi-bold:           'Satoshi-Bold', sans-serif;
+  --font-fraunces-9pt:           'Fraunces 9pt', serif;
+
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — FONT SIZES
+  ---------------------------------------------------------- */
+
+  --fz-display:  4.6875rem;   /* Display 03 */
+  --fz-h1:       3.75rem;
+  --fz-h2:       2.8125rem;
+  --fz-h3:       2.1875rem;
+  --fz-h5:       1.5625rem;
+  --fz-h6:       1.25rem;   /* Body Large / Heading 06 */
+  --fz-b1:       1.25rem;   /* Body Large */
+  --fz-b2:       1.125rem;   /* Body Medium */
+  --fz-b3:       1rem;   /* Body Base / Label Base */
+  --fz-label-sm: 0.875rem;   /* Label Small */
+
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — STYLES REFERENCE
+     Sans = Satoshi-Variable (Bold/700)
+     Serif = Fraunces 9pt (Regular/400)
+  ---------------------------------------------------------- */
+
+  /* Display 03 Sans:  Satoshi Bold, 75px, lh:1, ls:-3px */
+  /* Display 03 Serif: Fraunces Regular, 75px, lh:1, ls:-5px */
+  /* H1 Sans:          Satoshi Bold, 60px, lh:1, ls:-3px */
+  /* H1 Serif:         Fraunces Regular, 60px, lh:1, ls:-4px */
+  /* H2 Sans:          Satoshi Bold, 45px, lh:1, ls:-1px */
+  /* H2 Serif:         Fraunces Regular, 45px, lh:1, ls:-4px */
+  /* H3 Sans:          Satoshi Bold, 35px, lh:1.1, ls:-3px */
+  /* H3 Serif:         Fraunces Regular, 35px, lh:1.1, ls:-3px */
+  /* H5 Sans Bold:     Satoshi Bold, 25px, lh:1.1, ls:-2px */
+  /* H6 Sans:          Satoshi Bold, 20px, lh:1.4, ls:-1px */
+  /* Body Large Reg:   Satoshi Regular, 20px, lh:1.4, ls:0 */
+  /* Body Medium Bold: Satoshi Bold, 18px, lh:1.4, ls:0 */
+  /* Body Medium Reg:  Satoshi Regular, 18px, lh:1.4, ls:0 */
+  /* Body Base Bold:   Satoshi Bold, 16px, lh:1.4, ls:0 */
+  /* Body Base Reg:    Satoshi Regular, 16px, lh:1.4, ls:0 */
+  /* Label Base:       Satoshi Bold, 16px, lh:1, ls:5px */
+  /* Label Small:      Satoshi Bold, 14px, lh:1, ls:5px */
+  /* Quote Small:      Fraunces Regular, 25px, lh:1.3, ls:-3px */
+  /* Base (Aeonik):    Aeonik Regular, 15px, lh:1.3, ls:0 */
+
+
+  /* ----------------------------------------------------------
+     SPACING
+  ---------------------------------------------------------- */
+
+  --space-none:    0;
+  --space-micro:   0.3125rem;
+  --space-2xsmall: 0.625rem;
+  --space-xxs:     0.9375rem;
+  --space-xsmall:  1.25rem;
+  --space-small:   1.5625rem;
+  --space-base:    3.125rem;
+  --space-large:   4.6875rem;
+
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+  ---------------------------------------------------------- */
+
+  --radius-xsmall: 0.625rem;
+  --radius-small:  0.9375rem;
+  --radius-30:     1.875rem;
+  --radius-base:   1.875rem;
+  --radius-medium: 3.125rem;
+
+
+  /* ----------------------------------------------------------
+     ADDITIONAL VARIABLES (from project usage)
+  ---------------------------------------------------------- */
+
+  /* Additional Colors */
+  --basic-white:           #ffffff;
+  --primary-cyan:           #00a99d;
+  --primary-cyan-bright:    #35c9bb;
+  --primary-darkest-grey:   #2c2e35;
+  --primary-dark-grey:      #434c54;
+  --primary-light-grey:     #e1e1e1;
+  --primary-lightest-grey:  #f2f2f2;
+  --primary-navy:           #003976;
+  --primary-navy-dark:      #00264e;
+
+  /* Typography Additional */
+  --font-size-h2:           2.8125rem;
+
+  /* Spacing Additional */
+  --units-25:               1.5625rem;
+  --sg-container-padding-x: 1.25rem;
+  --sg-split-text-pad-x:    2rem;
+
+  /* Layout Variables */
+  --header-height:          5.5rem;
+  --header-link-hover-color: var(--color-cyan-bright);
+
+  /* Component Specific */
+  --mega-origin-x:          0;
+  --mega-tail-left:         0;
+  --vbox-tools-color:       var(--color-navy);
+  --vh:                     1vh;
+
+  /* Swiper Variables */
+  --swiper-theme-color:     var(--color-navy);
+  --swiper-preloader-color: var(--swiper-theme-color);
+
+}

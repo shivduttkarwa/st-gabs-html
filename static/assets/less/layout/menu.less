@@ -1,0 +1,218 @@
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+
+.sg-mobile-menu {
+  bottom: 0;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.is-open-menu .sg-mobile-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (max-width: 991px) {
+  html:has(body.is-open-menu),
+  body.is-open-menu {
+    overflow: hidden;
+  }
+
+  body.is-open-menu #body-content-wrap {
+    overflow: hidden;
+    height: 100vh;
+  }
+}
+
+.sg-mobile-menu__inner {
+  min-height: 100%;
+  position: relative;
+  z-index: 1;
+  max-height: 100vh;
+  padding-bottom: 3rem;
+  overflow-y: auto;
+}
+
+.sg-mobile-menu__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(53, 201, 187, 0.18), transparent 28%),
+    linear-gradient(180deg, #003976 0%, #00264e 100%);
+}
+
+.sg-mobile-menu__frame {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: calc(var(--header-height, 5.5rem) + 1rem) 1.5rem 1.5rem;
+}
+
+.sg-mobile-menu__back {
+  color: var(--color-white);
+}
+
+.sg-mobile-menu__views {
+  min-height: 0;
+}
+
+.sg-mobile-menu__panel {
+  position: absolute;
+  inset: 0;
+}
+
+.sg-mobile-menu__panel[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sg-mobile-menu__panel-body {
+  min-height: 100%;
+}
+
+.sg-mobile-menu__nav,
+.sg-mobile-menu__submenu-links {
+  gap: 0;
+}
+
+.sg-mobile-menu__link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-satoshi-regular);
+  font-size:1.125rem;
+  letter-spacing: normal;
+  color: var(--color-white);
+  padding: 0.75rem 0;
+  line-height: 1;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+}
+
+.sg-mobile-menu__link:hover {
+  color: var(--color-cyan-bright);
+  border-color: rgba(53, 201, 187, 0.45);
+}
+
+.sg-mobile-menu__link-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sg-mobile-menu__footer {
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sg-mobile-menu__cta-group {
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.sg-mobile-menu__cta-link {
+  font-family: var(--font-satoshi-regular);
+  font-size: 0.875rem;
+  color: var(--color-white);
+  padding: 0.5rem 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 15rem;
+  background: rgba(255, 255, 255, 0.04);
+  transition: color 0.25s ease-in-out, border-color 0.25s ease-in-out, background 0.25s ease-in-out;
+}
+
+.sg-mobile-menu__cta-link:hover {
+  color: var(--color-cyan-bright);
+  border-color: rgba(53, 201, 187, 0.42);
+  background: rgba(53, 201, 187, 0.08);
+}
+
+.sg-mobile-menu__donate {
+  align-self: flex-start;
+}
+
+.sg-mobile-menu__submenu-head {
+  margin-bottom: 1.125rem;
+}
+
+.sg-mobile-menu__back {
+  padding: 0;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-satoshi-bold);
+  font-size: 0.9375rem;
+
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.sg-mobile-menu__submenu-label {
+  margin-bottom: 0.875rem;
+  font-family: var(--font-satoshi-bold);
+  font-size: clamp(1.9rem, 6.2vw, 2.6rem);
+
+  line-height: 1.05;
+  letter-spacing: -0.05rem;
+  color: var(--color-cyan-bright);
+}
+
+.sg-mobile-menu__submenu-title {
+  font-family: var(--font-satoshi-bold);
+  font-size: clamp(1.9rem, 6.2vw, 2.6rem);
+
+  line-height: 1.05;
+  letter-spacing: -0.05rem;
+  color: var(--color-white);
+}
+
+.sg-mobile-menu__submenu-links {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.sg-mobile-menu__submenu-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9375rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-satoshi-regular);
+  font-size: 1.125rem;
+
+  line-height: 1.35;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.sg-mobile-menu__submenu-links a::before {
+  content: "\203A";
+  color: var(--color-cyan-bright);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.sg-mobile-menu__submenu-footer {
+  padding-top: 1.5rem;
+}
+
+.sg-mobile-menu__submenu-learn {
+  font-family: var(--font-satoshi-bold);
+  font-size: 1rem;
+
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+.sg-mobile-menu__submenu-learn span:first-child {
+  color: var(--color-cyan-bright);
+}

@@ -1,0 +1,21 @@
+@media only screen and (min-device-width: 380px) and (max-device-width: 991px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  body .sg-hero .sg-hero__content {
+    padding: 2rem 9.5rem 1.5rem 1.5rem;
+  }
+  body .sg-hero .sg-hero__content .sg-hero__label {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  body .sg-hero .sg-hero__content .sg-hero__headline {
+    gap: 0;
+  }
+  body .sg-hero .sg-hero__content .sg-hero__headline .sg-hero__h1-sans,
+  body .sg-hero .sg-hero__content .sg-hero__headline .sg-hero__h1-serif {
+    font-size: 3rem;
+    max-width: initial;
+  }
+  body .sg-hero .sg-hero__arrows {
+    left: 0;
+    right: 0;
+  }
+}
