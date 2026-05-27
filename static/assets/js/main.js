@@ -1360,7 +1360,7 @@ if (window.SGAnimations) {
 
 document.documentElement.classList.remove('js-loading');
 
-// Accordion (GSAP — matches glen-v2 FAQ pattern)
+
 document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     var items = list.querySelectorAll('.sg-accordion-item');
     if (!items.length || typeof gsap === 'undefined') return;
