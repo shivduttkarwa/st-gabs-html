@@ -1483,13 +1483,28 @@ function initAppSwipers() {
 
 initAppSwipers();
 
-if (window.SGAnimations) {
-    document.fonts.ready.then(() => {
-        window.SGAnimations.init();
-    });
-}
+const clearInitialLoadingState = () => {
+    document.documentElement.classList.remove('js-loading');
+};
 
-document.documentElement.classList.remove('js-loading');
+if (window.SGAnimations) {
+    const initAnimationsAndReveal = () => {
+        try {
+            window.SGAnimations.init();
+        } finally {
+            // Remove loading guard only after initial GSAP states are applied.
+            requestAnimationFrame(clearInitialLoadingState);
+        }
+    };
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(initAnimationsAndReveal).catch(initAnimationsAndReveal);
+    } else {
+        initAnimationsAndReveal();
+    }
+} else {
+    clearInitialLoadingState();
+}
 
 
 document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
