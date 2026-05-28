@@ -264,6 +264,19 @@
   transform: scale(1.1);
 }
 
+/* Close icon is larger now, so keep interaction scale subtler */
+.sg-header__search-btn:hover .sg-header__search-icon--close {
+  transform: scale(1.06);
+}
+
+.sg-header__search-btn.is-active .sg-header__search-icon--close {
+  transform: scale(1.03);
+}
+
+.sg-header__search-btn.is-active:hover .sg-header__search-icon--close {
+  transform: scale(1.08);
+}
+
 .sg-header__search-btn.is-active .sg-header__search-icon--open {
   opacity: 0;
 }
