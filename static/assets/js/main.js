@@ -166,6 +166,9 @@ function showMobileMenuRoot() {
     mobileMenuRootPanel.setAttribute('aria-hidden', 'false');
     mobileMenuSubPanel.setAttribute('aria-hidden', 'true');
     mobileMenu.classList.remove('is-submenu-open');
+    if (mobileMenuSubLinks) {
+        mobileMenuSubLinks.scrollTop = 0;
+    }
 }
 
 function populateMobileSubmenu(key) {
@@ -188,6 +191,12 @@ function populateMobileSubmenu(key) {
 function openMobileSubmenu(key) {
     if (!mobileMenuRootPanel || !mobileMenuSubPanel) return;
     if (!populateMobileSubmenu(key)) return;
+    if (mobileMenuSubLinks) {
+        mobileMenuSubLinks.scrollTop = 0;
+        requestAnimationFrame(() => {
+            mobileMenuSubLinks.scrollTop = 0;
+        });
+    }
     mobileMenuSubPanel.setAttribute('aria-hidden', 'false');
     mobileMenu.classList.add('is-submenu-open');
     animateMobileSubmenuEnter();
