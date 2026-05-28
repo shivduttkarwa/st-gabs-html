@@ -1043,6 +1043,7 @@ function initAppSwipers() {
             const prevBtn = container.querySelector('.sg-gallery-slider__arrow--prev');
             const nextBtn = container.querySelector('.sg-gallery-slider__arrow--next');
             if (!swiperEl) return;
+            let latestCaptionText = '';
             const swiper = new Swiper(swiperEl, {
                 loop: true,
                 speed: 900,
@@ -1056,14 +1057,22 @@ function initAppSwipers() {
                         const active = this.slides[this.activeIndex];
                         const text = active && active.dataset.caption;
                         if (!text) return;
+                        latestCaptionText = text;
                         if (typeof gsap !== 'undefined') {
                             gsap.killTweensOf(caption);
-                            gsap.set(caption, { autoAlpha: 0, y: 0 });
-                            caption.textContent = text;
-                            gsap.fromTo(caption,
-                                { autoAlpha: 0, y: 10 },
-                                { autoAlpha: 1, y: 0, duration: .65, ease: 'power3.out' }
-                            );
+                            gsap.to(caption, {
+                                autoAlpha: 0,
+                                y: -14,
+                                duration: 0.25,
+                                ease: 'power2.in',
+                                onComplete: function() {
+                                    caption.textContent = latestCaptionText;
+                                    gsap.fromTo(caption,
+                                        { autoAlpha: 0, y: 14 },
+                                        { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+                                    );
+                                }
+                            });
                         } else {
                             caption.textContent = text;
                         }
