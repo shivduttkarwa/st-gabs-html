@@ -66,6 +66,32 @@
             this.animateHeroSlide(active);
         },
 
+        getHeaderAnimationTargets(prioritizeMobileActions = false) {
+            const headerItems = Array.from(document.querySelectorAll('.sg-anim-header-item'));
+            if (!headerItems.length) return [];
+
+            if (window.innerWidth >= 992) return headerItems;
+
+            // On mobile, avoid counting hidden desktop nav items in stagger timing.
+            const mobileVisibleItems = headerItems.filter((item) => {
+                const styles = window.getComputedStyle(item);
+                return styles.display !== 'none';
+            });
+
+            const targets = mobileVisibleItems.length ? mobileVisibleItems : headerItems;
+            if (!prioritizeMobileActions) return targets;
+
+            // Mobile hero intro order: logo -> search -> hamburger.
+            const mobilePrioritySelectors = ['.sg-header__logo-banner', '#sg-header-search-link-mobile', '#menu-btn'];
+            const mobilePriorityTargets = mobilePrioritySelectors
+                .map((selector) => targets.find((item) => item.matches(selector)))
+                .filter(Boolean);
+
+            if (!mobilePriorityTargets.length) return targets;
+            const remainingTargets = targets.filter((item) => !mobilePriorityTargets.includes(item));
+            return [...mobilePriorityTargets, ...remainingTargets];
+        },
+
         initSplitTextAndBatch() {
             const splitTextElements = document.querySelectorAll('.sg-split-init');
             splitTextElements.forEach((item) => {
@@ -83,9 +109,14 @@
                 }
             });
 
-            const headerItems = document.querySelectorAll('.sg-anim-header-item');
+            const headerItems = this.getHeaderAnimationTargets(window.innerWidth < 992);
             if (!window.is_preloader && headerItems.length > 0) {
                 headerItems.forEach((el) => el.classList.add('sg-anim-item', 'sg-anim-item--static'));
+                if (window.innerWidth < 992) {
+                    headerItems
+                        .filter((el) => el.matches('.sg-header__logo-banner, #sg-header-search-link-mobile, #menu-btn'))
+                        .forEach((el) => el.classList.add('sg-anim-item--header-priority'));
+                }
             }
 
             const textBlocks = document.querySelectorAll('.sg-children-anim > *:not(blockquote)');
@@ -149,33 +180,67 @@
             }
 
             function runBatch(batch) {
+                const isMobile = window.innerWidth < 992;
+                const mobilePrioritySelectors = ['.sg-header__logo-banner', '#sg-header-search-link-mobile', '#menu-btn'];
+                const mobileHeaderStagger = 0.14;
+                const priorityCards = isMobile
+                    ? batch.filter((card) => card.classList.contains('sg-anim-item--header-priority'))
+                    : [];
+                const priorityDelayMap = new Map();
+                if (isMobile && priorityCards.length) {
+                    priorityCards.forEach((card) => {
+                        const priorityIndex = mobilePrioritySelectors.findIndex((selector) => card.matches(selector));
+                        if (priorityIndex >= 0) {
+                            priorityDelayMap.set(card, priorityIndex * mobileHeaderStagger);
+                        }
+                    });
+                }
+
+                const getDelay = (card, index, extra = 0) => {
+                    if (isMobile && priorityDelayMap.has(card)) {
+                        return Math.max(0, priorityDelayMap.get(card) + extra);
+                    }
+                    return Math.max(0, index * 0.1 + extra);
+                };
+
                 batch.forEach((card, index) => {
                     if (card.classList.contains('sg-anim-item--default')) animateDefault(card, index);
                     if (card.classList.contains('sg-anim-item--blockquote')) {
-                        gsap.to(card.querySelector('blockquote'), { duration: 0.7, ease: 'power1.out', x: 0, y: 0, delay: index * 0.1 });
+                        gsap.to(card.querySelector('blockquote'), { duration: 0.7, ease: 'power1.out', x: 0, y: 0, delay: getDelay(card, index) });
                         gsap.to(card.querySelector('blockquote'), {
-                            duration: 0.5, ease: 'power1.out', autoAlpha: 1, delay: index * 0.1 + 0.1,
+                            duration: 0.5, ease: 'power1.out', autoAlpha: 1, delay: getDelay(card, index, 0.1),
                             onStart: () => card.classList.add('start-animation'),
                             onComplete: () => card.classList.add('end-animation'),
                         });
                     }
-                    if (card.classList.contains('sg-anim-item--static')) animateDefault(card, index, true);
+                    if (card.classList.contains('sg-anim-item--static')) {
+                        if (isMobile && priorityDelayMap.has(card)) {
+                            gsap.to(card, {
+                                duration: 0.42,
+                                ease: 'power1.out',
+                                autoAlpha: 1,
+                                delay: getDelay(card, index),
+                            });
+                        } else {
+                            animateDefault(card, index, true);
+                        }
+                    }
                     if (card.classList.contains('sg-anim-item--from-right')) animateDefault(card, index);
                     if (card.classList.contains('sg-anim-item--from-left')) animateDefault(card, index);
                     if (card.classList.contains('sg-anim-item--clip')) {
                         gsap.fromTo(card, { '--clip-value': '100%' }, {
-                            duration: 1.1, ease: 'power3.out', '--clip-value': '0%', delay: index * 0.2,
+                            duration: 1.1, ease: 'power3.out', '--clip-value': '0%', delay: getDelay(card, index, index * 0.1),
                             onComplete: () => card.classList.add('disable-clip'),
                         });
                     }
                     if (card.classList.contains('sg-split-lines')) {
                         const lines = card.querySelectorAll('.line-st');
-                        gsap.to(lines, { y: 0, duration: 0.6, stagger: 0.15, ease: 'power1.out', delay: index * 0.1 });
-                        gsap.to(lines, { autoAlpha: 1, duration: 0.5, stagger: 0.15, ease: 'power1.out', delay: index * 0.1 + 0.1 });
+                        gsap.to(lines, { y: 0, duration: 0.6, stagger: 0.15, ease: 'power1.out', delay: getDelay(card, index) });
+                        gsap.to(lines, { autoAlpha: 1, duration: 0.5, stagger: 0.15, ease: 'power1.out', delay: getDelay(card, index, 0.1) });
                     }
                     if (card.classList.contains('sg-split-chars')) {
                         const chars = card.querySelectorAll('.char-st');
-                        gsap.to(chars, { duration: 0.4, stagger: 0.05, ease: 'power3.inOut', autoAlpha: 1, delay: index * 0.1 });
+                        gsap.to(chars, { duration: 0.4, stagger: 0.05, ease: 'power3.inOut', autoAlpha: 1, delay: getDelay(card, index) });
                     }
                 });
             }
@@ -800,12 +865,15 @@ initPreloaderHeroFlow() {
                 const heroBodyEl     = document.querySelector('#sg-hero__desc')     || document.querySelector('.sg-hero__slide .sg-hero__body');
                 const heroArrowsEl   = document.querySelector('.sg-hero__arrows');
                 const firstSlide     = document.querySelector('.sg-hero__slide');
+                const headerAnimTargets = this.getHeaderAnimationTargets(window.innerWidth < 992);
+                const headerAnimStagger = window.innerWidth < 992 ? 0.14 : 0.055;
+                const headerAnimStart = window.innerWidth < 992 ? -0.12 : 0;
                 if (firstSlide) firstSlide.classList.add('sg-hero__slide--anim');
 
                 const tlHero = gsap.timeline({ paused: true });
                 tlHero
                     // 1. nav header items
-                    .from('.sg-anim-header-item', { autoAlpha: 0, y: -8, duration: 0.5, stagger: 0.055, ease: 'power1.out' }, 0)
+                    .from(headerAnimTargets.length ? headerAnimTargets : '.sg-anim-header-item', { autoAlpha: 0, y: -8, duration: 0.46, stagger: headerAnimStagger, ease: 'power1.out' }, headerAnimStart)
                     // 2. tip text
                     .from(heroTipEl, { autoAlpha: 0, y: 8, duration: 0.5, ease: 'power2.out' }, 0.1)
                     // 3. main title — char by char (matches preloader top line)
