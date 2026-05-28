@@ -1113,15 +1113,16 @@ html {
   .is-open-menu-2 .sg-header__nav-chevron {
     color: var(--color-white-sec);
   }
-  /* ── Mobile sticky: logo-bleed (white bg clipped to nav height, logo-banner bleeds below) ── */
-  .is-offset-top:not(.disable-offset-top) .sg-header__inner > .row {
+  /* Keep mobile header controls anchored in one place across hero/sticky/open states */
+  .sg-header__inner > .row {
     align-items: flex-start;
   }
-  .is-offset-top:not(.disable-offset-top) .sg-header__inner > .row > div:last-child {
+  .sg-header__inner > .row > div:last-child {
     min-height: 5.5rem;
     display: flex;
     align-items: center;
   }
+  /* ── Mobile sticky: logo-bleed (white bg clipped to nav height, logo-banner bleeds below) ── */
   .is-offset-top:not(.disable-offset-top) .sg-header::after {
     clip-path: inset(0 0 calc(100% - 5.5rem) 0);
     transition: opacity 0.25s ease, box-shadow 0.25s ease, clip-path 0s;
@@ -1175,7 +1176,7 @@ html {
     display: none;
   }
   .sg-header .sg-header__inner > .row {
-    align-items: center;
+    align-items: flex-start;
   }
   .sg-header .sg-header__inner .sg-header__logo-banner {
     width: fit-content;
