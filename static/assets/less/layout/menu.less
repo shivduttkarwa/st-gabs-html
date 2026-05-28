@@ -9,6 +9,7 @@
   visibility: hidden;
   pointer-events: none;
   background: #fff;
+  overflow-x: hidden;
 }
 
 .sg-mobile-menu::before {
@@ -48,6 +49,7 @@
   max-height: 100vh;
   padding-bottom: 3rem;
   overflow-y: auto;
+  overflow-x: hidden;
   background: #fff;
 }
 
@@ -61,15 +63,20 @@
   min-height: 100vh;
   min-height: 100dvh;
   padding: calc(var(--header-height, 5.5rem) + 1rem) 1.5rem 1.5rem;
+  overflow-x: hidden;
 }
 
 .sg-mobile-menu__views {
   min-height: 0;
+  overflow-x: hidden;
 }
 
 .sg-mobile-menu__panel {
   position: absolute;
   inset: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .sg-mobile-menu__panel[aria-hidden="true"] {
@@ -80,6 +87,7 @@
 
 .sg-mobile-menu__panel-body {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 .sg-mobile-menu__nav {
@@ -87,6 +95,7 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }

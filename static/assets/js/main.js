@@ -485,6 +485,46 @@ if (megaNavPanel && searchMenu && searchLinks.length) {
         searchResultsBlock.classList.toggle('d-none', !hasInput);
     };
 
+    const getMobileSearchAnimItems = () => {
+        if (!searchMenu) return [];
+        const content = searchMenu.querySelector('.sg-search-menu__content');
+        if (!content) return [];
+
+        const items = [];
+        const pushIfVisible = (node) => {
+            if (!node || node.classList.contains('d-none')) return;
+            items.push(node);
+        };
+
+        pushIfVisible(content.querySelector('.sg-search-menu__title'));
+        pushIfVisible(content.querySelector('.sg-search-menu__search-block'));
+
+        if (searchResultsBlock && !searchResultsBlock.classList.contains('d-none')) {
+            pushIfVisible(searchResultsTitle);
+            searchResultsBlock.querySelectorAll('.sg-search-menu__results-item').forEach(pushIfVisible);
+        } else if (searchPopularCol && !searchPopularCol.classList.contains('d-none')) {
+            pushIfVisible(searchPopularCol.querySelector('.sg-search-menu__second-title'));
+            searchPopularCol.querySelectorAll('.sg-search-menu__popular-link').forEach(pushIfVisible);
+        }
+
+        return items;
+    };
+
+    const animateMobileSearchOpen = () => {
+        if (typeof gsap === 'undefined' || window.innerWidth > 991 || !searchMenu) return;
+
+        const content = searchMenu.querySelector('.sg-search-menu__content');
+        if (!content) return;
+
+        const items = getMobileSearchAnimItems();
+        gsap.killTweensOf([content, ...items]);
+        gsap.set(content, { autoAlpha: 1, y: 18 });
+        gsap.set(items, { autoAlpha: 0, y: 18 });
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+            .to(content, { y: 0, duration: 0.32 }, 0)
+            .to(items, { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.04 }, 0.06);
+    };
+
     const openSearch = () => {
         if (window.innerWidth < 992 && document.body.classList.contains('is-open-menu')) {
             closeMobileMenuImmediate();
@@ -507,6 +547,7 @@ if (megaNavPanel && searchMenu && searchLinks.length) {
         });
         document.body.classList.add('is-open-menu-2');
         document.body.classList.remove('is-open-menu');
+        animateMobileSearchOpen();
     };
 
     searchLinks.forEach((link) => {
