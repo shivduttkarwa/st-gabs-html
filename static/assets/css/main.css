@@ -719,6 +719,12 @@ html {
 .sg-header__search-btn.is-active .sg-header__search-icon--close {
   opacity: 1;
 }
+@media (min-width: 992px) {
+  .sg-header__search-btn .sg-header__search-icon--close {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}
 .sg-search-menu {
   position: absolute;
   top: 100%;
@@ -1076,8 +1082,8 @@ html {
   display: block;
 }
 .sg-header__search-btn--mobile .sg-header__search-icon--close {
-  width: 1.125rem !important;
-  height: 1.125rem !important;
+  width: 1.375rem !important;
+  height: 1.375rem !important;
 }
 .sg-header__mob-line {
   width: 1.375rem;
