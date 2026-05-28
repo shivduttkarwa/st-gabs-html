@@ -1090,6 +1090,7 @@ html {
 }
 .sg-header__search-btn--mobile .sg-header__search-icon--open {
   display: block;
+  margin-top: 2px;
 }
 .sg-header__search-btn--mobile .sg-header__search-icon--close {
   width: 1.375rem !important;
