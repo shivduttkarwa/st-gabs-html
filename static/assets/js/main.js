@@ -100,7 +100,7 @@ function unlockMobileMenuScroll() {
 
 function animateMobileMenuOpen() {
     if (typeof gsap === 'undefined' || !mobileMenu) return;
-    gsap.killTweensOf([mobileMenuBackdrop, mobileMenuFrame, mobileMenuRootItems, mobileMenuSubPanel, mobileMenuSubLinks?.children]);
+    gsap.killTweensOf([mobileMenuBackdrop, mobileMenuFrame, ...mobileMenuRootItems, mobileMenuSubPanel, ...Array.from(mobileMenuSubLinks?.children ?? [])]);
     gsap.set(mobileMenuBackdrop, { autoAlpha: 0 });
     gsap.set(mobileMenuFrame, { autoAlpha: 1, y: 24 });
     gsap.set(mobileMenuRootItems, { autoAlpha: 0, y: 18 });
@@ -116,7 +116,7 @@ function animateMobileMenuClose(onComplete) {
         if (typeof onComplete === 'function') onComplete();
         return;
     }
-    gsap.killTweensOf([mobileMenuBackdrop, mobileMenuFrame, mobileMenuRootItems, mobileMenuSubPanel, mobileMenuSubLinks?.children]);
+    gsap.killTweensOf([mobileMenuBackdrop, mobileMenuFrame, ...mobileMenuRootItems, mobileMenuSubPanel, ...Array.from(mobileMenuSubLinks?.children ?? [])]);
     mobileMenuCloseTween = gsap.timeline({
         defaults: { ease: 'power2.inOut' },
         onComplete: () => {
@@ -203,7 +203,7 @@ function closeMobileMenu() {
         showMobileMenuRoot();
         setMobileMenuExpandedState(false);
         if (typeof gsap !== 'undefined') {
-            gsap.set([mobileMenuFrame, mobileMenuBackdrop, mobileMenuRootPanel, mobileMenuSubPanel, mobileMenuRootItems, mobileMenuSubLinks?.children], { clearProps: 'all' });
+            gsap.set([mobileMenuFrame, mobileMenuBackdrop, mobileMenuRootPanel, mobileMenuSubPanel, ...mobileMenuRootItems, ...Array.from(mobileMenuSubLinks?.children ?? [])], { clearProps: 'all' });
         }
     });
 }
