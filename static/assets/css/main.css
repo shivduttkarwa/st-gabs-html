@@ -3084,7 +3084,7 @@ html {
   height: 100%;
   transform: scale(1.07);
   transform-origin: center center;
-  transition: transform 4s ease;
+  transition: transform 2s ease;
 }
 .swiper-slide-active .sg-gallery-slider__img {
   transform: scale(1);
