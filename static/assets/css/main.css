@@ -3242,7 +3242,7 @@ html {
     justify-content: center;
   }
   .sg-promo-with-card__content {
-    width: 100%;
+    width: calc(100% - 2rem);
     max-width: 34.9375rem;
     margin: 0 auto;
   }
