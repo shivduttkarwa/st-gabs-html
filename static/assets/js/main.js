@@ -1045,19 +1045,33 @@ function initAppSwipers() {
             if (!swiperEl) return;
             const swiper = new Swiper(swiperEl, {
                 loop: true,
-                speed: 700,
+                speed: 900,
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                waitForTransition: false,
                 autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 on: {
                     slideChange: function() {
                         if (!caption) return;
                         const active = this.slides[this.activeIndex];
                         const text = active && active.dataset.caption;
-                        if (text) caption.textContent = text;
+                        if (!text) return;
+                        if (typeof gsap !== 'undefined') {
+                            gsap.killTweensOf(caption);
+                            gsap.set(caption, { autoAlpha: 0, y: 0 });
+                            caption.textContent = text;
+                            gsap.fromTo(caption,
+                                { autoAlpha: 0, y: 10 },
+                                { autoAlpha: 1, y: 0, duration: .65, ease: 'power3.out' }
+                            );
+                        } else {
+                            caption.textContent = text;
+                        }
                     }
                 }
             });
-            if (prevBtn) prevBtn.addEventListener('click', () => swiper.slidePrev());
-            if (nextBtn) nextBtn.addEventListener('click', () => swiper.slideNext());
+            if (prevBtn) prevBtn.addEventListener('click', () => swiper.slidePrev(300));
+            if (nextBtn) nextBtn.addEventListener('click', () => swiper.slideNext(300));
         });
     }
 

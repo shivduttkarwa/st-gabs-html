@@ -3082,6 +3082,12 @@ html {
   display: block;
   width: 100%;
   height: 100%;
+  transform: scale(1.07);
+  transform-origin: center center;
+  transition: transform 4s ease;
+}
+.swiper-slide-active .sg-gallery-slider__img {
+  transform: scale(1);
 }
 .sg-gallery-slider__gradient {
   position: absolute;
