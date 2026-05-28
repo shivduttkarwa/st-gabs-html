@@ -1151,6 +1151,10 @@ html {
   .is-open-menu .sg-header__nav-chevron {
     color: rgba(0, 57, 118, 0.65);
   }
+  /* hamburger is white by default on mobile (dark/hero bg) */
+  .sg-header__mob-btn {
+    color: var(--color-white);
+  }
   .sg-header__inner {
     min-height: 5.5rem;
   }
