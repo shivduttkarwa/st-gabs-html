@@ -873,7 +873,13 @@ initPreloaderHeroFlow() {
                 const tlHero = gsap.timeline({ paused: true });
                 tlHero
                     // 1. nav header items
-                    .from(headerAnimTargets.length ? headerAnimTargets : '.sg-anim-header-item', { autoAlpha: 0, y: -8, duration: 0.46, stagger: headerAnimStagger, ease: 'power1.out' }, headerAnimStart)
+                    // Use fromTo so js-loading hidden state doesn't get captured as the tween's end state.
+                    .fromTo(
+                        headerAnimTargets.length ? headerAnimTargets : '.sg-anim-header-item',
+                        { autoAlpha: 0, y: -8 },
+                        { autoAlpha: 1, y: 0, duration: 0.46, stagger: headerAnimStagger, ease: 'power1.out' },
+                        headerAnimStart,
+                    )
                     // 2. tip text
                     .from(heroTipEl, { autoAlpha: 0, y: 8, duration: 0.5, ease: 'power2.out' }, 0.1)
                     // 3. main title — char by char (matches preloader top line)
