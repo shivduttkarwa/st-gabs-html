@@ -539,14 +539,30 @@
 
         </div>
 
-        <!-- Mobile Menu Button -->
-        <button id="menu-btn"
-          class="sg-header__mob-btn bg-none border-0 d-flex flex-column gap-1 ms-auto d-lg-none sg-anim-header-item"
-          aria-label="Toggle menu" aria-controls="sg-mobile-menu" aria-expanded="false">
-          <span class="sg-header__mob-line d-block"></span>
-          <span class="sg-header__mob-line d-block"></span>
-          <span class="sg-header__mob-line d-block"></span>
-        </button>
+        <!-- Mobile Header Actions -->
+        <div class="sg-header__mobile-actions d-flex align-items-center ms-auto d-lg-none">
+          <button id="sg-header-search-link-mobile"
+            class="sg-header__search-btn sg-header__search-btn--mobile bg-none border-0 d-flex align-items-center justify-content-center sg-anim-header-item"
+            aria-label="Search" aria-controls="sg-header-search-menu" aria-expanded="false">
+            <svg class="sg-header__search-icon sg-header__search-icon--open" xmlns="http://www.w3.org/2000/svg" width="58" height="56" viewBox="0 0 58 56" fill="none" aria-hidden="true">
+              <circle cx="28" cy="25" r="8" stroke="currentColor" stroke-width="3"/>
+              <line x1="33.1213" y1="32" x2="38" y2="36.8787" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <svg class="sg-header__search-icon sg-header__search-icon--close" width="18" height="18"
+              viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 4L14 14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+              <path d="M14 4L4 14" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <button id="menu-btn"
+            class="sg-header__mob-btn bg-none border-0 d-flex flex-column gap-1 sg-anim-header-item"
+            aria-label="Toggle menu" aria-controls="sg-mobile-menu" aria-expanded="false">
+            <span class="sg-header__mob-line d-block"></span>
+            <span class="sg-header__mob-line d-block"></span>
+            <span class="sg-header__mob-line d-block"></span>
+          </button>
+        </div>
       </div>
     </div>
 

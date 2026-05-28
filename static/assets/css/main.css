@@ -1063,6 +1063,22 @@ html {
   height: 3rem;
   justify-content: center;
 }
+.sg-header__mobile-actions {
+  gap: 0.25rem;
+}
+.sg-header__search-btn--mobile {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+}
+.sg-header__search-btn--mobile .sg-header__search-icon--open {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.sg-header__search-btn--mobile .sg-header__search-icon--close {
+  width: 1rem;
+  height: 1rem;
+}
 .sg-header__mob-line {
   width: 1.375rem;
   height: 0.125rem;
@@ -1173,7 +1189,37 @@ html {
     display: none;
   }
   .sg-search-menu {
-    display: none;
+    display: block;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 0;
+    padding: 0 0.75rem;
+    z-index: 122;
+  }
+  .sg-search-menu__content {
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    min-height: auto;
+    max-height: calc(100vh - 7rem);
+  }
+  .sg-search-menu__col {
+    width: 100%;
+  }
+  .sg-search-menu__col--1 {
+    padding-right: 0;
+  }
+  .sg-search-menu__col--2 {
+    padding-left: 0;
+    border-left: none;
+    position: static;
+    margin-top: 1.25rem;
+  }
+  .sg-search-menu__title {
+    font-size: 1.75rem;
+  }
+  .sg-search-menu__popular-list {
+    grid-template-columns: 1fr;
   }
   .sg-header .sg-header__inner > .row {
     align-items: flex-start;
