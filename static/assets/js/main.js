@@ -1046,6 +1046,7 @@ function initAppSwipers() {
             const swiper = new Swiper(swiperEl, {
                 loop: true,
                 speed: 700,
+                autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 on: {
                     slideChange: function() {
                         if (!caption) return;
