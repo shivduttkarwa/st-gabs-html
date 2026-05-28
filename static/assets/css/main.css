@@ -529,7 +529,7 @@ html {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  transition: opacity 0s ease, box-shadow 0.25s ease;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease, clip-path 0s 0.25s;
 }
 .sg-header::before {
   background: linear-gradient(180deg, rgba(0, 57, 118, 0.36) 0%, rgba(0, 57, 118, 0) 100%);
@@ -624,8 +624,8 @@ html {
     width: 100%;
   }
   .is-offset-top:not(.disable-offset-top) .sg-header::after {
-    bottom: auto;
-    height: 9.25rem;
+    clip-path: inset(0 0 calc(100% - 9.25rem) 0);
+    transition: opacity 0.25s ease, box-shadow 0.25s ease, clip-path 0s;
   }
   .is-offset-top:not(.disable-offset-top) .sg-header__logo-banner {
     height: 12.86125rem;
