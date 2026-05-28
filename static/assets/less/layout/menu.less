@@ -11,6 +11,18 @@
   background: #fff;
 }
 
+.sg-mobile-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--header-height, 5.5rem);
+  height: 1px;
+  background: rgba(0, 57, 118, 0.12);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .is-open-menu .sg-mobile-menu {
   opacity: 1;
   visibility: visible;

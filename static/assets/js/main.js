@@ -208,6 +208,21 @@ function closeMobileMenu() {
     });
 }
 
+function closeMobileMenuImmediate() {
+    if (!document.body.classList.contains('is-open-menu')) return;
+    if (mobileMenuCloseTween && typeof mobileMenuCloseTween.kill === 'function') {
+        mobileMenuCloseTween.kill();
+        mobileMenuCloseTween = null;
+    }
+    if (typeof gsap !== 'undefined') {
+        gsap.killTweensOf([mobileMenuBackdrop, mobileMenuFrame, mobileMenuRootPanel, mobileMenuSubPanel, ...mobileMenuRootItems, ...Array.from(mobileMenuSubLinks?.children ?? [])]);
+        gsap.set([mobileMenuFrame, mobileMenuBackdrop, mobileMenuRootPanel, mobileMenuSubPanel, ...mobileMenuRootItems, ...Array.from(mobileMenuSubLinks?.children ?? [])], { clearProps: 'all' });
+    }
+    unlockMobileMenuScroll();
+    showMobileMenuRoot();
+    setMobileMenuExpandedState(false);
+}
+
 function openMobileMenu() {
     if (window.innerWidth > 991) return;
     closeHeaderSearchMenu();
@@ -469,7 +484,9 @@ if (megaNavPanel && searchMenu && searchLinks.length) {
     };
 
     const openSearch = () => {
-        if (document.body.classList.contains('is-open-menu')) {
+        if (window.innerWidth < 992 && document.body.classList.contains('is-open-menu')) {
+            closeMobileMenuImmediate();
+        } else if (document.body.classList.contains('is-open-menu')) {
             closeMobileMenu();
         }
         closeHeaderMegaMenu();
