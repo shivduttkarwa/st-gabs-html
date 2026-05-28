@@ -251,7 +251,8 @@ if (mobileMenuBackdrop) {
 }
 
 if (mobileMenuBackBtn) {
-    mobileMenuBackBtn.addEventListener('click', () => {
+    mobileMenuBackBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         showMobileMenuRoot();
         animateMobileSubmenuExit();
     });
@@ -259,7 +260,8 @@ if (mobileMenuBackBtn) {
 
 if (mobileMenuTriggers.length) {
     mobileMenuTriggers.forEach((trigger) => {
-        trigger.addEventListener('click', () => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
             openMobileSubmenu(trigger.getAttribute('data-mobile-menu-trigger'));
         });
     });
