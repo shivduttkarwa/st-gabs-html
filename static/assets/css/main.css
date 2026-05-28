@@ -935,6 +935,12 @@ html {
   box-sizing: border-box;
   overflow: hidden;
 }
+@media (min-width: 1024px) {
+  .sg-search-menu,
+  .sg-header__mega {
+    margin-top: calc(0.25rem - 1px);
+  }
+}
 .sg-header__nav-panel.is-mega-open .sg-header__mega {
   opacity: 1;
   pointer-events: auto;
