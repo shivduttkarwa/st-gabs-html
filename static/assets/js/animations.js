@@ -865,9 +865,11 @@ initPreloaderHeroFlow() {
                 const heroBodyEl     = document.querySelector('#sg-hero__desc')     || document.querySelector('.sg-hero__slide .sg-hero__body');
                 const heroArrowsEl   = document.querySelector('.sg-hero__arrows');
                 const firstSlide     = document.querySelector('.sg-hero__slide');
-                const headerAnimTargets = this.getHeaderAnimationTargets(window.innerWidth < 992);
-                const headerAnimStagger = window.innerWidth < 992 ? 0.01 : 0.03;
-                const headerAnimStart = window.innerWidth < 992 ? -0.12 : 0;
+                const isMobileHeader = window.innerWidth < 992;
+                const headerAnimTargets = this.getHeaderAnimationTargets(isMobileHeader);
+                // Keep preloader-page header reveal in sync with non-preloader pages.
+                const headerAnimStagger = 0.1;
+                const headerAnimInitialDelay = 0.1;
                 if (firstSlide) firstSlide.classList.add('sg-hero__slide--anim');
 
                 const tlHero = gsap.timeline({ paused: true });
@@ -876,9 +878,9 @@ initPreloaderHeroFlow() {
                     // Use fromTo so js-loading hidden state doesn't get captured as the tween's end state.
                     .fromTo(
                         headerAnimTargets.length ? headerAnimTargets : '.sg-anim-header-item',
-                        { autoAlpha: 0, y: -8 },
-                        { autoAlpha: 1, y: 0, duration: 0.46, stagger: headerAnimStagger, ease: 'power1.out' },
-                        headerAnimStart,
+                        { autoAlpha: 0 },
+                        { autoAlpha: 1, duration: 0.5, stagger: headerAnimStagger, ease: 'power1.out', delay: headerAnimInitialDelay },
+                        0,
                     )
                     // 2. tip text
                     .from(heroTipEl, { autoAlpha: 0, y: 8, duration: 0.5, ease: 'power2.out' }, 0.1)
