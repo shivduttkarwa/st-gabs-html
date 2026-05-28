@@ -1113,18 +1113,28 @@ html {
   .is-open-menu-2 .sg-header__nav-chevron {
     color: var(--color-white-sec);
   }
-  /* ── Mobile sticky: white header (global rules handle colour/opacity) ── */
+  /* ── Mobile sticky: logo-bleed (white bg clipped to nav height, logo-banner bleeds below) ── */
+  .is-offset-top:not(.disable-offset-top) .sg-header__inner > .row {
+    align-items: flex-start;
+  }
+  .is-offset-top:not(.disable-offset-top) .sg-header__inner > .row > div:last-child {
+    min-height: 5.5rem;
+    display: flex;
+    align-items: center;
+  }
   .is-offset-top:not(.disable-offset-top) .sg-header::after {
+    clip-path: inset(0 0 calc(100% - 5.5rem) 0);
+    transition: opacity 0.25s ease, box-shadow 0.25s ease, clip-path 0s;
     box-shadow: 0 1rem 2.5rem rgba(0, 35, 73, 0.08);
   }
   .is-offset-top:not(.disable-offset-top) .sg-header__divider {
     background: rgba(0, 57, 118, 0.12);
   }
   .is-offset-top:not(.disable-offset-top) .sg-header__logo-banner {
-    padding: 0.5rem 0.5rem;
-  }
-  .is-offset-top:not(.disable-offset-top) .sg-header__logo {
-    width: 7.5rem;
+    height: 7.5rem;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
   }
   /* ── Mobile menu open: white header, navy icons ── */
   .is-open-menu .sg-header {
