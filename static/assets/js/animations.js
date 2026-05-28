@@ -182,7 +182,7 @@
             function runBatch(batch) {
                 const isMobile = window.innerWidth < 992;
                 const mobilePrioritySelectors = ['.sg-header__logo-banner', '#sg-header-search-link-mobile', '#menu-btn'];
-                const mobileHeaderStagger = 0.14;
+                const mobileHeaderStagger = 0.1;
                 const priorityCards = isMobile
                     ? batch.filter((card) => card.classList.contains('sg-anim-item--header-priority'))
                     : [];
@@ -866,7 +866,7 @@ initPreloaderHeroFlow() {
                 const heroArrowsEl   = document.querySelector('.sg-hero__arrows');
                 const firstSlide     = document.querySelector('.sg-hero__slide');
                 const headerAnimTargets = this.getHeaderAnimationTargets(window.innerWidth < 992);
-                const headerAnimStagger = window.innerWidth < 992 ? 0.14 : 0.055;
+                const headerAnimStagger = window.innerWidth < 992 ? 0.01 : 0.03;
                 const headerAnimStart = window.innerWidth < 992 ? -0.12 : 0;
                 if (firstSlide) firstSlide.classList.add('sg-hero__slide--anim');
 
