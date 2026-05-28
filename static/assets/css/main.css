@@ -529,7 +529,7 @@ html {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, box-shadow 0.25s ease;
+  transition: opacity 0s ease, box-shadow 0.25s ease;
 }
 .sg-header::before {
   background: linear-gradient(180deg, rgba(0, 57, 118, 0.36) 0%, rgba(0, 57, 118, 0) 100%);
