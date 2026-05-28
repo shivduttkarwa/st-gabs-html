@@ -188,10 +188,12 @@ function populateMobileSubmenu(key) {
 function openMobileSubmenu(key) {
     if (!mobileMenuRootPanel || !mobileMenuSubPanel) return;
     if (!populateMobileSubmenu(key)) return;
-    mobileMenuRootPanel.setAttribute('aria-hidden', 'true');
     mobileMenuSubPanel.setAttribute('aria-hidden', 'false');
     mobileMenu.classList.add('is-submenu-open');
     animateMobileSubmenuEnter();
+    const backBtn = mobileMenuSubPanel.querySelector('.sg-mobile-menu__back');
+    if (backBtn) backBtn.focus();
+    mobileMenuRootPanel.setAttribute('aria-hidden', 'true');
 }
 
 function closeMobileMenu() {
@@ -1379,7 +1381,9 @@ function initAppSwipers() {
 initAppSwipers();
 
 if (window.SGAnimations) {
-    window.SGAnimations.init();
+    document.fonts.ready.then(() => {
+        window.SGAnimations.init();
+    });
 }
 
 document.documentElement.classList.remove('js-loading');
