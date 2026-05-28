@@ -641,12 +641,16 @@ function scrollOffset(scroll) {
     ) {
         closeHeaderMegaMenu();
     }
+    const isSearchToggleHovered = Array.isArray(searchLinks)
+        ? searchLinks.some((link) => link && link.matches(':hover'))
+        : false;
+
     if (
         isScrollingDown
         && scroll > 0
         && searchMenu?.classList.contains('is-open')
         && !searchMenu.matches(':hover')
-        && !searchLink?.matches(':hover')
+        && !isSearchToggleHovered
     ) {
         closeHeaderSearchMenu();
     }
