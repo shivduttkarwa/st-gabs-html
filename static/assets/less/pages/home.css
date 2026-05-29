@@ -174,15 +174,19 @@
   gap: 0.625rem;
   padding: 0.625rem 1rem;
   text-decoration: none;
+  transition: background 0.3s ease;
 }
-.sg-quick-links .row a i {
-  color: var(--primary-cyan-bright, #35c9bb);
-  text-align: center;
-  font-family: "Font Awesome 7 Pro";
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
+.sg-quick-links .row a:hover {
+  background: #004a96;
+}
+.sg-quick-links .row a img {
+  width: 1.875rem;
+  height: 1.875rem;
+  display: block;
+  transition: filter 0.3s ease;
+}
+.sg-quick-links .row a:hover img {
+  filter: brightness(1.3) drop-shadow(0 0 6px rgba(53, 201, 187, 0.5));
 }
 .sg-quick-links .row a span:first-child {
   color: var(--primary-cyan-bright, #35c9bb);
@@ -194,6 +198,10 @@
   line-height: 1.4;
   color: var(--basic-white, #fff);
   text-align: center;
+  transition: color 0.3s ease;
+}
+.sg-quick-links .row a:hover span:last-child {
+  color: var(--primary-cyan-bright, #35c9bb);
 }
 .sg-quick-links div[aria-hidden="true"] {
   position: absolute;

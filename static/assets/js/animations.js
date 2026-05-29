@@ -452,6 +452,7 @@
                 '.sg-about-hero',
                 '.sg-internal-hero',
                 '.sg-contact-hero',
+                '.sg-photo-grid',
             ].join(', ');
 
             const titles = Array.from(document.querySelectorAll(titleSelectors)).filter((title) => {
