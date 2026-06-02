@@ -364,10 +364,12 @@ if (megaNavPanel && megaMenu && megaTriggers.length) {
     };
 
     const updateMegaTail = (link) => {
-        const menuRect = megaMenu.getBoundingClientRect();
+        const panelRect = megaNavPanel.getBoundingClientRect();
         const linkRect = link.getBoundingClientRect();
+        const menuLeft = panelRect.left + (parseFloat(megaMenu.style.left) || megaMenu.offsetLeft || 0);
+        const menuWidth = parseFloat(megaMenu.style.width) || megaMenu.offsetWidth || window.innerWidth;
         const linkCenter = linkRect.left + (linkRect.width / 2);
-        const tailLeft = Math.max(48, Math.min(menuRect.width - 48, linkCenter - menuRect.left));
+        const tailLeft = Math.max(48, Math.min(menuWidth - 48, linkCenter - menuLeft));
         megaMenu.style.setProperty('--mega-tail-left', `${tailLeft}px`);
         megaMenu.style.setProperty('--mega-origin-x', `${tailLeft}px`);
     };
