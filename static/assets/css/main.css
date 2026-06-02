@@ -593,6 +593,20 @@ html {
 .is-offset-top:not(.disable-offset-top) .sg-header::after {
   opacity: 1;
 }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 38, 78, 0.90);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+body:has(.sg-header__nav-panel.is-mega-open)::after {
+  opacity: 1;
+  pointer-events: auto;
+}
 .scroll-down:not(.disable-offset-top):not(.is-open-menu):not(.is-open-menu-2) .sg-header {
   transform: translateY(-100%);
 }
@@ -637,6 +651,9 @@ html {
     transform: none;
     width: auto;
     max-height: 7.5rem;
+  }
+  .is-offset-top:not(.disable-offset-top) .sg-header__mega {
+    margin-top: 1rem;
   }
 }
 .sg-header__cta-link {
@@ -2999,7 +3016,7 @@ html {
 }
 .sg-full-promo-overlay-shade {
   z-index: 1;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 38, 78, 0.90);
 }
 .sg-full-promo-overlay .container {
   position: relative;
