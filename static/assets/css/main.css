@@ -538,7 +538,7 @@ html {
 .sg-header::after {
   background: var(--color-white);
   opacity: 0;
-  box-shadow: 0 1rem 2.5rem rgba(0, 35, 73, 0.08);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
 }
 .sg-header__inner {
   position: relative;
@@ -583,6 +583,7 @@ html {
 .is-offset-top:not(.disable-offset-top) .sg-header {
   color: var(--color-navy);
   --header-link-hover-color: var(--color-cyan);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
 }
 .is-open-menu .sg-header::before,
 .is-offset-top:not(.disable-offset-top) .sg-header::before {
@@ -1183,7 +1184,7 @@ html {
   .is-offset-top:not(.disable-offset-top) .sg-header::after {
     clip-path: inset(0 0 calc(100% - 5.5rem) 0);
     transition: opacity 0.25s ease, box-shadow 0.25s ease, clip-path 0s;
-    box-shadow: 0 1rem 2.5rem rgba(0, 35, 73, 0.08);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
   }
   .is-offset-top:not(.disable-offset-top) .sg-header__divider {
     background: rgba(0, 57, 118, 0.12);
