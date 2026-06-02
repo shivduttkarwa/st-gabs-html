@@ -698,9 +698,11 @@ let lenis = null;
 let bodyScrollBar = null;
 let isOffsetTop = false;
 let lastHeaderScrollY = 0;
+const headerTopThreshold = 16;
 
 function scrollOffset(scroll) {
-    const isScrollingDown = scroll > lastHeaderScrollY;
+    const currentHeaderScrollY = scroll <= headerTopThreshold ? 0 : scroll;
+    const isScrollingDown = currentHeaderScrollY > lastHeaderScrollY;
 
     if (
         isScrollingDown
@@ -724,7 +726,7 @@ function scrollOffset(scroll) {
         closeHeaderSearchMenu();
     }
 
-    if (scroll > 0) {
+    if (currentHeaderScrollY > 0) {
         if (!isOffsetTop) {
             document.body.classList.add('is-offset-top');
             isOffsetTop = true;
@@ -734,7 +736,7 @@ function scrollOffset(scroll) {
         isOffsetTop = false;
     }
 
-    lastHeaderScrollY = scroll <= 0 ? 0 : scroll;
+    lastHeaderScrollY = currentHeaderScrollY;
 }
 
 function scrollDir(direction) {
