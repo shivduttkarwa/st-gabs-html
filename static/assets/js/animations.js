@@ -949,7 +949,7 @@ initPreloaderHeroFlow() {
                 eyebrowStart: 0.0,
                 eyebrowDuration: 0.5,
                 titleStart: 0.42,
-                titleDuration: 0.88,
+                titleDuration: 0.68,
                 titleCharDuration: 0.08,
                 titleCharStagger: 0.035,
                 serifStart: 1.02,
