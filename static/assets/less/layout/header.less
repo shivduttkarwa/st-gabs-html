@@ -120,7 +120,7 @@ body::after {
   transition: opacity 0.25s ease;
 }
 
-body:has(.sg-header__nav-panel.is-mega-open)::after {
+body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   opacity: 1;
   pointer-events: auto;
 }
@@ -565,7 +565,7 @@ body:has(.sg-header__nav-panel.is-mega-open)::after {
 @media (min-width: 1024px) {
   .sg-search-menu,
   .sg-header__mega {
-    margin-top: calc(0.25rem - 1px);
+    margin-top: -0.4rem;
   }
 }
 

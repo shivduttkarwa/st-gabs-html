@@ -597,13 +597,13 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(0, 38, 78, 0.90);
+  background: rgba(0, 38, 78, 0.9);
   z-index: 50;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
-body:has(.sg-header__nav-panel.is-mega-open)::after {
+body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   opacity: 1;
   pointer-events: auto;
 }
@@ -959,7 +959,7 @@ body:has(.sg-header__nav-panel.is-mega-open)::after {
 @media (min-width: 1024px) {
   .sg-search-menu,
   .sg-header__mega {
-    margin-top: calc(0.25rem - 1px);
+    margin-top: -0.4rem;
   }
 }
 .sg-header__nav-panel.is-mega-open .sg-header__mega {
@@ -3016,7 +3016,7 @@ body:has(.sg-header__nav-panel.is-mega-open)::after {
 }
 .sg-full-promo-overlay-shade {
   z-index: 1;
-  background: rgba(0, 38, 78, 0.90);
+  background: rgba(0, 0, 0, 0.4);
 }
 .sg-full-promo-overlay .container {
   position: relative;
