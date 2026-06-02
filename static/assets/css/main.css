@@ -973,6 +973,11 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   margin-left: calc(var(--mega-tail-left) - 2.46875rem);
   transition: margin-left 0.28s ease;
 }
+@media (min-width: 1600px) {
+  .sg-header__mega-tail {
+    margin-bottom: -1px;
+  }
+}
 .sg-header__mega-tail svg {
   display: block;
   width: 100%;
