@@ -670,12 +670,20 @@
         <div class="sg-history-video">
           <video
             class="sg-history-video__player"
-            controls
             playsinline
-            poster="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/thumbnail">
-            <source src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/1920x1080" type="video/mp4">
-            <source src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/640x360" type="video/mp4">
+            muted
+            preload="metadata"
+            src="static/assets/vid/sg-dummy.mp4">
           </video>
+          <div class="sg-history-video__overlay">
+            <button class="sg-history-video__play-btn" aria-label="Play video">
+              <span class="sg-history-video__play-icon" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 4.5L21.5 13L7 21.5V4.5Z" fill="white"/>
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
         <div class="sg-history-body__img-wrap sg-history-body__img-wrap--landscape mt-4">
           <img
@@ -1089,9 +1097,11 @@
     <script src="static/assets/js/animations.js"></script>
     <script src="static/assets/js/main.js"></script>
 
-    <!-- History Timeline Swiper init -->
+    <!-- Story page scripts -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
+
+        // ── History Timeline Swiper ──────────────────────
         var timelineEl = document.querySelector('.sg-history-timeline__swiper');
         if (timelineEl && typeof Swiper !== 'undefined') {
           new Swiper(timelineEl, {
@@ -1101,6 +1111,50 @@
             grabCursor: true
           });
         }
+
+        // ── History Video Player ─────────────────────────
+        document.querySelectorAll('.sg-history-video').forEach(function (wrap) {
+          var video   = wrap.querySelector('.sg-history-video__player');
+          var playBtn = wrap.querySelector('.sg-history-video__play-btn');
+          var playing = false;
+
+          // Hover — play muted preview
+          wrap.addEventListener('mouseenter', function () {
+            if (playing) return;
+            video.muted = true;
+            video.play().catch(function () {});
+            wrap.classList.add('sg-history-video--previewing');
+          });
+
+          wrap.addEventListener('mouseleave', function () {
+            if (playing) return;
+            video.pause();
+            video.currentTime = 0;
+            wrap.classList.remove('sg-history-video--previewing');
+          });
+
+          // Click play — restart from 0 with sound + native controls
+          playBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            playing = true;
+            video.muted       = false;
+            video.currentTime = 0;
+            video.controls    = true;
+            video.play();
+            wrap.classList.remove('sg-history-video--previewing');
+            wrap.classList.add('sg-history-video--playing');
+          });
+
+          // Reset when video ends
+          video.addEventListener('ended', function () {
+            playing           = false;
+            video.controls    = false;
+            video.muted       = true;
+            video.currentTime = 0;
+            wrap.classList.remove('sg-history-video--playing');
+          });
+        });
+
       });
     </script>
 
