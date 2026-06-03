@@ -1,1168 +1,1684 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>St Gabriel's History Page Redesign Test</title>
-
-  <style>
-    /* ============================================================
-       ST GABRIEL'S SCHOOL — DESIGN TOKENS
-       Standalone test file
-    ============================================================ */
-
-    :root {
-      --color-navy: #003976;
-      --color-navy-dark: #00264e;
-      --color-cyan: #00a99d;
-      --color-cyan-bright: #35c9bb;
-      --color-cyan-tint: #e8fdfb;
-
-      --color-darkest-grey: #2c2e35;
-      --color-dark-grey: #434c54;
-      --color-mid-grey: #5e6a76;
-      --color-light-grey: #e1e1e1;
-
-      --color-white: #ffffff;
-      --color-white-sec: #ffffffbf;
-      --color-white-alpha20: #ffffff33;
-
-      --font-satoshi-variable: Arial, Helvetica, sans-serif;
-      --font-satoshi-bold: Arial, Helvetica, sans-serif;
-      --font-fraunces-9pt: Georgia, "Times New Roman", serif;
-
-      --radius-xsmall: 0.625rem;
-      --radius-small: 0.9375rem;
-      --radius-base: 1.875rem;
-      --radius-medium: 3.125rem;
-
-      --header-height: 5.5rem;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: #fff;
-      color: var(--color-darkest-grey);
-      font-family: var(--font-satoshi-variable);
-    }
-
-    img {
-      max-width: 100%;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    /* Demo header/footer only for testing. Remove these when adding to real site. */
-
-    .demo-header {
-      position: sticky;
-      top: 0;
-      z-index: 99;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: var(--header-height);
-      padding-inline: clamp(1rem, 4vw, 3rem);
-      background: rgba(255, 255, 255, 0.84);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(0, 57, 118, 0.08);
-    }
-
-    .demo-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      color: var(--color-navy);
-      font-weight: 900;
-      text-decoration: none;
-      letter-spacing: -0.04em;
-    }
-
-    .demo-logo__mark {
-      width: 2.65rem;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 35%, var(--color-cyan-bright), transparent 35%),
-        linear-gradient(135deg, var(--color-cyan), var(--color-navy));
-    }
-
-    .demo-nav {
-      display: flex;
-      gap: 1.25rem;
-      color: var(--color-dark-grey);
-      font-size: 0.9rem;
-    }
-
-    .demo-nav a {
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .demo-nav a:hover {
-      color: var(--color-cyan);
-    }
-
-    .demo-footer {
-      padding: 3rem 1.25rem;
-      background: #d9dee1;
-      color: var(--color-navy);
-      text-align: center;
-      font-weight: 800;
-    }
-
-    @media (max-width: 760px) {
-      .demo-nav {
-        display: none;
-      }
-    }
-
-    /* ============================================================
-       PAGE REDESIGN
-    ============================================================ */
-
-    .sg-history-page,
-    .sg-history-page * {
-      box-sizing: border-box;
-    }
-
-    .sg-history-page {
-      background:
-        radial-gradient(circle at 10% 5%, rgba(53, 201, 187, 0.16), transparent 28rem),
-        linear-gradient(180deg, #ffffff 0%, #f7fbfc 42%, #ffffff 100%);
-      color: var(--color-darkest-grey);
-      font-family: var(--font-satoshi-variable, sans-serif);
-      overflow: hidden;
-    }
-
-    .sg-history-shell {
-      width: min(100% - 2.5rem, 82rem);
-      margin-inline: auto;
-    }
-
-    .sg-section {
-      padding-block: clamp(4.5rem, 9vw, 8rem);
-    }
-
-    .sg-kicker {
-      margin: 0 0 1rem;
-      color: var(--color-white-sec);
-      font-size: 0.78rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .sg-kicker--cyan {
-      color: var(--color-cyan);
-    }
-
-    .sg-history-page h1,
-    .sg-history-page h2,
-    .sg-history-page h3,
-    .sg-history-page p {
-      margin-top: 0;
-    }
-
-    .sg-history-page h1,
-    .sg-history-page h2,
-    .sg-history-page h3 {
-      font-family: var(--font-satoshi-bold, var(--font-satoshi-variable, sans-serif));
-      color: inherit;
-    }
-
-    .sg-history-page h1 {
-      max-width: 12ch;
-      margin-bottom: 1.5rem;
-      font-size: clamp(3.2rem, 7.5vw, 7.6rem);
-      line-height: 0.88;
-      letter-spacing: -0.08em;
-    }
-
-    .sg-history-page h1 span {
-      display: block;
-      color: var(--color-cyan-bright);
-      font-family: var(--font-fraunces-9pt, serif);
-      font-weight: 400;
-      letter-spacing: -0.08em;
-    }
-
-    .sg-history-page h2 {
-      margin-bottom: 1.25rem;
-      font-size: clamp(2.25rem, 4.5vw, 5rem);
-      line-height: 0.95;
-      letter-spacing: -0.07em;
-    }
-
-    .sg-history-page h3 {
-      margin-bottom: 0.75rem;
-      font-size: clamp(1.25rem, 2vw, 1.65rem);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .sg-history-page p {
-      color: var(--color-dark-grey);
-      font-size: clamp(1rem, 1.2vw, 1.125rem);
-      line-height: 1.75;
-    }
-
-    .sg-btn {
-      position: relative;
-      isolation: isolate;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 3.25rem;
-      padding: 0 1.35rem;
-      border-radius: 999rem;
-      font-size: 0.85rem;
-      font-weight: 800;
-      line-height: 1;
-      text-decoration: none;
-      transition:
-        transform 0.35s ease,
-        background-color 0.35s ease,
-        color 0.35s ease,
-        border-color 0.35s ease;
-    }
-
-    .sg-btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .sg-btn--light {
-      background: var(--color-white);
-      color: var(--color-navy);
-    }
-
-    .sg-btn--ghost {
-      border: 1px solid var(--color-white-alpha20);
-      color: var(--color-white);
-    }
-
-    .sg-btn--ghost:hover {
-      background: var(--color-white);
-      color: var(--color-navy);
-    }
-
-    .sg-btn--primary {
-      background: var(--color-cyan);
-      color: var(--color-white);
-    }
-
-    .sg-btn--primary:hover {
-      background: var(--color-navy);
-    }
-
-    /* HERO */
-
-    .sg-history-hero {
-      position: relative;
-      padding-block: clamp(3rem, 6vw, 5rem) clamp(3.5rem, 6vw, 6rem);
-      background:
-        radial-gradient(circle at 86% 20%, rgba(53, 201, 187, 0.42), transparent 22rem),
-        radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.12), transparent 18rem),
-        linear-gradient(135deg, var(--color-navy-dark), var(--color-navy));
-      color: var(--color-white);
-    }
-
-    .sg-history-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
-      background-size: 4.5rem 4.5rem;
-      mask-image: linear-gradient(180deg, black, transparent 85%);
-    }
-
-    .sg-history-hero__grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.95fr);
-      gap: clamp(2rem, 6vw, 6rem);
-      align-items: center;
-    }
-
-    .sg-history-hero__content > p:not(.sg-kicker) {
-      max-width: 42rem;
-      margin-bottom: 2rem;
-      color: var(--color-white-sec);
-      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-      line-height: 1.65;
-    }
-
-    .sg-history-hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-    }
-
-    .sg-history-hero__media {
-      position: relative;
-      min-height: clamp(28rem, 52vw, 42rem);
-    }
-
-    .sg-hero-image {
-      position: absolute;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: var(--radius-medium);
-      background: var(--color-white-alpha20);
-      box-shadow: 0 2rem 5rem rgba(0,0,0,0.28);
-    }
-
-    .sg-hero-image img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: grayscale(1) contrast(1.05);
-      transform: scale(1.04);
-      transition: transform 0.8s ease, filter 0.8s ease;
-    }
-
-    .sg-hero-image:hover img {
-      filter: grayscale(0.25) contrast(1.05);
-      transform: scale(1);
-    }
-
-    .sg-hero-image--large {
-      inset: 0 7% 13% 0;
-    }
-
-    .sg-hero-image--small {
-      right: 0;
-      bottom: 0;
-      width: 48%;
-      height: 42%;
-      border-radius: var(--radius-base);
-    }
-
-    .sg-year-badge {
-      position: absolute;
-      top: 9%;
-      right: 1%;
-      display: grid;
-      place-items: center;
-      width: clamp(8rem, 12vw, 11rem);
-      aspect-ratio: 1;
-      border: 1px solid rgba(255,255,255,0.26);
-      border-radius: 50%;
-      background: rgba(0, 169, 157, 0.88);
-      color: var(--color-white);
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      font-weight: 900;
-      letter-spacing: -0.08em;
-      box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.22);
-    }
-
-    .sg-year-badge span {
-      display: block;
-      margin-bottom: -0.3rem;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .sg-history-stats {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      margin-top: clamp(3rem, 6vw, 5rem);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: var(--radius-base);
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(18px);
-    }
-
-    .sg-history-stats div {
-      padding: clamp(1rem, 2vw, 1.75rem);
-    }
-
-    .sg-history-stats strong {
-      display: block;
-      margin-bottom: 0.35rem;
-      color: var(--color-white);
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      line-height: 1;
-      letter-spacing: -0.06em;
-    }
-
-    .sg-history-stats span {
-      color: var(--color-white-sec);
-      font-size: 0.92rem;
-    }
-
-    /* COUNTRY */
-
-    .sg-country-card {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: clamp(2rem, 5vw, 5rem);
-      padding: clamp(2rem, 5vw, 4rem);
-      border: 1px solid rgba(0, 57, 118, 0.11);
-      border-radius: var(--radius-medium);
-      background:
-        radial-gradient(circle at 100% 0%, rgba(0, 169, 157, 0.13), transparent 22rem),
-        var(--color-white);
-      box-shadow: 0 1.5rem 5rem rgba(0, 57, 118, 0.08);
-    }
-
-    .sg-country-card__text {
-      columns: 2;
-      column-gap: 2rem;
-    }
-
-    .sg-country-card__text p {
-      break-inside: avoid;
-    }
-
-    /* STORY */
-
-    .sg-story-section {
-      background: var(--color-white);
-    }
-
-    .sg-story-layout {
-      display: grid;
-      grid-template-columns: 0.86fr 1.14fr;
-      gap: clamp(2rem, 7vw, 6rem);
-      align-items: start;
-    }
-
-    .sg-story-sticky {
-      position: sticky;
-      top: calc(var(--header-height, 5.5rem) + 2rem);
-    }
-
-    .sg-story-quote {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      border-left: 0.35rem solid var(--color-cyan);
-      border-radius: 0 var(--radius-base) var(--radius-base) 0;
-      background: var(--color-cyan-tint);
-      color: var(--color-navy);
-      font-family: var(--font-fraunces-9pt, serif);
-      font-size: clamp(1.35rem, 2vw, 2rem);
-      line-height: 1.2;
-      letter-spacing: -0.05em;
-    }
-
-    .sg-story-content {
-      display: grid;
-      gap: 1.1rem;
-      padding: clamp(1.5rem, 4vw, 3rem);
-      border-radius: var(--radius-medium);
-      background: #f2f2f2;
-    }
-
-    .sg-story-content p {
-      margin-bottom: 0;
-    }
-
-    /* FILM */
-
-    .sg-film-section {
-      padding-top: 0;
-    }
-
-    .sg-film-card {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      overflow: hidden;
-      border-radius: var(--radius-medium);
-      background: var(--color-navy);
-      color: var(--color-white);
-      box-shadow: 0 1.5rem 5rem rgba(0, 57, 118, 0.16);
-    }
-
-    .sg-film-card__media {
-      position: relative;
-      min-height: clamp(22rem, 40vw, 34rem);
-      overflow: hidden;
-    }
-
-    .sg-film-card__media img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: grayscale(1) contrast(1.08);
-      opacity: 0.82;
-    }
-
-    .sg-play-btn {
-      position: absolute;
-      inset: 50% auto auto 50%;
-      width: clamp(5rem, 8vw, 7rem);
-      aspect-ratio: 1;
-      translate: -50% -50%;
-      border: 0;
-      border-radius: 50%;
-      background: var(--color-cyan);
-      cursor: pointer;
-      box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.35);
-      transition: transform 0.35s ease, background-color 0.35s ease;
-    }
-
-    .sg-play-btn:hover {
-      transform: scale(1.08);
-      background: var(--color-cyan-bright);
-    }
-
-    .sg-play-btn span {
-      display: block;
-      width: 0;
-      height: 0;
-      margin-left: 42%;
-      border-top: 0.85rem solid transparent;
-      border-bottom: 0.85rem solid transparent;
-      border-left: 1.25rem solid var(--color-white);
-    }
-
-    .sg-film-card__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(2rem, 5vw, 4rem);
-    }
-
-    .sg-film-card__content p:not(.sg-kicker) {
-      color: var(--color-white-sec);
-    }
-
-    /* TIMELINE */
-
-    .sg-timeline-section {
-      padding-block: clamp(4.5rem, 9vw, 8rem);
-      background:
-        radial-gradient(circle at 85% 0%, rgba(53, 201, 187, 0.2), transparent 26rem),
-        var(--color-navy-dark);
-      color: var(--color-white);
-    }
-
-    .sg-timeline-heading {
-      max-width: 48rem;
-      margin-bottom: clamp(2rem, 4vw, 3rem);
-    }
-
-    .sg-timeline-heading h2 {
-      color: var(--color-white);
-    }
-
-    .sg-timeline-track {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(18rem, 27rem);
-      gap: 1.25rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
-      scrollbar-color: var(--color-cyan) rgba(255,255,255,0.14);
-    }
-
-    .sg-timeline-card {
-      scroll-snap-align: start;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: var(--radius-base);
-      background: rgba(255,255,255,0.09);
-      backdrop-filter: blur(16px);
-    }
-
-    .sg-timeline-card span {
-      display: block;
-      padding: 1.25rem 1.25rem 0;
-      color: var(--color-cyan-bright);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 900;
-      line-height: 0.85;
-      letter-spacing: -0.08em;
-    }
-
-    .sg-timeline-card img {
-      width: calc(100% - 2.5rem);
-      height: 13rem;
-      margin: 1.25rem;
-      display: block;
-      object-fit: cover;
-      border-radius: var(--radius-small);
-      filter: grayscale(1);
-    }
-
-    .sg-timeline-card h3 {
-      padding-inline: 1.25rem;
-      color: var(--color-white);
-    }
-
-    .sg-timeline-card p {
-      padding: 0 1.25rem 1.4rem;
-      color: var(--color-white-sec);
-      font-size: 0.96rem;
-    }
-
-    /* STRATEGIC PLAN */
-
-    .sg-plan-card {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.72fr);
-      gap: clamp(2rem, 6vw, 5rem);
-      align-items: center;
-    }
-
-    .sg-plan-card__content {
-      max-width: 42rem;
-    }
-
-    .sg-plan-card__content .sg-btn {
-      margin-top: 1rem;
-    }
-
-    .sg-plan-cover {
-      position: relative;
-      display: flex;
-      min-height: clamp(30rem, 46vw, 42rem);
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: clamp(1.5rem, 4vw, 2.5rem);
-      border-radius: var(--radius-medium);
-      background:
-        linear-gradient(160deg, rgba(255,255,255,0.82), rgba(232,253,251,0.72)),
-        linear-gradient(135deg, var(--color-cyan-tint), var(--color-white));
-      box-shadow: 0 2rem 5rem rgba(0, 57, 118, 0.14);
-    }
-
-    .sg-plan-cover::before {
-      content: "";
-      position: absolute;
-      inset: auto -10% -18% -10%;
-      height: 42%;
-      border-radius: 50% 50% 0 0;
-      background: linear-gradient(135deg, var(--color-cyan), var(--color-navy));
-      opacity: 0.95;
-    }
-
-    .sg-plan-cover__top,
-    .sg-plan-cover__main {
-      position: relative;
-      z-index: 1;
-    }
-
-    .sg-plan-cover__top {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      color: var(--color-navy);
-      font-weight: 800;
-    }
-
-    .sg-plan-cover__top small {
-      max-width: 12rem;
-      color: var(--color-mid-grey);
-      text-align: right;
-      font-size: 0.78rem;
-      line-height: 1.4;
-    }
-
-    .sg-plan-cover__main strong,
-    .sg-plan-cover__main span {
-      display: block;
-    }
-
-    .sg-plan-cover__main strong {
-      max-width: 8ch;
-      color: var(--color-navy);
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 0.9;
-      letter-spacing: -0.08em;
-    }
-
-    .sg-plan-cover__main span {
-      margin-top: 0.75rem;
-      color: var(--color-cyan);
-      font-family: var(--font-fraunces-9pt, serif);
-      font-size: clamp(2.25rem, 4vw, 4rem);
-      line-height: 1;
-      letter-spacing: -0.08em;
-    }
-
-    .sg-plan-cover__wave {
-      position: absolute;
-      right: -16%;
-      bottom: 10%;
-      width: 70%;
-      aspect-ratio: 1;
-      border: 1.15rem solid rgba(255,255,255,0.5);
-      border-left-color: transparent;
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      rotate: -22deg;
-    }
-
-    /* CTA */
-
-    .sg-history-cta {
-      padding-block: clamp(3rem, 6vw, 5rem);
-      background: var(--color-navy);
-      color: var(--color-white);
-    }
-
-    .sg-history-cta__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      padding: clamp(2rem, 5vw, 3.5rem);
-      border-radius: var(--radius-medium);
-      background:
-        radial-gradient(circle at 20% 0%, rgba(53, 201, 187, 0.35), transparent 22rem),
-        var(--color-navy-dark);
-    }
-
-    .sg-history-cta h2 {
-      margin-bottom: 0;
-      color: var(--color-white);
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 980px) {
-      .sg-history-hero__grid,
-      .sg-country-card,
-      .sg-story-layout,
-      .sg-film-card,
-      .sg-plan-card {
-        grid-template-columns: 1fr;
-      }
-
-      .sg-story-sticky {
-        position: static;
-      }
-
-      .sg-history-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .sg-country-card__text {
-        columns: 1;
-      }
-
-      .sg-film-card__content {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .sg-history-shell {
-        width: min(100% - 1.25rem, 82rem);
-      }
-
-      .sg-history-page h1 {
-        font-size: clamp(3rem, 18vw, 4.4rem);
-      }
-
-      .sg-history-hero__media {
-        min-height: 28rem;
-      }
-
-      .sg-hero-image--large {
-        inset: 0;
-      }
-
-      .sg-hero-image--small {
-        width: 58%;
-        height: 32%;
-      }
-
-      .sg-year-badge {
-        top: auto;
-        right: auto;
-        left: 1rem;
-        bottom: 1rem;
-      }
-
-      .sg-history-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .sg-history-cta__inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .sg-timeline-track {
-        grid-auto-columns: minmax(16.5rem, 84vw);
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Demo header only for testing. Remove on real site. -->
-  <header class="demo-header">
-    <a href="#" class="demo-logo">
-      <span class="demo-logo__mark"></span>
-      St Gabriel's School
-    </a>
-
-    <nav class="demo-nav" aria-label="Demo navigation">
-      <a href="#">About</a>
-      <a href="#">Learning</a>
-      <a href="#">Community</a>
-      <a href="#">Enrolments</a>
-      <a href="#">Support Us</a>
-    </nav>
-  </header>
-
-  <main class="sg-history-page">
-
-    <!-- HERO -->
-    <section class="sg-history-hero">
-      <div class="sg-history-shell">
-        <div class="sg-history-hero__grid">
-
-          <div class="sg-history-hero__content">
-            <p class="sg-kicker">History & Alumni</p>
-
-            <h1>
-              A century of care,
-              <span>growth and belonging.</span>
-            </h1>
-
-            <p>
-              From a small school founded in 1922 to a modern K–12 learning community,
-              St Gabriel’s has continued one mission: nurturing independence and
-              transforming the lives of students.
-            </p>
-
-            <div class="sg-history-hero__actions">
-              <a href="#sg-story" class="sg-btn sg-btn--light">Explore our story</a>
-              <a href="#sg-timeline" class="sg-btn sg-btn--ghost">View timeline</a>
+<div class="
+    user-items-list-item-container
+    user-items-list-carousel
+data-media-alignment="left" data-title-alignment="left" data-body-alignment="left" data-button-alignment="left" data-title-placement="center" data-body-placement="center" data-button-placement="center" data-layout-width="full" data-title-font-unit="rem" data-description-font-unit="rem" data-button-font-unit="rem" data-is-media-enabled="true" data-is-card-enabled="false" data-media-width-value="100" data-media-width-unit="%" data-content-order="media-first" data-space-between-columns="" data-vertical-padding-top-value="6.6" data-vertical-padding-bottom-value="6.6" data-vertical-padding-top-unit="vmax" data-vertical-padding-bottom-unit="vmax" data-controllers-bound="UserItemsListCarousel">
+  <div class="user-items-list-carousel__gutter" role="region" aria-label="Carousel" tabindex="0" style="">
+    <div class="user-items-list-carousel__slideshow-holder">
+
+      <div class="user-items-list-carousel__slides-revealer">
+        <ul class="user-items-list-carousel__slides user-items-list-carousel__slides--initialized" style="grid-gap: 20px;">
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-389px, 0px, 0px);" data-is-card-enabled="false">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.114953s;">OUR STORY</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.117757s;">Scroll to learn some of the history of St Gabriel’s School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(0px, 0px, 0px);" data-is-card-enabled="false">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.120561s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97c34b3a-9237-47a0-a076-5ffb75f065d6/A+2+Southleigh.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97c34b3a-9237-47a0-a076-5ffb75f065d6/A+2+Southleigh.jpg" data-image-dimensions="2040x1529" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97c34b3a-9237-47a0-a076-5ffb75f065d6/A+2+Southleigh.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.123364s;">1920</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.126168s;">The Christian Brothers found a suitable property in Sydney on which to establish the school at Castle Hill. Southleigh consisted of "a fine old residence, a cottage nearer the road and 35 acres of good land".</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(389px, 0px, 0px);" data-is-card-enabled="false">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.128972s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/dee07d48-8a00-4038-a77d-8a65810cbe0d/scan_quinn_2021-10-20-15-00-41.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/dee07d48-8a00-4038-a77d-8a65810cbe0d/scan_quinn_2021-10-20-15-00-41.jpg" data-image-dimensions="1052x713" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/dee07d48-8a00-4038-a77d-8a65810cbe0d/scan_quinn_2021-10-20-15-00-41.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.131776s;">1922</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.134579s;">June 10,  two Irish Christian Brothers, Brother Joseph O’Farrell and Brother Damien Allen from the Cabra School arrived in Sydney with plans for the new building and years of experience teaching and caring for the deaf.</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.137383s;">July 10, the first sod was turned in the erection of the school at St Gabriel's.</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.140187s;">September 10, the foundation stone for the first block of buildings was blessed by Archbishop Kelly and the first student Patrick Kenna took up residence.</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.142991s;">School began on 22 September that year.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(778px, 0px, 0px);" data-is-card-enabled="false">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.145794s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/a402c78b-2dae-420e-a11f-71e2cebeaf43/scan_quinn_2021-10-20-14-57-11.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/a402c78b-2dae-420e-a11f-71e2cebeaf43/scan_quinn_2021-10-20-14-57-11.jpg" data-image-dimensions="1473x941" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/a402c78b-2dae-420e-a11f-71e2cebeaf43/scan_quinn_2021-10-20-14-57-11.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.148598s;">1922</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.151402s;">This photo taken in September 1922 was the first class of St Gabriel’s Pupils.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(1167px, 0px, 0px);" data-is-card-enabled="false">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.154206s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/d6af44cd-5875-435c-9085-c41758772d0c/archbishop+Kelly+Opening.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/d6af44cd-5875-435c-9085-c41758772d0c/archbishop+Kelly+Opening.jpg" data-image-dimensions="1693x1411" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/d6af44cd-5875-435c-9085-c41758772d0c/archbishop+Kelly+Opening.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.157009s;">1923</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.159813s;">On Sunday May 6, the School was formally opened by Archbishop Kelly. There were 28 pupils.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.162617s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/638c7aa3-9b07-4b45-ab14-6771c1784dd5/scan_quinn_2021-10-20-15-08-40.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/638c7aa3-9b07-4b45-ab14-6771c1784dd5/scan_quinn_2021-10-20-15-08-40.jpg" data-image-dimensions="826x526" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/638c7aa3-9b07-4b45-ab14-6771c1784dd5/scan_quinn_2021-10-20-15-08-40.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.165421s;">1924</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.168224s;">Boys on a day trip to Manly Beach.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.171028s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/f073ea7f-c216-4fe2-938e-a5452ebc6105/scan_quinn_2021-10-20-15-16-06.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/f073ea7f-c216-4fe2-938e-a5452ebc6105/scan_quinn_2021-10-20-15-16-06.jpg" data-image-dimensions="697x497" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/f073ea7f-c216-4fe2-938e-a5452ebc6105/scan_quinn_2021-10-20-15-16-06.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.173832s;">1935</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.176636s;">A swimming pool was built in the 1930s for the boarders to use. The pool was constructed by the students and Brothers.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.179439s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/21af7714-dcee-4d09-931a-a2db2e500716/fire.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/21af7714-dcee-4d09-931a-a2db2e500716/fire.jpg" data-image-dimensions="2000x2000" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/21af7714-dcee-4d09-931a-a2db2e500716/fire.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.182243s;">1937</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.185047s;">A fire destroyed the original Southleigh homestead which was the Brothers’ residence, The building was over 80 years old. A new residence was constructed.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.18785s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/66d32f74-5221-4bbc-b716-06f45c75e87e/scan_quinn_2021-10-21-14-06-34_5.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/66d32f74-5221-4bbc-b716-06f45c75e87e/scan_quinn_2021-10-21-14-06-34_5.jpeg" data-image-dimensions="991x614" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/66d32f74-5221-4bbc-b716-06f45c75e87e/scan_quinn_2021-10-21-14-06-34_5.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.190654s;">1940</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.193458s;">Students receiving speech training with the aid of the Multitone Hearing Equipment.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.196262s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/843f3565-7be9-448a-9c00-5095f7281ae3/scan_quinn_2021-10-21-14-02-26_1.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/843f3565-7be9-448a-9c00-5095f7281ae3/scan_quinn_2021-10-21-14-02-26_1.jpeg" data-image-dimensions="808x431" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/843f3565-7be9-448a-9c00-5095f7281ae3/scan_quinn_2021-10-21-14-02-26_1.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.199065s;">1940</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.201869s;">An additional 16 acres of adjoining land was purchased in Marie Street.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.204673s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/ed19692e-9ee5-4c61-b42f-29a843fa0dba/scan_quinn_2021-10-21-14-10-23_7.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/ed19692e-9ee5-4c61-b42f-29a843fa0dba/scan_quinn_2021-10-21-14-10-23_7.jpeg" data-image-dimensions="738x543" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/ed19692e-9ee5-4c61-b42f-29a843fa0dba/scan_quinn_2021-10-21-14-10-23_7.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.207477s;">1946</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.21028s;">Matron Delaney and boys in dining room for supper.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.213084s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2b20a6f0-f7c9-427f-b5d5-c1658af121be/25th+Anniversary+Reunion+1947.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2b20a6f0-f7c9-427f-b5d5-c1658af121be/25th+Anniversary+Reunion+1947.jpg" data-image-dimensions="1346x661" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="1000w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2b20a6f0-f7c9-427f-b5d5-c1658af121be/25th+Anniversary+Reunion+1947.jpg?format=1000w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.215888s;">1947</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.218692s;">Silver Jubilee of St Gabriel’s was celebrated.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.221495s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97fa7553-e1ab-437d-974b-47f78c733f06/Helen+Keller.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97fa7553-e1ab-437d-974b-47f78c733f06/Helen+Keller.jpg" data-image-dimensions="3552x2427" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97fa7553-e1ab-437d-974b-47f78c733f06/Helen+Keller.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.224299s;">1948</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.227103s;">Helen Keller visits St Gabriel’s School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.229907s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/e54429bb-e20c-4732-bef7-6f050c470924/scan_quinn_2021-10-19-14-51-16.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/e54429bb-e20c-4732-bef7-6f050c470924/scan_quinn_2021-10-19-14-51-16.jpg" data-image-dimensions="621x395" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/e54429bb-e20c-4732-bef7-6f050c470924/scan_quinn_2021-10-19-14-51-16.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.23271s;">1957</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.235514s;">A new hall was completed.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.238318s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97188cde-f3c6-4879-8ab2-030e89f10361/scan_quinn_2021-11-02-15-15-26_6.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97188cde-f3c6-4879-8ab2-030e89f10361/scan_quinn_2021-11-02-15-15-26_6.jpeg" data-image-dimensions="1764x1413" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/97188cde-f3c6-4879-8ab2-030e89f10361/scan_quinn_2021-11-02-15-15-26_6.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.241121s;">1960</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.243925s;">Additional building works were completed and by 1961 there were 75 boys.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.246729s;">
+                        <img data-image-focal-point="0.5547669944420692,0.26403300412551567" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/80ca542f-88f1-4e73-92bc-5107f023004b/scan_quinn_2021-11-30-15-41-40_6.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/80ca542f-88f1-4e73-92bc-5107f023004b/scan_quinn_2021-11-30-15-41-40_6.jpeg" data-image-dimensions="1094x1496" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/80ca542f-88f1-4e73-92bc-5107f023004b/scan_quinn_2021-11-30-15-41-40_6.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-position: 55.4767% 3.81266%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.249533s;">1969</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.252336s;">Cued Speech was introduced.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.25514s;">
+                        <img data-image-focal-point="0.5000358757264834,0.848053003312707" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/efae8d30-5cbb-4cd3-bde8-e2fb91571333/scan_quinn_2021-11-05-11-04-41_1.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/efae8d30-5cbb-4cd3-bde8-e2fb91571333/scan_quinn_2021-11-05-11-04-41_1.jpeg" data-image-dimensions="639x733" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/efae8d30-5cbb-4cd3-bde8-e2fb91571333/scan_quinn_2021-11-05-11-04-41_1.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-position: 50.0036% 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.257944s;">1972</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.260748s;">Golden Jubilee of St Gabriel’s was celebrated.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.263551s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/842c2531-12f4-4ad4-84a8-7bda34d0277a/scan_quinn_2021-11-05-11-04-41_7.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/842c2531-12f4-4ad4-84a8-7bda34d0277a/scan_quinn_2021-11-05-11-04-41_7.jpeg" data-image-dimensions="815x647" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/842c2531-12f4-4ad4-84a8-7bda34d0277a/scan_quinn_2021-11-05-11-04-41_7.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.266355s;">1973</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.269159s;">The School changed from a residential day school for deaf boys to a co-educational day school. The first female students were admitted in 1973.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.271963s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/51cde4b4-d2ce-4a2f-9ab6-87b25bac9bed/scan_quinn_2021-11-05-11-10-26.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/51cde4b4-d2ce-4a2f-9ab6-87b25bac9bed/scan_quinn_2021-11-05-11-10-26.jpeg" data-image-dimensions="1295x907" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/51cde4b4-d2ce-4a2f-9ab6-87b25bac9bed/scan_quinn_2021-11-05-11-10-26.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.274766s;">1976</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.27757s;">An integration program was introduced where students attended St Gabriel's in the morning and their local mainstream school for the afternoon. The Early Intervention Unit (EIU) was established.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.280374s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b1a5256a-6b52-4822-ab94-cb388be0a8e1/scan_quinn_2021-11-30-15-45-44_6.jpeg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b1a5256a-6b52-4822-ab94-cb388be0a8e1/scan_quinn_2021-11-30-15-45-44_6.jpeg" data-image-dimensions="1903x1408" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b1a5256a-6b52-4822-ab94-cb388be0a8e1/scan_quinn_2021-11-30-15-45-44_6.jpeg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.283178s;">1979</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.285981s;">St Gabriel’s School is moved from the old buildings, down the drive to a new building and Gilroy Catholic College was established in the old buildings. The “new” St Gabriel’s was officially opened in September.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.288785s;">1982</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.291589s;">The Diamond Jubilee of St Gabriel’s was celebrated.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.294393s;">1984</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.297196s;">Br Alan Kelly and Mrs Sue Robinson worked towards gaining registration for St Gabriel’s as a Secondary School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.3s;">1994</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.302804s;">Elizabeth Kerr became the first layperson and first woman Principal.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.305607s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/4463ca11-6a67-47be-9f20-fb46afd34647/IMG_0381.JPG" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/4463ca11-6a67-47be-9f20-fb46afd34647/IMG_0381.JPG" data-image-dimensions="2048x1536" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/4463ca11-6a67-47be-9f20-fb46afd34647/IMG_0381.JPG?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.308411s;">2007</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.311215s;">Edmund Rice Education Australia (EREA) is formed and takes on responsibility for the schools previously operated by the Christian Brothers.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.314019s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/16c2873f-433f-4791-a1b4-ca1bd9ee2490/IMG_0602.JPG" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/16c2873f-433f-4791-a1b4-ca1bd9ee2490/IMG_0602.JPG" data-image-dimensions="600x450" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/16c2873f-433f-4791-a1b4-ca1bd9ee2490/IMG_0602.JPG?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.316822s;">2009</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.319626s;">The Early Intervention Unit for hearing impaired students was closed as the school focused on providing primary school education.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.32243s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/46ac715a-dcc3-4748-ba6e-5e2b1b5b85f1/IMG_1477.JPG" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/46ac715a-dcc3-4748-ba6e-5e2b1b5b85f1/IMG_1477.JPG" data-image-dimensions="3456x2304" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/46ac715a-dcc3-4748-ba6e-5e2b1b5b85f1/IMG_1477.JPG?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.325234s;">2010</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.328037s;">Criteria for admission was widened to include students with Intellectual Disability and Autism. The number of students is 20. </p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.330841s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/8a0e9e86-933b-4643-bef2-8439432c8b66/90th+Celebrations+003.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/8a0e9e86-933b-4643-bef2-8439432c8b66/90th+Celebrations+003.jpg" data-image-dimensions="4752x3168" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/8a0e9e86-933b-4643-bef2-8439432c8b66/90th+Celebrations+003.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.333645s;">2012</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.336449s;">St Gabriel’s community celebrates 90 years. Bishop Anthony Fisher OP conducts Mass in the School's Sacred space followed by a fete and market stalls. </p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.339252s;">2013</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.342056s;">Major building works commenced to upgrade the interior of the building, create a new Open Learning Space, Library Space and school reception.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.34486s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/214845fa-993f-4d80-9a16-717063c79483/St.Gabesnewuniforms-20.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/214845fa-993f-4d80-9a16-717063c79483/St.Gabesnewuniforms-20.jpg" data-image-dimensions="3600x2400" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/214845fa-993f-4d80-9a16-717063c79483/St.Gabesnewuniforms-20.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.347664s;">2016</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.350467s;">New Strategic Plan 2017-2020 is developed. Mr Jon Franzin joins as Principal.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.353271s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/9dcf5f95-dad7-48ca-8709-4c2755388e59/IMG_5030.JPG" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/9dcf5f95-dad7-48ca-8709-4c2755388e59/IMG_5030.JPG" data-image-dimensions="4608x3456" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/9dcf5f95-dad7-48ca-8709-4c2755388e59/IMG_5030.JPG?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.356075s;">2017</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.358879s;">The new sensory playground is built. New Master Plan is developed.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.361682s;">2018</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.364486s;">Portable classrooms are in place for the commencement of Secondary School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.36729s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2faaabf2-1e78-49bb-97eb-d1cd614825da/St.Gabesnewuniforms-284.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2faaabf2-1e78-49bb-97eb-d1cd614825da/St.Gabesnewuniforms-284.jpg" data-image-dimensions="3600x2400" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/2faaabf2-1e78-49bb-97eb-d1cd614825da/St.Gabesnewuniforms-284.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.370093s;">2019</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.372897s;">Year 7 students commence Secondary School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.375701s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/aeb3daa3-367c-4fae-9761-92b2e4ab58d8/IMG_5231.JPG" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/aeb3daa3-367c-4fae-9761-92b2e4ab58d8/IMG_5231.JPG" data-image-dimensions="4032x3024" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/aeb3daa3-367c-4fae-9761-92b2e4ab58d8/IMG_5231.JPG?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.378505s;">2020</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.381308s;">Year 7 and 8 students through Secondary School.  Major building works commence for the new Secondary School space located where the Brother's residents stood.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.384112s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/55ff0b6b-13d0-4203-85f9-17677efaba42/a.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/55ff0b6b-13d0-4203-85f9-17677efaba42/a.jpg" data-image-dimensions="4032x3024" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/55ff0b6b-13d0-4203-85f9-17677efaba42/a.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.386916s;">2021</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.38972s;">Year 7, 8 and 9 students through Secondary School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.392523s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/33e23374-4b98-4dd5-8ec3-5e9abb1bc56f/DSC07466.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/33e23374-4b98-4dd5-8ec3-5e9abb1bc56f/DSC07466.jpg" data-image-dimensions="2048x1365" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/33e23374-4b98-4dd5-8ec3-5e9abb1bc56f/DSC07466.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.395327s;">2022</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.398131s;">The School is Kindergarten to Year 10. The Secondary School building is almost complete and is occupied whilst the Primary School and Hall are constructed. Mr Michael Farrell joins as Principal.</p><p class="preFade" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.400935s;">St Gabriel’s celebrates its Centenary with a Mass and Afternoon Tea at St Patrick’s Cathedral in Parramatta. Alumni spent he weekend catching up and going on a tour of the “old” St Gabriel’s building which are now Gilroy College.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.403738s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b7aad251-8380-4a92-9100-45ce6cfc3b69/St+Gabriels+School+Castle+Hill+2024_74.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b7aad251-8380-4a92-9100-45ce6cfc3b69/St+Gabriels+School+Castle+Hill+2024_74.jpg" data-image-dimensions="5306x3537" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/b7aad251-8380-4a92-9100-45ce6cfc3b69/St+Gabriels+School+Castle+Hill+2024_74.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.406542s;">2023</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.409346s;">Our four year development project is finished and at the end of the year the school now boasts three new buildings, including a secondary wing, a primary and administration wing and a multi-purpose hall.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+            
+            <li class="
+                  user-items-list-carousel__slide list-item
+                  
+                " style="transform: translate3d(-9999px, 0px, 0px);" data-is-card-enabled="false" aria-hidden="true">
+              
+                
+                    <div class="user-items-list-carousel__media-container" style="
+                        margin-bottom: 10px;
+                        width: 100%;
+                      ">
+                      <div class="user-items-list-carousel__media-inner preFade fadeIn" data-media-aspect-ratio="3:2" data-animation-role="image" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.41215s;">
+                        <img data-image-focal-point="NaN,NaN" alt="" data-src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/7e4089ad-0df7-4e36-a01c-a59cb07e5997/St+Gabriels+School+Castle+Hill+2024_56.jpg" data-image="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/7e4089ad-0df7-4e36-a01c-a59cb07e5997/St+Gabriels+School+Castle+Hill+2024_56.jpg" data-image-dimensions="5472x3648" class="user-items-list-carousel__media" data-load="false" data-mode="cover" data-use-advanced-positioning="true" elementtiming="nbf-list-carousel" data-parent-ratio="1.5" data-image-resolution="750w" src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/7e4089ad-0df7-4e36-a01c-a59cb07e5997/St+Gabriels+School+Castle+Hill+2024_56.jpg?format=750w" data-loaded="true" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </div>
+                
+              
+              <div class="list-item-content">
+
+                
+                  <div class="list-item-content__text-wrapper">
+
+                    
+                      <h2 class="list-item-content__title preFade fadeIn" style="max-width: 100%; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.414953s;">2024</h2>
+                    
+
+                    
+                        <div class="list-item-content__description
+                          
+                          " style="
+                            margin-top: 10px;
+                            max-width: 100%;
+                          "><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.417757s;">We welcome a new Principal, David Cook. The Principal now solely oversees St Gabriel’s School.</p></div>
+                    
+
+                  </div>
+                
+
+                
+
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+
+    </div>
+
+    
+      
+        <div class="desktop-arrows user-items-list-carousel__arrow-wrapper user-items-list-carousel__arrow-wrapper--left" style="
+            grid-gap: 20px;
+            margin-left: 5vw;
+          ">
+          <div class="user-items-list-carousel__arrow-container" style="
+              
+            ">
+            <div class="user-items-list-carousel__arrow-positioner" data-media-aspect-ratio="3:2">
+              <div class="user-items-list-carousel__arrow-icon-holder">
+                <button class="user-items-list-carousel__arrow-button user-items-list-carousel__arrow-button--left preFade fadeIn" aria-label="
+    
+      Previous
+    
+    
+  " data-animation-role="button" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.420561s;" fdprocessedid="uuireu">
+  <div class="
+    user-items-list-carousel__arrow-icon-background
+    user-items-list-carousel__arrow-icon-background-area
+  ">
+  </div>
+  <svg class="user-items-list-carousel__arrow-icon" viewBox="0 0 44 18" xmlns="http://www.w3.org/2000/svg">
+
+    
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        user-items-list-carousel__arrow-icon-path" d="M9.90649 16.96L2.1221 9.17556L9.9065 1.39116"></path>
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        user-items-list-carousel__arrow-icon-path" d="M42.8633 9.18125L3.37868 9.18125"></path>
+    
+
+    
+
+  </svg>
+</button>
+
+              </div>
             </div>
           </div>
 
-          <div class="sg-history-hero__media">
-            <div class="sg-hero-image sg-hero-image--large">
-              <img
-                src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
-                alt="Historic St Gabriel's School classroom moment"
-              >
-            </div>
-
-            <div class="sg-hero-image sg-hero-image--small">
-              <img
-                src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
-                alt="Aerial view of St Gabriel's School"
-              >
-            </div>
-
-            <div class="sg-year-badge">
-              <span>Since</span>
-              1922
-            </div>
-          </div>
-
         </div>
 
-        <div class="sg-history-stats">
-          <div>
-            <strong>100+</strong>
-            <span>years of history</span>
-          </div>
-          <div>
-            <strong>K–12</strong>
-            <span>growing learning journey</span>
-          </div>
-          <div>
-            <strong>200</strong>
-            <span>students by expansion</span>
-          </div>
-          <div>
-            <strong>Dharug</strong>
-            <span>Country acknowledged</span>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="desktop-arrows user-items-list-carousel__arrow-wrapper user-items-list-carousel__arrow-wrapper--right" style="
+            grid-gap: 20px;
+            margin-right: 5vw;
+          ">
+          <div class="user-items-list-carousel__arrow-container" style="
+              
+            ">
+            <div class="user-items-list-carousel__arrow-positioner" data-media-aspect-ratio="3:2">
+              <div class="user-items-list-carousel__arrow-icon-holder">
+                <button class="user-items-list-carousel__arrow-button user-items-list-carousel__arrow-button--right preFade fadeIn" aria-label="
+    
+    
+      Next
+    
+  " data-animation-role="button" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.423364s;" fdprocessedid="4ghons">
+  <div class="
+    user-items-list-carousel__arrow-icon-background
+    user-items-list-carousel__arrow-icon-background-area
+  ">
+  </div>
+  <svg class="user-items-list-carousel__arrow-icon" viewBox="0 0 44 18" xmlns="http://www.w3.org/2000/svg">
 
-    <!-- COUNTRY -->
-    <section class="sg-section sg-country-section">
-      <div class="sg-history-shell">
-        <div class="sg-country-card">
+    
 
-          <div class="sg-section-heading">
-            <p class="sg-kicker sg-kicker--cyan">Before our school</p>
-            <h2>Built on Country, shaped by respect.</h2>
-          </div>
+    
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        user-items-list-carousel__arrow-icon-path" d="M34.1477 1.39111L41.9321 9.17551L34.1477 16.9599"></path>
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        user-items-list-carousel__arrow-icon-path" d="M1.19088 9.16982H40.6755"></path>
+    
 
-          <div class="sg-country-card__text">
-            <p>
-              Our school is built on Dharug Country. There were many Indigenous clans living
-              in the area known as Dharug, and those that called Castle Hill home were the
-              Bidjigal people.
-            </p>
+  </svg>
+</button>
 
-            <p>
-              We respectfully acknowledge the ancestors and Elders past, present and emerging
-              of the Bidjigal and Dharug people. Those who respected, cared for and called
-              this land home for thousands of years before us.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- STORY -->
-    <section class="sg-section sg-story-section" id="sg-story">
-      <div class="sg-history-shell">
-        <div class="sg-story-layout">
-
-          <div class="sg-story-sticky">
-            <p class="sg-kicker sg-kicker--cyan">Founded in 1922</p>
-            <h2>Small beginnings. A lasting mission.</h2>
-
-            <div class="sg-story-quote">
-              “Nurturing independence and transforming lives.”
+              </div>
             </div>
           </div>
 
-          <div class="sg-story-content">
-            <p>
-              Over one hundred years ago, on 22 September 1922, St Gabriel’s School opened
-              its doors to its first students. St Gabriel’s started in an old homestead called
-              Southleigh, as a boarding school for boys who were deaf.
-            </p>
-
-            <p>
-              In 1973, it transitioned to a day school and welcomed girls, continuing its work
-              with students who were hearing impaired. In 1976, an integration program was
-              introduced where students attended St Gabriel’s in the morning and their local
-              mainstream school in the afternoon.
-            </p>
-
-            <p>
-              In 1979, a new orange brick school building was finished. The old school buildings
-              were later handed over to Parramatta Diocese to start a co-ed secondary college,
-              now known as Gilroy Catholic College.
-            </p>
-
-            <p>
-              In 2010, St Gabriel’s admission criteria widened to include students with a range
-              of special education needs, including vision impairment and Autism.
-            </p>
-
-            <p>
-              The school started its transition to secondary in 2019, with its first Year 7 class.
-              Major building works commenced in 2020 for the new Secondary School space.
-            </p>
-          </div>
-
         </div>
-      </div>
-    </section>
+      
+    
 
-    <!-- MEDIA FEATURE -->
-    <section class="sg-section sg-film-section">
-      <div class="sg-history-shell">
-        <div class="sg-film-card">
+    <div class="mobile-arrows">
+      <button class="mobile-arrow-button mobile-arrow-button--left preFade" aria-label="
+    
+      Previous
+    
+    
+  " data-animation-role="button" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.426168s;">
+  <div class="
+    user-items-list-carousel__arrow-icon-background
+    mobile-arrow-icon-background-area
+  ">
+  </div>
+  <svg class="mobile-arrow-icon" viewBox="0 0 24 14" xmlns="http://www.w3.org/2000/svg">
 
-          <div class="sg-film-card__media">
-            <img
-              src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/thumbnail"
-              alt="St Gabriel's School history film thumbnail"
-            >
+    
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        mobile-arrow-icon-path" d="M7.87012 13L2.00021 7L7.87012 1" stroke-width="2" fill="none"></path>
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        mobile-arrow-icon-path" d="M22.9653 7L3.03948 7" stroke-width="2" stroke-linecap="square" fill="none"></path>
+    
 
-            <button class="sg-play-btn" type="button" aria-label="Play St Gabriel's history film">
-              <span></span>
-            </button>
-          </div>
+    
 
-          <div class="sg-film-card__content">
-            <p class="sg-kicker sg-kicker--cyan">Our story film</p>
-            <h2>Archive, memory and community.</h2>
-            <p>
-              A visual journey through the people, places and moments that shaped St Gabriel’s
-              School across more than a century.
-            </p>
-          </div>
+  </svg>
+</button>
 
-        </div>
-      </div>
-    </section>
+      <button class="mobile-arrow-button mobile-arrow-button--right preFade" aria-label="
+    
+    
+      Next
+    
+  " data-animation-role="button" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.428972s;">
+  <div class="
+    user-items-list-carousel__arrow-icon-background
+    mobile-arrow-icon-background-area
+  ">
+  </div>
+  <svg class="mobile-arrow-icon" viewBox="0 0 24 14" xmlns="http://www.w3.org/2000/svg">
 
-    <!-- TIMELINE -->
-    <section class="sg-timeline-section" id="sg-timeline">
-      <div class="sg-history-shell">
+    
 
-        <div class="sg-timeline-heading">
-          <p class="sg-kicker">Our history</p>
-          <h2>Milestones that shaped who we are.</h2>
-        </div>
+    
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        mobile-arrow-icon-path" d="M16.1299 1L21.9998 7L16.1299 13" stroke-width="2" fill="none"></path>
+      <path class="user-items-list-carousel__arrow-icon-foreground
+        mobile-arrow-icon-path" d="M1.03472 7H20.9605" stroke-width="2" stroke-linecap="square" fill="none"></path>
+    
 
-        <div class="sg-timeline-track">
+  </svg>
+</button>
 
-          <article class="sg-timeline-card">
-            <span>1920</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/81d8f22a-4b47-41b3-9abd-2bee6b339ac8/scan_quinn_2021-10-21-12-17-26_1.jpeg"
-              alt="Historic school building"
-            >
-            <h3>Southleigh is purchased</h3>
-            <p>
-              The Christian Brothers found a suitable property in Sydney on which to establish
-              the school.
-            </p>
-          </article>
+    </div>
 
-          <article class="sg-timeline-card">
-            <span>1922</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
-              alt="Historic students and staff"
-            >
-            <h3>The school opens</h3>
-            <p>
-              St Gabriel’s School opens its doors to its first students on 22 September.
-            </p>
-          </article>
+  <div aria-live="polite" aria-atomic="true" style="position: absolute; pointer-events: none; opacity: 0;">Item 2 of 37</div></div>
 
-          <article class="sg-timeline-card">
-            <span>1973</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
-              alt="Aerial view of school grounds"
-            >
-            <h3>Day school begins</h3>
-            <p>
-              St Gabriel’s transitions to a day school and welcomes girls into the community.
-            </p>
-          </article>
+  
+    
+  
 
-          <article class="sg-timeline-card">
-            <span>1976</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
-              alt="Historic classroom image"
-            >
-            <h3>Integration program</h3>
-            <p>
-              Students begin learning between St Gabriel’s and their local mainstream school.
-            </p>
-          </article>
-
-          <article class="sg-timeline-card">
-            <span>2010</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
-              alt="St Gabriel's school grounds"
-            >
-            <h3>Broader admission</h3>
-            <p>
-              The school widens its criteria to include students with a range of special
-              education needs.
-            </p>
-          </article>
-
-          <article class="sg-timeline-card">
-            <span>2024</span>
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
-              alt="Modern St Gabriel's campus"
-            >
-            <h3>K–12 future</h3>
-            <p>
-              The first Year 12 class marks a major milestone in the school’s ongoing growth.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- STRATEGIC PLAN -->
-    <section class="sg-section sg-plan-section" id="sg-strategic-plan">
-      <div class="sg-history-shell">
-        <div class="sg-plan-card">
-
-          <div class="sg-plan-card__content">
-            <p class="sg-kicker sg-kicker--cyan">Strategic Plan</p>
-            <h2>2026–2028</h2>
-
-            <p>
-              Our Strategic Plan has been shaped through the ideas and contributions of our
-              school community. It reflects our commitment to providing a safe, inclusive and
-              empowering environment for every student.
-            </p>
-
-            <p>
-              At St Gabriel’s School, our focus is on providing rich learning experiences and
-              interactions that nurture independence and transform lives.
-            </p>
-
-            <a href="#" class="sg-btn sg-btn--primary">Read strategic plan</a>
-          </div>
-
-          <div class="sg-plan-cover">
-            <div class="sg-plan-cover__top">
-              <span>St Gabriel’s School</span>
-              <small>Nurturing Independence. Transforming Lives.</small>
-            </div>
-
-            <div class="sg-plan-cover__main">
-              <strong>Strategic Plan</strong>
-              <span>2026–2028</span>
-            </div>
-
-            <div class="sg-plan-cover__wave"></div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="sg-history-cta">
-      <div class="sg-history-shell">
-        <div class="sg-history-cta__inner">
-          <div>
-            <p class="sg-kicker">Support our future</p>
-            <h2>Help us continue growing.</h2>
-          </div>
-
-          <a href="#" class="sg-btn sg-btn--light">Donate now</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Demo footer only for testing. Remove on real site. -->
-  <footer class="demo-footer">
-    Demo footer — your real footer will stay unchanged.
-  </footer>
-
-</body>
-</html>
+</div>

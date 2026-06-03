@@ -210,13 +210,15 @@
 // ─────────────────────────────────────────────────────────
 
 .sg-history-timeline {
-  background: var(--color-navy);
-  padding: 5rem 0;
+  background:
+    radial-gradient(ellipse 55% 75% at 50% 65%, rgba(0, 169, 157, 0.08), transparent),
+    var(--color-navy);
+  padding: 5rem 0 4rem;
   overflow: hidden;
 }
 
 .sg-history-timeline__header {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .sg-history-timeline__label {
@@ -247,7 +249,8 @@
   line-height: 1;
 }
 
-.sg-history-timeline__swiper-wrap {
+// Track clips overflow
+.sg-history-timeline__track {
   overflow: hidden;
 }
 
@@ -255,35 +258,55 @@
   overflow: visible;
 }
 
+// ── Slide ────────────────────────────────────────────────
+
+// Cinema: inactive slides scale down + dim, active is full size
 .sg-history-timeline__slide {
   width: 320px;
   height: auto;
   align-self: stretch;
+  opacity: 0.32;
+  transform: scale(0.87);
+  transform-origin: center center;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+// Immediate neighbours — partial reveal
+.sg-history-timeline__swiper .swiper-slide-prev,
+.sg-history-timeline__swiper .swiper-slide-next {
+  opacity: 0.52;
+  transform: scale(0.93);
+}
+
+// Active — full presence
+.sg-history-timeline__swiper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+// No box — content floats on navy
 .sg-history-timeline__card {
-  background: var(--color-navy-dark);
-  border-radius: var(--radius-30);
-  padding: 2rem 1.875rem;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  height: 100%;
 }
 
+// Year number
 .sg-history-timeline__year {
+  margin: 0 0 1rem;
   font-family: var(--font-fraunces-9pt);
-  font-size: 3.75rem;
-  letter-spacing: -0.15rem;
-  color: var(--color-cyan);
+  font-size: 3.25rem;
+  letter-spacing: -0.1rem;
+  color: var(--color-cyan-bright);
   line-height: 1;
-  margin: 0;
 }
 
+// Image
 .sg-history-timeline__img-wrap {
   border-radius: var(--radius-small);
   overflow: hidden;
   aspect-ratio: 4 / 3;
+  margin-bottom: 1.375rem;
 }
 
 .sg-history-timeline__img-wrap img {
@@ -291,14 +314,109 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.55s ease;
 }
 
+.sg-history-timeline__swiper .swiper-slide-active .sg-history-timeline__img-wrap img {
+  transform: scale(1.02);
+}
+
+// Milestone heading
+.sg-history-timeline__milestone {
+  margin: 0 0 0.625rem;
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h6);
+  color: var(--color-white);
+  line-height: 1.3;
+  letter-spacing: -0.02rem;
+}
+
+// Description
 .sg-history-timeline__text p {
   margin: 0;
   font-family: var(--font-satoshi-regular);
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--fz-b2);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+// ── Navigation ───────────────────────────────────────────
+
+.sg-history-timeline__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+// Matches sg-split-slider-btn shape, inverted for dark bg
+.sg-history-timeline__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.6875rem;
+  height: 4.6875rem;
+  border-radius: 0.9375rem;
+  border: 0.09375rem solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.sg-history-timeline__nav-btn svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.sg-history-timeline__nav-btn:hover {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+  color: var(--color-white);
+}
+
+.sg-history-timeline__nav-btn.swiper-button-disabled {
+  opacity: 0.25;
+  pointer-events: none;
+  cursor: default;
+}
+
+// Progress bar — fills remaining width between buttons
+.sg-history-timeline__progress {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.sg-history-timeline__progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 12.5%;
+  background: var(--color-cyan);
+  transition: width 0.4s ease;
+}
+
+// ── Responsive ───────────────────────────────────────────
+
+@media (max-width: 991px) {
+  .sg-history-timeline {
+    padding: 3.5rem 0 3rem;
+  }
+  .sg-history-timeline__slide {
+    width: 260px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sg-history-timeline {
+    padding: 3rem 0 2.5rem;
+  }
+  .sg-history-timeline__slide {
+    width: 240px;
+  }
 }
 
 

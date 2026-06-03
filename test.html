@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimal Horizontal Timeline</title>
+
+  <style>
+    :root {
+      --color-navy: #003976;
+      --color-navy-dark: #00264e;
+      --color-cyan: #00a99d;
+      --color-cyan-bright: #35c9bb;
+      --color-darkest-grey: #2c2e35;
+      --color-dark-grey: #434c54;
+      --color-mid-grey: #5e6a76;
+      --color-light-grey: #e1e1e1;
+      --color-white: #ffffff;
+
+      --font-sans: Arial, Helvetica, sans-serif;
+      --font-serif: Georgia, "Times New Roman", serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: #ffffff;
+      color: var(--color-darkest-grey);
+    }
+
+    .minimal-timeline {
+      padding: clamp(5rem, 9vw, 8rem) 0;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #f7fbfb 100%);
+    }
+
+    .timeline-container {
+      width: min(100% - 2rem, 88rem);
+      margin: 0 auto;
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+    }
+
+    .timeline-label {
+      margin-bottom: 0.9rem;
+      color: var(--color-cyan);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .timeline-header h2 {
+      max-width: 12ch;
+      color: var(--color-navy);
+      font-size: clamp(2.8rem, 6vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+    }
+
+    .timeline-header h2 span {
+      display: block;
+      color: var(--color-darkest-grey);
+      font-family: var(--font-serif);
+      font-weight: 400;
+      letter-spacing: -0.09em;
+    }
+
+    .timeline-header p {
+      max-width: 31rem;
+      color: var(--color-mid-grey);
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      line-height: 1.7;
+    }
+
+    .timeline-wrap {
+      position: relative;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 1.95rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 57, 118, 0.18),
+        rgba(0, 169, 157, 0.45),
+        rgba(0, 57, 118, 0.18),
+        transparent
+      );
+    }
+
+    .timeline-track {
+      position: relative;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(17rem, 23rem);
+      gap: clamp(1rem, 2vw, 1.5rem);
+      overflow-x: auto;
+      padding: 0 0 1.5rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-cyan) #e9eeee;
+    }
+
+    .timeline-card {
+      position: relative;
+      scroll-snap-align: start;
+      padding-top: 4.4rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 1.45rem;
+      left: 0.25rem;
+      width: 1rem;
+      height: 1rem;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      background: var(--color-cyan);
+      box-shadow: 0 0 0 1px rgba(0, 169, 157, 0.3);
+      z-index: 2;
+    }
+
+    .timeline-year {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: var(--color-navy);
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .timeline-panel {
+      overflow: hidden;
+      border: 1px solid rgba(0, 57, 118, 0.1);
+      border-radius: 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 1.5rem 3rem rgba(0, 57, 118, 0.07);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .timeline-card:hover .timeline-panel {
+      transform: translateY(-0.4rem);
+      box-shadow: 0 2rem 4rem rgba(0, 57, 118, 0.11);
+    }
+
+    .timeline-image {
+      height: 12rem;
+      overflow: hidden;
+      background: #edf2f3;
+    }
+
+    .timeline-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(1);
+      transform: scale(1.03);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .timeline-card:hover img {
+      filter: grayscale(0.2);
+      transform: scale(1);
+    }
+
+    .timeline-content {
+      padding: 1.35rem;
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 0.7rem;
+      color: var(--color-navy);
+      font-size: 1.25rem;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .timeline-content p {
+      color: var(--color-mid-grey);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 760px) {
+      .timeline-header {
+        display: block;
+      }
+
+      .timeline-header p {
+        margin-top: 1.25rem;
+      }
+
+      .timeline-track {
+        grid-auto-columns: minmax(16.5rem, 82vw);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="minimal-timeline">
+    <div class="timeline-container">
+
+      <div class="timeline-header">
+        <div>
+          <p class="timeline-label">Our History</p>
+          <h2>
+            A quiet
+            <span>legacy.</span>
+          </h2>
+        </div>
+
+        <p>
+          A simple journey through the milestones, people and places that shaped
+          St Gabriel’s School across more than a century.
+        </p>
+      </div>
+
+      <div class="timeline-wrap">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-track">
+
+          <article class="timeline-card">
+            <span class="timeline-year">1920</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/81d8f22a-4b47-41b3-9abd-2bee6b339ac8/scan_quinn_2021-10-21-12-17-26_1.jpeg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>Southleigh is purchased</h3>
+                <p>
+                  The Christian Brothers found a suitable property in Sydney
+                  on which to establish the school.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card">
+            <span class="timeline-year">1922</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>The school opens</h3>
+                <p>
+                  St Gabriel’s School opened its doors to its first students
+                  on 22 September 1922.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card">
+            <span class="timeline-year">1973</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>Day school transition</h3>
+                <p>
+                  The school transitioned to a day school and welcomed girls
+                  into the learning community.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card">
+            <span class="timeline-year">1976</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>Integration program</h3>
+                <p>
+                  Students attended St Gabriel’s in the morning and their local
+                  mainstream school in the afternoon.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card">
+            <span class="timeline-year">2010</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>Broader admission</h3>
+                <p>
+                  Admission criteria widened to include students with a range
+                  of special education needs.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card">
+            <span class="timeline-year">2024</span>
+            <span class="timeline-dot"></span>
+
+            <div class="timeline-panel">
+              <div class="timeline-image">
+                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
+              </div>
+
+              <div class="timeline-content">
+                <h3>K–12 future</h3>
+                <p>
+                  The first Year 12 class marks a major milestone in the
+                  school’s continued growth.
+                </p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
