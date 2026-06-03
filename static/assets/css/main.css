@@ -3959,6 +3959,19 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
     flex: 48% 0 0;
   }
 }
+.about-page .sg-story {
+  padding-top: 5rem;
+}
+@media (max-width: 991px) {
+  .about-page .sg-story {
+    padding-top: 3.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .about-page .sg-story {
+    padding-top: 2.5rem;
+  }
+}
 .sg-about-page-tail {
   margin-top: -0.0625rem;
   display: flex;
@@ -4285,7 +4298,7 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   }
 }
 .sg-contact-info {
-  padding: 6.25rem 0;
+  padding: 5rem 0 6.25rem;
 }
 .sg-contact-map-wrap {
   width: 100%;
