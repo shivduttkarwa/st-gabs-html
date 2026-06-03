@@ -220,26 +220,21 @@
   padding: 0.625rem 1rem;
   text-decoration: none;
   transition: background 0.3s ease;
-  img {
-    width: 1.875rem;
-    height: 1.875rem;
-    display: block;
+  i {
+    font-size: 1.875rem;
+    color: var(--primary-cyan-bright, #35c9bb);
+    line-height: 1;
     transition: filter 0.3s ease;
   }
   &:hover {
     background: #004a96;
-    img {
+    i {
       filter: brightness(1.3) drop-shadow(0 0 6px rgba(53, 201, 187, 0.5));
     }
     span:last-child {
       color: var(--primary-cyan-bright, #35c9bb);
     }
   }
-}
-
-.sg-quick-links .row a span:first-child {
-  color: var(--primary-cyan-bright, #35c9bb);
-  line-height: 0;
 }
 
 .sg-quick-links .row a span:last-child {
