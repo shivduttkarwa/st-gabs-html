@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>St Gabriel's History Page Redesign Test</title>
+
+  <style>
+    /* ============================================================
+       ST GABRIEL'S SCHOOL — DESIGN TOKENS
+       Standalone test file
+    ============================================================ */
+
+    :root {
+      --color-navy: #003976;
+      --color-navy-dark: #00264e;
+      --color-cyan: #00a99d;
+      --color-cyan-bright: #35c9bb;
+      --color-cyan-tint: #e8fdfb;
+
+      --color-darkest-grey: #2c2e35;
+      --color-dark-grey: #434c54;
+      --color-mid-grey: #5e6a76;
+      --color-light-grey: #e1e1e1;
+
+      --color-white: #ffffff;
+      --color-white-sec: #ffffffbf;
+      --color-white-alpha20: #ffffff33;
+
+      --font-satoshi-variable: Arial, Helvetica, sans-serif;
+      --font-satoshi-bold: Arial, Helvetica, sans-serif;
+      --font-fraunces-9pt: Georgia, "Times New Roman", serif;
+
+      --radius-xsmall: 0.625rem;
+      --radius-small: 0.9375rem;
+      --radius-base: 1.875rem;
+      --radius-medium: 3.125rem;
+
+      --header-height: 5.5rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--color-darkest-grey);
+      font-family: var(--font-satoshi-variable);
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* Demo header/footer only for testing. Remove these when adding to real site. */
+
+    .demo-header {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--header-height);
+      padding-inline: clamp(1rem, 4vw, 3rem);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 57, 118, 0.08);
+    }
+
+    .demo-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--color-navy);
+      font-weight: 900;
+      text-decoration: none;
+      letter-spacing: -0.04em;
+    }
+
+    .demo-logo__mark {
+      width: 2.65rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, var(--color-cyan-bright), transparent 35%),
+        linear-gradient(135deg, var(--color-cyan), var(--color-navy));
+    }
+
+    .demo-nav {
+      display: flex;
+      gap: 1.25rem;
+      color: var(--color-dark-grey);
+      font-size: 0.9rem;
+    }
+
+    .demo-nav a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .demo-nav a:hover {
+      color: var(--color-cyan);
+    }
+
+    .demo-footer {
+      padding: 3rem 1.25rem;
+      background: #d9dee1;
+      color: var(--color-navy);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    @media (max-width: 760px) {
+      .demo-nav {
+        display: none;
+      }
+    }
+
+    /* ============================================================
+       PAGE REDESIGN
+    ============================================================ */
+
+    .sg-history-page,
+    .sg-history-page * {
+      box-sizing: border-box;
+    }
+
+    .sg-history-page {
+      background:
+        radial-gradient(circle at 10% 5%, rgba(53, 201, 187, 0.16), transparent 28rem),
+        linear-gradient(180deg, #ffffff 0%, #f7fbfc 42%, #ffffff 100%);
+      color: var(--color-darkest-grey);
+      font-family: var(--font-satoshi-variable, sans-serif);
+      overflow: hidden;
+    }
+
+    .sg-history-shell {
+      width: min(100% - 2.5rem, 82rem);
+      margin-inline: auto;
+    }
+
+    .sg-section {
+      padding-block: clamp(4.5rem, 9vw, 8rem);
+    }
+
+    .sg-kicker {
+      margin: 0 0 1rem;
+      color: var(--color-white-sec);
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .sg-kicker--cyan {
+      color: var(--color-cyan);
+    }
+
+    .sg-history-page h1,
+    .sg-history-page h2,
+    .sg-history-page h3,
+    .sg-history-page p {
+      margin-top: 0;
+    }
+
+    .sg-history-page h1,
+    .sg-history-page h2,
+    .sg-history-page h3 {
+      font-family: var(--font-satoshi-bold, var(--font-satoshi-variable, sans-serif));
+      color: inherit;
+    }
+
+    .sg-history-page h1 {
+      max-width: 12ch;
+      margin-bottom: 1.5rem;
+      font-size: clamp(3.2rem, 7.5vw, 7.6rem);
+      line-height: 0.88;
+      letter-spacing: -0.08em;
+    }
+
+    .sg-history-page h1 span {
+      display: block;
+      color: var(--color-cyan-bright);
+      font-family: var(--font-fraunces-9pt, serif);
+      font-weight: 400;
+      letter-spacing: -0.08em;
+    }
+
+    .sg-history-page h2 {
+      margin-bottom: 1.25rem;
+      font-size: clamp(2.25rem, 4.5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    .sg-history-page h3 {
+      margin-bottom: 0.75rem;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .sg-history-page p {
+      color: var(--color-dark-grey);
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      line-height: 1.75;
+    }
+
+    .sg-btn {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.25rem;
+      padding: 0 1.35rem;
+      border-radius: 999rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      line-height: 1;
+      text-decoration: none;
+      transition:
+        transform 0.35s ease,
+        background-color 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease;
+    }
+
+    .sg-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .sg-btn--light {
+      background: var(--color-white);
+      color: var(--color-navy);
+    }
+
+    .sg-btn--ghost {
+      border: 1px solid var(--color-white-alpha20);
+      color: var(--color-white);
+    }
+
+    .sg-btn--ghost:hover {
+      background: var(--color-white);
+      color: var(--color-navy);
+    }
+
+    .sg-btn--primary {
+      background: var(--color-cyan);
+      color: var(--color-white);
+    }
+
+    .sg-btn--primary:hover {
+      background: var(--color-navy);
+    }
+
+    /* HERO */
+
+    .sg-history-hero {
+      position: relative;
+      padding-block: clamp(3rem, 6vw, 5rem) clamp(3.5rem, 6vw, 6rem);
+      background:
+        radial-gradient(circle at 86% 20%, rgba(53, 201, 187, 0.42), transparent 22rem),
+        radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.12), transparent 18rem),
+        linear-gradient(135deg, var(--color-navy-dark), var(--color-navy));
+      color: var(--color-white);
+    }
+
+    .sg-history-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 4.5rem 4.5rem;
+      mask-image: linear-gradient(180deg, black, transparent 85%);
+    }
+
+    .sg-history-hero__grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.95fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: center;
+    }
+
+    .sg-history-hero__content > p:not(.sg-kicker) {
+      max-width: 42rem;
+      margin-bottom: 2rem;
+      color: var(--color-white-sec);
+      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      line-height: 1.65;
+    }
+
+    .sg-history-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .sg-history-hero__media {
+      position: relative;
+      min-height: clamp(28rem, 52vw, 42rem);
+    }
+
+    .sg-hero-image {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-medium);
+      background: var(--color-white-alpha20);
+      box-shadow: 0 2rem 5rem rgba(0,0,0,0.28);
+    }
+
+    .sg-hero-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.05);
+      transform: scale(1.04);
+      transition: transform 0.8s ease, filter 0.8s ease;
+    }
+
+    .sg-hero-image:hover img {
+      filter: grayscale(0.25) contrast(1.05);
+      transform: scale(1);
+    }
+
+    .sg-hero-image--large {
+      inset: 0 7% 13% 0;
+    }
+
+    .sg-hero-image--small {
+      right: 0;
+      bottom: 0;
+      width: 48%;
+      height: 42%;
+      border-radius: var(--radius-base);
+    }
+
+    .sg-year-badge {
+      position: absolute;
+      top: 9%;
+      right: 1%;
+      display: grid;
+      place-items: center;
+      width: clamp(8rem, 12vw, 11rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,0.26);
+      border-radius: 50%;
+      background: rgba(0, 169, 157, 0.88);
+      color: var(--color-white);
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.22);
+    }
+
+    .sg-year-badge span {
+      display: block;
+      margin-bottom: -0.3rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .sg-history-stats {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-top: clamp(3rem, 6vw, 5rem);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius-base);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .sg-history-stats div {
+      padding: clamp(1rem, 2vw, 1.75rem);
+    }
+
+    .sg-history-stats strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--color-white);
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .sg-history-stats span {
+      color: var(--color-white-sec);
+      font-size: 0.92rem;
+    }
+
+    /* COUNTRY */
+
+    .sg-country-card {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      padding: clamp(2rem, 5vw, 4rem);
+      border: 1px solid rgba(0, 57, 118, 0.11);
+      border-radius: var(--radius-medium);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0, 169, 157, 0.13), transparent 22rem),
+        var(--color-white);
+      box-shadow: 0 1.5rem 5rem rgba(0, 57, 118, 0.08);
+    }
+
+    .sg-country-card__text {
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .sg-country-card__text p {
+      break-inside: avoid;
+    }
+
+    /* STORY */
+
+    .sg-story-section {
+      background: var(--color-white);
+    }
+
+    .sg-story-layout {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: clamp(2rem, 7vw, 6rem);
+      align-items: start;
+    }
+
+    .sg-story-sticky {
+      position: sticky;
+      top: calc(var(--header-height, 5.5rem) + 2rem);
+    }
+
+    .sg-story-quote {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-left: 0.35rem solid var(--color-cyan);
+      border-radius: 0 var(--radius-base) var(--radius-base) 0;
+      background: var(--color-cyan-tint);
+      color: var(--color-navy);
+      font-family: var(--font-fraunces-9pt, serif);
+      font-size: clamp(1.35rem, 2vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: -0.05em;
+    }
+
+    .sg-story-content {
+      display: grid;
+      gap: 1.1rem;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border-radius: var(--radius-medium);
+      background: #f2f2f2;
+    }
+
+    .sg-story-content p {
+      margin-bottom: 0;
+    }
+
+    /* FILM */
+
+    .sg-film-section {
+      padding-top: 0;
+    }
+
+    .sg-film-card {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      overflow: hidden;
+      border-radius: var(--radius-medium);
+      background: var(--color-navy);
+      color: var(--color-white);
+      box-shadow: 0 1.5rem 5rem rgba(0, 57, 118, 0.16);
+    }
+
+    .sg-film-card__media {
+      position: relative;
+      min-height: clamp(22rem, 40vw, 34rem);
+      overflow: hidden;
+    }
+
+    .sg-film-card__media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.08);
+      opacity: 0.82;
+    }
+
+    .sg-play-btn {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: clamp(5rem, 8vw, 7rem);
+      aspect-ratio: 1;
+      translate: -50% -50%;
+      border: 0;
+      border-radius: 50%;
+      background: var(--color-cyan);
+      cursor: pointer;
+      box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.35);
+      transition: transform 0.35s ease, background-color 0.35s ease;
+    }
+
+    .sg-play-btn:hover {
+      transform: scale(1.08);
+      background: var(--color-cyan-bright);
+    }
+
+    .sg-play-btn span {
+      display: block;
+      width: 0;
+      height: 0;
+      margin-left: 42%;
+      border-top: 0.85rem solid transparent;
+      border-bottom: 0.85rem solid transparent;
+      border-left: 1.25rem solid var(--color-white);
+    }
+
+    .sg-film-card__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2rem, 5vw, 4rem);
+    }
+
+    .sg-film-card__content p:not(.sg-kicker) {
+      color: var(--color-white-sec);
+    }
+
+    /* TIMELINE */
+
+    .sg-timeline-section {
+      padding-block: clamp(4.5rem, 9vw, 8rem);
+      background:
+        radial-gradient(circle at 85% 0%, rgba(53, 201, 187, 0.2), transparent 26rem),
+        var(--color-navy-dark);
+      color: var(--color-white);
+    }
+
+    .sg-timeline-heading {
+      max-width: 48rem;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+
+    .sg-timeline-heading h2 {
+      color: var(--color-white);
+    }
+
+    .sg-timeline-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(18rem, 27rem);
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: var(--color-cyan) rgba(255,255,255,0.14);
+    }
+
+    .sg-timeline-card {
+      scroll-snap-align: start;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-base);
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(16px);
+    }
+
+    .sg-timeline-card span {
+      display: block;
+      padding: 1.25rem 1.25rem 0;
+      color: var(--color-cyan-bright);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.08em;
+    }
+
+    .sg-timeline-card img {
+      width: calc(100% - 2.5rem);
+      height: 13rem;
+      margin: 1.25rem;
+      display: block;
+      object-fit: cover;
+      border-radius: var(--radius-small);
+      filter: grayscale(1);
+    }
+
+    .sg-timeline-card h3 {
+      padding-inline: 1.25rem;
+      color: var(--color-white);
+    }
+
+    .sg-timeline-card p {
+      padding: 0 1.25rem 1.4rem;
+      color: var(--color-white-sec);
+      font-size: 0.96rem;
+    }
+
+    /* STRATEGIC PLAN */
+
+    .sg-plan-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.72fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+
+    .sg-plan-card__content {
+      max-width: 42rem;
+    }
+
+    .sg-plan-card__content .sg-btn {
+      margin-top: 1rem;
+    }
+
+    .sg-plan-cover {
+      position: relative;
+      display: flex;
+      min-height: clamp(30rem, 46vw, 42rem);
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      border-radius: var(--radius-medium);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.82), rgba(232,253,251,0.72)),
+        linear-gradient(135deg, var(--color-cyan-tint), var(--color-white));
+      box-shadow: 0 2rem 5rem rgba(0, 57, 118, 0.14);
+    }
+
+    .sg-plan-cover::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -18% -10%;
+      height: 42%;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(135deg, var(--color-cyan), var(--color-navy));
+      opacity: 0.95;
+    }
+
+    .sg-plan-cover__top,
+    .sg-plan-cover__main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sg-plan-cover__top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--color-navy);
+      font-weight: 800;
+    }
+
+    .sg-plan-cover__top small {
+      max-width: 12rem;
+      color: var(--color-mid-grey);
+      text-align: right;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .sg-plan-cover__main strong,
+    .sg-plan-cover__main span {
+      display: block;
+    }
+
+    .sg-plan-cover__main strong {
+      max-width: 8ch;
+      color: var(--color-navy);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+    }
+
+    .sg-plan-cover__main span {
+      margin-top: 0.75rem;
+      color: var(--color-cyan);
+      font-family: var(--font-fraunces-9pt, serif);
+      font-size: clamp(2.25rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .sg-plan-cover__wave {
+      position: absolute;
+      right: -16%;
+      bottom: 10%;
+      width: 70%;
+      aspect-ratio: 1;
+      border: 1.15rem solid rgba(255,255,255,0.5);
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      rotate: -22deg;
+    }
+
+    /* CTA */
+
+    .sg-history-cta {
+      padding-block: clamp(3rem, 6vw, 5rem);
+      background: var(--color-navy);
+      color: var(--color-white);
+    }
+
+    .sg-history-cta__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      border-radius: var(--radius-medium);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(53, 201, 187, 0.35), transparent 22rem),
+        var(--color-navy-dark);
+    }
+
+    .sg-history-cta h2 {
+      margin-bottom: 0;
+      color: var(--color-white);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 980px) {
+      .sg-history-hero__grid,
+      .sg-country-card,
+      .sg-story-layout,
+      .sg-film-card,
+      .sg-plan-card {
+        grid-template-columns: 1fr;
+      }
+
+      .sg-story-sticky {
+        position: static;
+      }
+
+      .sg-history-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sg-country-card__text {
+        columns: 1;
+      }
+
+      .sg-film-card__content {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sg-history-shell {
+        width: min(100% - 1.25rem, 82rem);
+      }
+
+      .sg-history-page h1 {
+        font-size: clamp(3rem, 18vw, 4.4rem);
+      }
+
+      .sg-history-hero__media {
+        min-height: 28rem;
+      }
+
+      .sg-hero-image--large {
+        inset: 0;
+      }
+
+      .sg-hero-image--small {
+        width: 58%;
+        height: 32%;
+      }
+
+      .sg-year-badge {
+        top: auto;
+        right: auto;
+        left: 1rem;
+        bottom: 1rem;
+      }
+
+      .sg-history-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .sg-history-cta__inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .sg-timeline-track {
+        grid-auto-columns: minmax(16.5rem, 84vw);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Demo header only for testing. Remove on real site. -->
+  <header class="demo-header">
+    <a href="#" class="demo-logo">
+      <span class="demo-logo__mark"></span>
+      St Gabriel's School
+    </a>
+
+    <nav class="demo-nav" aria-label="Demo navigation">
+      <a href="#">About</a>
+      <a href="#">Learning</a>
+      <a href="#">Community</a>
+      <a href="#">Enrolments</a>
+      <a href="#">Support Us</a>
+    </nav>
+  </header>
+
+  <main class="sg-history-page">
+
+    <!-- HERO -->
+    <section class="sg-history-hero">
+      <div class="sg-history-shell">
+        <div class="sg-history-hero__grid">
+
+          <div class="sg-history-hero__content">
+            <p class="sg-kicker">History & Alumni</p>
+
+            <h1>
+              A century of care,
+              <span>growth and belonging.</span>
+            </h1>
+
+            <p>
+              From a small school founded in 1922 to a modern K–12 learning community,
+              St Gabriel’s has continued one mission: nurturing independence and
+              transforming the lives of students.
+            </p>
+
+            <div class="sg-history-hero__actions">
+              <a href="#sg-story" class="sg-btn sg-btn--light">Explore our story</a>
+              <a href="#sg-timeline" class="sg-btn sg-btn--ghost">View timeline</a>
+            </div>
+          </div>
+
+          <div class="sg-history-hero__media">
+            <div class="sg-hero-image sg-hero-image--large">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
+                alt="Historic St Gabriel's School classroom moment"
+              >
+            </div>
+
+            <div class="sg-hero-image sg-hero-image--small">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
+                alt="Aerial view of St Gabriel's School"
+              >
+            </div>
+
+            <div class="sg-year-badge">
+              <span>Since</span>
+              1922
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sg-history-stats">
+          <div>
+            <strong>100+</strong>
+            <span>years of history</span>
+          </div>
+          <div>
+            <strong>K–12</strong>
+            <span>growing learning journey</span>
+          </div>
+          <div>
+            <strong>200</strong>
+            <span>students by expansion</span>
+          </div>
+          <div>
+            <strong>Dharug</strong>
+            <span>Country acknowledged</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTRY -->
+    <section class="sg-section sg-country-section">
+      <div class="sg-history-shell">
+        <div class="sg-country-card">
+
+          <div class="sg-section-heading">
+            <p class="sg-kicker sg-kicker--cyan">Before our school</p>
+            <h2>Built on Country, shaped by respect.</h2>
+          </div>
+
+          <div class="sg-country-card__text">
+            <p>
+              Our school is built on Dharug Country. There were many Indigenous clans living
+              in the area known as Dharug, and those that called Castle Hill home were the
+              Bidjigal people.
+            </p>
+
+            <p>
+              We respectfully acknowledge the ancestors and Elders past, present and emerging
+              of the Bidjigal and Dharug people. Those who respected, cared for and called
+              this land home for thousands of years before us.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="sg-section sg-story-section" id="sg-story">
+      <div class="sg-history-shell">
+        <div class="sg-story-layout">
+
+          <div class="sg-story-sticky">
+            <p class="sg-kicker sg-kicker--cyan">Founded in 1922</p>
+            <h2>Small beginnings. A lasting mission.</h2>
+
+            <div class="sg-story-quote">
+              “Nurturing independence and transforming lives.”
+            </div>
+          </div>
+
+          <div class="sg-story-content">
+            <p>
+              Over one hundred years ago, on 22 September 1922, St Gabriel’s School opened
+              its doors to its first students. St Gabriel’s started in an old homestead called
+              Southleigh, as a boarding school for boys who were deaf.
+            </p>
+
+            <p>
+              In 1973, it transitioned to a day school and welcomed girls, continuing its work
+              with students who were hearing impaired. In 1976, an integration program was
+              introduced where students attended St Gabriel’s in the morning and their local
+              mainstream school in the afternoon.
+            </p>
+
+            <p>
+              In 1979, a new orange brick school building was finished. The old school buildings
+              were later handed over to Parramatta Diocese to start a co-ed secondary college,
+              now known as Gilroy Catholic College.
+            </p>
+
+            <p>
+              In 2010, St Gabriel’s admission criteria widened to include students with a range
+              of special education needs, including vision impairment and Autism.
+            </p>
+
+            <p>
+              The school started its transition to secondary in 2019, with its first Year 7 class.
+              Major building works commenced in 2020 for the new Secondary School space.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA FEATURE -->
+    <section class="sg-section sg-film-section">
+      <div class="sg-history-shell">
+        <div class="sg-film-card">
+
+          <div class="sg-film-card__media">
+            <img
+              src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/thumbnail"
+              alt="St Gabriel's School history film thumbnail"
+            >
+
+            <button class="sg-play-btn" type="button" aria-label="Play St Gabriel's history film">
+              <span></span>
+            </button>
+          </div>
+
+          <div class="sg-film-card__content">
+            <p class="sg-kicker sg-kicker--cyan">Our story film</p>
+            <h2>Archive, memory and community.</h2>
+            <p>
+              A visual journey through the people, places and moments that shaped St Gabriel’s
+              School across more than a century.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="sg-timeline-section" id="sg-timeline">
+      <div class="sg-history-shell">
+
+        <div class="sg-timeline-heading">
+          <p class="sg-kicker">Our history</p>
+          <h2>Milestones that shaped who we are.</h2>
+        </div>
+
+        <div class="sg-timeline-track">
+
+          <article class="sg-timeline-card">
+            <span>1920</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/81d8f22a-4b47-41b3-9abd-2bee6b339ac8/scan_quinn_2021-10-21-12-17-26_1.jpeg"
+              alt="Historic school building"
+            >
+            <h3>Southleigh is purchased</h3>
+            <p>
+              The Christian Brothers found a suitable property in Sydney on which to establish
+              the school.
+            </p>
+          </article>
+
+          <article class="sg-timeline-card">
+            <span>1922</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
+              alt="Historic students and staff"
+            >
+            <h3>The school opens</h3>
+            <p>
+              St Gabriel’s School opens its doors to its first students on 22 September.
+            </p>
+          </article>
+
+          <article class="sg-timeline-card">
+            <span>1973</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
+              alt="Aerial view of school grounds"
+            >
+            <h3>Day school begins</h3>
+            <p>
+              St Gabriel’s transitions to a day school and welcomes girls into the community.
+            </p>
+          </article>
+
+          <article class="sg-timeline-card">
+            <span>1976</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
+              alt="Historic classroom image"
+            >
+            <h3>Integration program</h3>
+            <p>
+              Students begin learning between St Gabriel’s and their local mainstream school.
+            </p>
+          </article>
+
+          <article class="sg-timeline-card">
+            <span>2010</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
+              alt="St Gabriel's school grounds"
+            >
+            <h3>Broader admission</h3>
+            <p>
+              The school widens its criteria to include students with a range of special
+              education needs.
+            </p>
+          </article>
+
+          <article class="sg-timeline-card">
+            <span>2024</span>
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
+              alt="Modern St Gabriel's campus"
+            >
+            <h3>K–12 future</h3>
+            <p>
+              The first Year 12 class marks a major milestone in the school’s ongoing growth.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC PLAN -->
+    <section class="sg-section sg-plan-section" id="sg-strategic-plan">
+      <div class="sg-history-shell">
+        <div class="sg-plan-card">
+
+          <div class="sg-plan-card__content">
+            <p class="sg-kicker sg-kicker--cyan">Strategic Plan</p>
+            <h2>2026–2028</h2>
+
+            <p>
+              Our Strategic Plan has been shaped through the ideas and contributions of our
+              school community. It reflects our commitment to providing a safe, inclusive and
+              empowering environment for every student.
+            </p>
+
+            <p>
+              At St Gabriel’s School, our focus is on providing rich learning experiences and
+              interactions that nurture independence and transform lives.
+            </p>
+
+            <a href="#" class="sg-btn sg-btn--primary">Read strategic plan</a>
+          </div>
+
+          <div class="sg-plan-cover">
+            <div class="sg-plan-cover__top">
+              <span>St Gabriel’s School</span>
+              <small>Nurturing Independence. Transforming Lives.</small>
+            </div>
+
+            <div class="sg-plan-cover__main">
+              <strong>Strategic Plan</strong>
+              <span>2026–2028</span>
+            </div>
+
+            <div class="sg-plan-cover__wave"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sg-history-cta">
+      <div class="sg-history-shell">
+        <div class="sg-history-cta__inner">
+          <div>
+            <p class="sg-kicker">Support our future</p>
+            <h2>Help us continue growing.</h2>
+          </div>
+
+          <a href="#" class="sg-btn sg-btn--light">Donate now</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Demo footer only for testing. Remove on real site. -->
+  <footer class="demo-footer">
+    Demo footer — your real footer will stay unchanged.
+  </footer>
+
+</body>
+</html>

@@ -584,23 +584,48 @@
         </div>
       </div>
 
-      <!-- Image — right on desktop -->
+      <!-- Images — right on desktop (profile card shape + sweep animation) -->
       <div class="col-12 col-lg-6 sg-story-media-col order-lg-2">
-        <div class="sg-story-media sg-mask-sweep-reveal">
-          <svg class="sg-story-frame" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 620" fill="none" role="img" aria-label="Aerial view of St Gabriel's School grounds">
-            <defs>
-              <clipPath id="sg-story-ack-clip" clipPathUnits="userSpaceOnUse">
-                <path class="sg-mask-grow-shape" d="M590 0C606.569 4.50982e-06 620 13.4315 620 30V260.427C621.781 277.146 628.26 292.886 638.449 306.919C639.851 308.845 639.851 311.155 638.449 313.081C628.26 327.114 621.781 342.853 620 359.572V590C620 606.569 606.569 620 590 620H30C13.4315 620 0 606.569 0 590V30C4.5101e-06 13.4315 13.4315 0 30 0H590Z"/>
-              </clipPath>
-            </defs>
-            <g class="sg-mask-grow-shell">
-              <image class="sg-mask-grow-image"
-                     href="static/assets/images/image-6.jpg"
-                     width="640" height="620"
-                     preserveAspectRatio="xMidYMid slice"
-                     clip-path="url(#sg-story-ack-clip)"/>
-            </g>
-          </svg>
+        <div class="sg-ack-images">
+
+          <div class="sg-ack-images__item">
+            <div class="sg-profile-card-frame sg-mask-sweep-reveal" data-sweep-delay="0.0" data-sweep-start="top 85%" data-sweep-origin="bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 380" fill="none" role="img" aria-label="Historical photograph of St Gabriel's early students">
+                <defs>
+                  <clipPath id="sg-ack-img-clip-1" clipPathUnits="userSpaceOnUse">
+                    <path class="sg-mask-grow-shape" d="M195 362.5C177.854 362.5 161.715 368.835 147.611 379.106C145.979 380.298 144.021 380.298 142.389 379.106C128.285 368.835 112.146 362.5 95 362.5H195ZM260 0C276.569 0 290 13.4315 290 30V333C290 349.569 276.569 363 260 363H30C13.4315 363 0 349.569 0 333V30C0 13.4315 13.4315 0 30 0H260Z"/>
+                  </clipPath>
+                </defs>
+                <g class="sg-mask-grow-shell">
+                  <image class="sg-mask-grow-image"
+                         href="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/81d8f22a-4b47-41b3-9abd-2bee6b339ac8/scan_quinn_2021-10-21-12-17-26_1.jpeg"
+                         width="290" height="380"
+                         preserveAspectRatio="xMidYMid slice"
+                         clip-path="url(#sg-ack-img-clip-1)"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div class="sg-ack-images__item">
+            <div class="sg-profile-card-frame sg-mask-sweep-reveal" data-sweep-delay="0.15" data-sweep-start="top 85%" data-sweep-origin="bottom">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 380" fill="none" role="img" aria-label="Historical photograph of students at St Gabriel's School">
+                <defs>
+                  <clipPath id="sg-ack-img-clip-2" clipPathUnits="userSpaceOnUse">
+                    <path class="sg-mask-grow-shape" d="M195 362.5C177.854 362.5 161.715 368.835 147.611 379.106C145.979 380.298 144.021 380.298 142.389 379.106C128.285 368.835 112.146 362.5 95 362.5H195ZM260 0C276.569 0 290 13.4315 290 30V333C290 349.569 276.569 363 260 363H30C13.4315 363 0 349.569 0 333V30C0 13.4315 13.4315 0 30 0H260Z"/>
+                  </clipPath>
+                </defs>
+                <g class="sg-mask-grow-shell">
+                  <image class="sg-mask-grow-image"
+                         href="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg"
+                         width="290" height="380"
+                         preserveAspectRatio="xMidYMid slice"
+                         clip-path="url(#sg-ack-img-clip-2)"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -640,15 +665,23 @@
         </div>
       </div>
 
-      <!-- Image column -->
+      <!-- Video + image column -->
       <div class="col-12 col-lg-6 sg-children-anim">
-        <div class="sg-history-body__images">
-          <div class="sg-history-body__img-wrap sg-history-body__img-wrap--landscape">
-            <img src="static/assets/images/image-3.jpg" alt="St Gabriel's School grounds — aerial view" loading="lazy">
-          </div>
-          <div class="sg-history-body__img-wrap sg-history-body__img-wrap--landscape">
-            <img src="static/assets/images/image-4.jpg" alt="Historical photograph of early St Gabriel's students" loading="lazy">
-          </div>
+        <div class="sg-history-video">
+          <video
+            class="sg-history-video__player"
+            controls
+            playsinline
+            poster="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/thumbnail">
+            <source src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/1920x1080" type="video/mp4">
+            <source src="https://video.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/cf38f0ee-77c8-4f71-ba43-4e4e8f0b231c/640x360" type="video/mp4">
+          </video>
+        </div>
+        <div class="sg-history-body__img-wrap sg-history-body__img-wrap--landscape mt-4">
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg"
+            alt="Aerial view of St Gabriel's School grounds"
+            loading="lazy">
         </div>
       </div>
 
