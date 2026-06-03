@@ -991,6 +991,14 @@ let heroSwiperInstance = null;
 let heroSlideAnimTimeout = null;
 const isMobileViewport = () => window.innerWidth <= 991;
 
+function syncHeroVideos(swiper) {
+    swiper.slides.forEach((slide, i) => {
+        const v = slide.querySelector('video.sg-hero__bg');
+        if (!v) return;
+        i === swiper.activeIndex ? v.play().catch(() => {}) : v.pause();
+    });
+}
+
 function resetMobileHeroImage(slide) {
     if (!slide || !isMobileViewport() || typeof gsap === 'undefined') return;
     const bg = slide.querySelector('.sg-hero__bg');
@@ -1003,8 +1011,16 @@ window.getHeroSwiperInstance = () => heroSwiperInstance;
 
 if (heroSwiperEl && !heroSwiperEl.swiper) {
     const hasPreloader = !!document.querySelector('#preloader');
+    const heroPrevBtn = heroSwiperEl.closest('.sg-hero')?.querySelector('.sg-hero__arrow-prev');
+    const heroNextBtn = heroSwiperEl.closest('.sg-hero')?.querySelector('.sg-hero__arrow-next');
+
+    function updateHeroNavState(swiper) {
+        if (heroPrevBtn) heroPrevBtn.disabled = swiper.activeIndex === 0;
+        if (heroNextBtn) heroNextBtn.disabled = swiper.activeIndex === swiper.slides.length - 1;
+    }
+
     heroSwiperInstance = new Swiper(heroSwiperEl, {
-        loop: true,
+        loop: false,
         speed: 900,
         effect: 'fade',
         fadeEffect: { crossFade: true },
@@ -1014,6 +1030,7 @@ if (heroSwiperEl && !heroSwiperEl.swiper) {
         },
         on: {
             afterInit(swiper) {
+                updateHeroNavState(swiper);
                 swiper.slides.forEach((slide) => resetMobileHeroImage(slide));
                 if (window.SGAnimations) {
                     window.SGAnimations.resetHeroSlides(swiper, !hasPreloader, !hasPreloader);
@@ -1026,6 +1043,7 @@ if (heroSwiperEl && !heroSwiperEl.swiper) {
                 });
             },
             slideChangeTransitionStart(swiper) {
+                updateHeroNavState(swiper);
                 if (heroSlideAnimTimeout) {
                     clearTimeout(heroSlideAnimTimeout);
                     heroSlideAnimTimeout = null;
@@ -1043,7 +1061,18 @@ if (heroSwiperEl && !heroSwiperEl.swiper) {
                     heroSlideAnimTimeout = null;
                 }, 120);
             },
+            slideChangeTransitionEnd(swiper) {
+                syncHeroVideos(swiper);
+            },
         },
+    });
+
+    window.addEventListener('load', () => {
+        if (heroSwiperInstance) {
+            setTimeout(() => {
+                syncHeroVideos(heroSwiperInstance);
+            }, 300);
+        }
     });
 }
 

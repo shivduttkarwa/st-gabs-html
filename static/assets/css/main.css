@@ -3691,6 +3691,11 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 .sg-hero__arrow:hover svg rect {
   fill: rgba(255, 255, 255, 0.16);
 }
+.sg-hero__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
 .sg-quick-links {
   position: relative;
   background: var(--primary-navy-dark, #00264e);
