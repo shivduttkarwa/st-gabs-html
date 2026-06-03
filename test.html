@@ -1,366 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minimal Horizontal Timeline</title>
-
-  <style>
-    :root {
-      --color-navy: #003976;
-      --color-navy-dark: #00264e;
-      --color-cyan: #00a99d;
-      --color-cyan-bright: #35c9bb;
-      --color-darkest-grey: #2c2e35;
-      --color-dark-grey: #434c54;
-      --color-mid-grey: #5e6a76;
-      --color-light-grey: #e1e1e1;
-      --color-white: #ffffff;
-
-      --font-sans: Arial, Helvetica, sans-serif;
-      --font-serif: Georgia, "Times New Roman", serif;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: #ffffff;
-      color: var(--color-darkest-grey);
-    }
-
-    .minimal-timeline {
-      padding: clamp(5rem, 9vw, 8rem) 0;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, #ffffff 0%, #f7fbfb 100%);
-    }
-
-    .timeline-container {
-      width: min(100% - 2rem, 88rem);
-      margin: 0 auto;
-    }
-
-    .timeline-header {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 2rem;
-      margin-bottom: clamp(3rem, 6vw, 5rem);
-    }
-
-    .timeline-label {
-      margin-bottom: 0.9rem;
-      color: var(--color-cyan);
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .timeline-header h2 {
-      max-width: 12ch;
-      color: var(--color-navy);
-      font-size: clamp(2.8rem, 6vw, 5.8rem);
-      line-height: 0.9;
-      letter-spacing: -0.08em;
-    }
-
-    .timeline-header h2 span {
-      display: block;
-      color: var(--color-darkest-grey);
-      font-family: var(--font-serif);
-      font-weight: 400;
-      letter-spacing: -0.09em;
-    }
-
-    .timeline-header p {
-      max-width: 31rem;
-      color: var(--color-mid-grey);
-      font-size: clamp(1rem, 1.2vw, 1.125rem);
-      line-height: 1.7;
-    }
-
-    .timeline-wrap {
-      position: relative;
-    }
-
-    .timeline-line {
-      position: absolute;
-      top: 1.95rem;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 57, 118, 0.18),
-        rgba(0, 169, 157, 0.45),
-        rgba(0, 57, 118, 0.18),
-        transparent
-      );
-    }
-
-    .timeline-track {
-      position: relative;
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(17rem, 23rem);
-      gap: clamp(1rem, 2vw, 1.5rem);
-      overflow-x: auto;
-      padding: 0 0 1.5rem;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
-      scrollbar-color: var(--color-cyan) #e9eeee;
-    }
-
-    .timeline-card {
-      position: relative;
-      scroll-snap-align: start;
-      padding-top: 4.4rem;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      top: 1.45rem;
-      left: 0.25rem;
-      width: 1rem;
-      height: 1rem;
-      border: 3px solid #ffffff;
-      border-radius: 50%;
-      background: var(--color-cyan);
-      box-shadow: 0 0 0 1px rgba(0, 169, 157, 0.3);
-      z-index: 2;
-    }
-
-    .timeline-year {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: var(--color-navy);
-      font-size: 2.2rem;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.08em;
-    }
-
-    .timeline-panel {
-      overflow: hidden;
-      border: 1px solid rgba(0, 57, 118, 0.1);
-      border-radius: 1.5rem;
-      background: #ffffff;
-      box-shadow: 0 1.5rem 3rem rgba(0, 57, 118, 0.07);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .timeline-card:hover .timeline-panel {
-      transform: translateY(-0.4rem);
-      box-shadow: 0 2rem 4rem rgba(0, 57, 118, 0.11);
-    }
-
-    .timeline-image {
-      height: 12rem;
-      overflow: hidden;
-      background: #edf2f3;
-    }
-
-    .timeline-image img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: grayscale(1);
-      transform: scale(1.03);
-      transition: transform 0.6s ease, filter 0.6s ease;
-    }
-
-    .timeline-card:hover img {
-      filter: grayscale(0.2);
-      transform: scale(1);
-    }
-
-    .timeline-content {
-      padding: 1.35rem;
-    }
-
-    .timeline-content h3 {
-      margin-bottom: 0.7rem;
-      color: var(--color-navy);
-      font-size: 1.25rem;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-    }
-
-    .timeline-content p {
-      color: var(--color-mid-grey);
-      font-size: 0.95rem;
-      line-height: 1.65;
-    }
-
-    @media (max-width: 760px) {
-      .timeline-header {
-        display: block;
-      }
-
-      .timeline-header p {
-        margin-top: 1.25rem;
-      }
-
-      .timeline-track {
-        grid-auto-columns: minmax(16.5rem, 82vw);
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <section class="minimal-timeline">
-    <div class="timeline-container">
-
-      <div class="timeline-header">
-        <div>
-          <p class="timeline-label">Our History</p>
-          <h2>
-            A quiet
-            <span>legacy.</span>
-          </h2>
+<section class="sg-hero position-relative overflow-hidden">
+    <div class="swiper sg-hero__swiper swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
+        <div class="swiper-wrapper" id="swiper-wrapper-897a54db648f79b1" aria-live="polite">
+            
+            
+            <div class="swiper-slide sg-hero__slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-active sg-hero__slide--anim" role="group" aria-label="1 / 3" style="width: 1265px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+                
+                <video class="hero-video video-js full sg-hero__bg obj-cover position-absolute" muted="" loop="" playsinline="" data-setup="{}" preload="none" poster="/media/images/image-1.original.format-webp.webp">
+                    <source src="https://cim-school-videos-library.s3.ap-southeast-2.amazonaws.com/stgabesloop.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="sg-hero__overlay position-absolute top-0 start-0 w-100 h-100"></div>
+                <div class="sg-hero__content position-relative sg-anim-hero-container" style="opacity: 1; visibility: inherit;">
+                    <div class="container">
+                        <p id="sg-hero__tip-txt" class="sg-hero__label" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1; visibility: inherit;">Welcome to St Gabriel’s School</p>
+                        <div class="sg-hero__headline">
+                            <h1 id="sg-hero__title" class="sg-hero__h1-sans" style="opacity: 1; visibility: inherit; translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">Nurturing Independence.</h1>
+                            <p class="sg-hero__h1-serif" style="opacity: 1; visibility: inherit; translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">Transforming Lives.</p>
+                        </div>
+                        <p class="sg-hero__body" style="opacity: 1; visibility: inherit; translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">We're a not-for-profit school providing tailored learning for students with mild to moderate intellectual disabilities and additional needs in a purpose-built, supportive environment.</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="swiper-slide sg-hero__slide swiper-slide-next" role="group" aria-label="2 / 3" style="width: 1265px; opacity: 0; transform: translate3d(-1265px, 0px, 0px);">
+                
+                <img src="/media/images/20250616_StGabes_034.original.format-webp.webp" loading="eager" class="sg-hero__bg obj-cover position-absolute full">
+                
+                <div class="sg-hero__overlay position-absolute top-0 start-0 w-100 h-100"></div>
+                <div class="sg-hero__content position-relative sg-anim-hero-container" style="opacity: 1; visibility: inherit;">
+                    <div class="container">
+                        <p id="sg-hero__tip-txt" class="sg-hero__label">Making transport easier</p>
+                        <div class="sg-hero__headline">
+                            <h1 id="sg-hero__title" class="sg-hero__h1-sans">New Kiss ‘n’ Ride</h1>
+                            <p class="sg-hero__h1-serif" style="opacity: 0; visibility: hidden; translate: none; rotate: none; scale: none; transform: translate(0px, 20px);">and Bus Routes</p>
+                        </div>
+                        <p class="sg-hero__body" style="opacity: 0; visibility: hidden; translate: none; rotate: none; scale: none; transform: translate(0px, 14px);">Daily bus services run from Castle Hill, Blacktown, and Penrith, with safe pick-up and drop-off points along each route.</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="swiper-slide sg-hero__slide" role="group" aria-label="3 / 3" style="width: 1265px; opacity: 0; transform: translate3d(-2530px, 0px, 0px);">
+                
+                <img src="/media/images/20250616_StGabes_094.original.format-webp.webp" loading="eager" class="sg-hero__bg obj-cover position-absolute full">
+                
+                <div class="sg-hero__overlay position-absolute top-0 start-0 w-100 h-100"></div>
+                <div class="sg-hero__content position-relative sg-anim-hero-container" style="opacity: 1; visibility: inherit;">
+                    <div class="container">
+                        <p id="sg-hero__tip-txt" class="sg-hero__label">Come and visit us</p>
+                        <div class="sg-hero__headline">
+                            <h1 id="sg-hero__title" class="sg-hero__h1-sans">Register Today for</h1>
+                            <p class="sg-hero__h1-serif" style="opacity: 0; visibility: hidden; translate: none; rotate: none; scale: none; transform: translate(0px, 20px);">Our 2027 Open Day</p>
+                        </div>
+                        <p class="sg-hero__body" style="opacity: 0; visibility: hidden; translate: none; rotate: none; scale: none; transform: translate(0px, 14px);">We look forward to welcoming you to our 2027 Open Day. Meet our passionate staff, explore our campus and learn how our inclusive, individualised approach will support your child’s learning.</p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-
-        <p>
-          A simple journey through the milestones, people and places that shaped
-          St Gabriel’s School across more than a century.
-        </p>
-      </div>
-
-      <div class="timeline-wrap">
-        <div class="timeline-line"></div>
-
-        <div class="timeline-track">
-
-          <article class="timeline-card">
-            <span class="timeline-year">1920</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/81d8f22a-4b47-41b3-9abd-2bee6b339ac8/scan_quinn_2021-10-21-12-17-26_1.jpeg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>Southleigh is purchased</h3>
-                <p>
-                  The Christian Brothers found a suitable property in Sydney
-                  on which to establish the school.
-                </p>
-              </div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    <div class="sg-hero__arrows d-flex align-items-center gap-3 position-absolute" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1; visibility: inherit;">
+        <div class="container">
+            <div class="owl-buttons">
+                <button class="sg-hero__arrow sg-hero__arrow-prev swiper-button-disabled" aria-label="Previous slide" disabled="" tabindex="-1" aria-controls="swiper-wrapper-897a54db648f79b1" aria-disabled="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68" fill="none">
+                    <rect x="0.5625" y="0.5625" width="66.375" height="66.375" rx="10.6875" stroke="white" stroke-width="1.125"></rect>
+                    <path d="M21.9844 33.2344L30.75 24.4219L31.8281 25.5L31.2656 26.0156L24.3281 33H45.75V34.5H24.3281L31.2656 41.4844L31.8281 42L30.75 43.0781L30.2344 42.5156L21.9844 34.2656L21.4219 33.75L21.9844 33.2344Z" fill="white"></path>
+                </svg>
+                </button>
+                <button class="sg-hero__arrow sg-hero__arrow-next" aria-label="Next slide" tabindex="0" aria-controls="swiper-wrapper-897a54db648f79b1" aria-disabled="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68" fill="none">
+                        <rect x="0.5625" y="0.5625" width="66.375" height="66.375" rx="10.6875" stroke="white" stroke-width="1.125"></rect>
+                        <path d="M45.5156 34.2656L36.75 43.0781L35.7188 42L36.2344 41.4844L43.2188 34.5H21.75V33H43.2188L36.2344 26.0156L35.7188 25.5L36.75 24.4219L37.2656 24.9844L45.5156 33.2344L46.0781 33.75L45.5156 34.2656Z" fill="white"></path>
+                    </svg>
+                </button>
             </div>
-          </article>
-
-          <article class="timeline-card">
-            <span class="timeline-year">1922</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>The school opens</h3>
-                <p>
-                  St Gabriel’s School opened its doors to its first students
-                  on 22 September 1922.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="timeline-card">
-            <span class="timeline-year">1973</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>Day school transition</h3>
-                <p>
-                  The school transitioned to a day school and welcomed girls
-                  into the learning community.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="timeline-card">
-            <span class="timeline-year">1976</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/25c72981-938f-4f90-8858-8c5982fca7c9/scan_quinn_2021-11-30-15-41-40_2.jpeg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>Integration program</h3>
-                <p>
-                  Students attended St Gabriel’s in the morning and their local
-                  mainstream school in the afternoon.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="timeline-card">
-            <span class="timeline-year">2010</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>Broader admission</h3>
-                <p>
-                  Admission criteria widened to include students with a range
-                  of special education needs.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="timeline-card">
-            <span class="timeline-year">2024</span>
-            <span class="timeline-dot"></span>
-
-            <div class="timeline-panel">
-              <div class="timeline-image">
-                <img src="https://images.squarespace-cdn.com/content/v1/63524048eecf2230e9b9b57f/6331d68b-6e9b-4bae-a882-13ab26817864/Areal+Shot.jpg" alt="">
-              </div>
-
-              <div class="timeline-content">
-                <h3>K–12 future</h3>
-                <p>
-                  The first Year 12 class marks a major milestone in the
-                  school’s continued growth.
-                </p>
-              </div>
-            </div>
-          </article>
-
         </div>
-      </div>
-
     </div>
-  </section>
+</section>
 
-</body>
-</html>
+

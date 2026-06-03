@@ -995,7 +995,15 @@ function syncHeroVideos(swiper) {
     swiper.slides.forEach((slide, i) => {
         const v = slide.querySelector('video.sg-hero__bg');
         if (!v) return;
-        i === swiper.activeIndex ? v.play().catch(() => {}) : v.pause();
+        const isActive = i === swiper.activeIndex;
+        if (v.classList.contains('video-js') && window.videojs && v.id) {
+            const player = window.videojs.getPlayer(v.id);
+            if (player) {
+                isActive ? player.play().catch(() => {}) : player.pause();
+                return;
+            }
+        }
+        isActive ? v.play().catch(() => {}) : v.pause();
     });
 }
 
