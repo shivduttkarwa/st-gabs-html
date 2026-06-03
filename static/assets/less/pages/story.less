@@ -210,9 +210,7 @@
 // ─────────────────────────────────────────────────────────
 
 .sg-history-timeline {
-  background:
-    radial-gradient(ellipse 55% 75% at 50% 65%, rgba(0, 169, 157, 0.08), transparent),
-    var(--color-navy);
+  background: var(--color-navy);
   padding: 5rem 0 4rem;
   overflow: hidden;
 }
@@ -262,7 +260,7 @@
 
 // Cinema: inactive slides scale down + dim, active is full size
 .sg-history-timeline__slide {
-  width: 320px;
+  width: 20rem;
   height: auto;
   align-self: stretch;
   opacity: 0.32;
@@ -349,31 +347,35 @@
   margin-top: 2.5rem;
 }
 
-// Matches sg-split-slider-btn shape, inverted for dark bg
 .sg-history-timeline__nav-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4.6875rem;
-  height: 4.6875rem;
-  border-radius: 0.9375rem;
-  border: 0.09375rem solid rgba(255, 255, 255, 0.25);
-  background: transparent;
-  color: var(--color-white);
+  width: 4.25rem;
+  height: 4.25rem;
+  padding: 0;
+  background: none;
+  border: none;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .sg-history-timeline__nav-btn svg {
-  width: 2.5rem;
-  height: 2.5rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+  shape-rendering: geometricPrecision;
 }
 
-.sg-history-timeline__nav-btn:hover {
-  background: var(--color-cyan);
-  border-color: var(--color-cyan);
-  color: var(--color-white);
+.sg-history-timeline__nav-btn svg rect {
+  fill: rgba(0, 57, 118, 0.2);
+  transition: fill 0.25s ease-in-out;
+}
+
+.sg-history-timeline__nav-btn:hover svg rect {
+  fill: rgba(255, 255, 255, 0.16);
 }
 
 .sg-history-timeline__nav-btn.swiper-button-disabled {
@@ -406,7 +408,7 @@
     padding: 3.5rem 0 3rem;
   }
   .sg-history-timeline__slide {
-    width: 260px;
+    width: 16.25rem;
   }
 }
 
@@ -415,7 +417,7 @@
     padding: 3rem 0 2.5rem;
   }
   .sg-history-timeline__slide {
-    width: 240px;
+    width: 15rem;
   }
 }
 
@@ -486,6 +488,6 @@
   }
 
   .sg-history-timeline__slide {
-    width: 280px;
+    width: 17.5rem;
   }
 }
