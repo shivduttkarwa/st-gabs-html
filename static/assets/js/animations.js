@@ -797,6 +797,12 @@
                 if (sweepOrigin === 'bottom') {
                     tipX = boxWidth / 2;
                     tipY = boxHeight;
+                } else if (sweepOrigin === 'left') {
+                    tipX = 0;
+                    tipY = boxHeight / 2;
+                } else if (sweepOrigin === 'right') {
+                    tipX = boxWidth;
+                    tipY = boxHeight / 2;
                 } else {
                     const mediaCol = block.closest('.sg-story-media-col');
                     const hasLeftTip = !!mediaCol?.classList.contains('order-lg-2');

@@ -4588,6 +4588,18 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 .sg-history-body__img-wrap--portrait {
   aspect-ratio: 3 / 4;
 }
+.sg-history-aerial {
+  display: block;
+  width: 100%;
+}
+.sg-history-aerial svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sg-history-aerial image {
+  display: block;
+}
 .sg-history-timeline {
   background: var(--color-navy);
   padding: 5rem 0;
