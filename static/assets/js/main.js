@@ -1529,7 +1529,148 @@ function initAppSwipers() {
         });
     }
 
+    // ── History Timeline ──────────────────────────────────
+    document.querySelectorAll('[data-history-timeline]').forEach((section) => {
+        const timelineEl = section.querySelector('.sg-history-timeline__swiper');
+        const wrapper = section.querySelector('[data-history-timeline-slides]');
+        const dataEl = section.querySelector('.sg-history-timeline__data');
+        if (!timelineEl || !wrapper || !dataEl) return;
+
+        let items = [];
+        try { items = JSON.parse(dataEl.textContent || '[]'); } catch (e) { items = []; }
+
+        if (Array.isArray(items) && items.length) {
+            const fragment = document.createDocumentFragment();
+            items.forEach((item) => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide sg-history-timeline__slide';
+
+                const card = document.createElement('div');
+                card.className = 'sg-history-timeline__card';
+
+                const year = document.createElement('p');
+                year.className = 'sg-history-timeline__year';
+                year.textContent = item.year || '';
+
+                const imageWrap = document.createElement('div');
+                imageWrap.className = 'sg-history-timeline__img-wrap';
+
+                if (item.image) {
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.alt || item.title || item.year || '';
+                    img.loading = 'lazy';
+                    img.decoding = 'async';
+                    imageWrap.appendChild(img);
+                } else {
+                    imageWrap.classList.add('sg-history-timeline__img-wrap--placeholder');
+                    imageWrap.textContent = item.year || '';
+                }
+
+                const title = document.createElement('h3');
+                title.className = 'sg-history-timeline__milestone';
+                title.textContent = item.title || '';
+
+                const text = document.createElement('div');
+                text.className = 'sg-history-timeline__text';
+                (Array.isArray(item.text) ? item.text : [item.text]).filter(Boolean).forEach((paragraphText) => {
+                    const p = document.createElement('p');
+                    p.textContent = paragraphText;
+                    text.appendChild(p);
+                });
+
+                card.appendChild(year);
+                card.appendChild(imageWrap);
+                card.appendChild(title);
+                card.appendChild(text);
+                slide.appendChild(card);
+                fragment.appendChild(slide);
+            });
+            wrapper.innerHTML = '';
+            wrapper.appendChild(fragment);
+        }
+
+        const totalSlides = wrapper.querySelectorAll('.swiper-slide').length;
+        const progressFill = section.querySelector('.sg-history-timeline__progress-fill');
+        if (!totalSlides) return;
+
+        section.classList.toggle('sg-history-timeline--single', totalSlides <= 1);
+
+        const updateProgress = (swiper) => {
+            if (!progressFill) return;
+            const idx = swiper && Number.isFinite(swiper.activeIndex) ? swiper.activeIndex : 0;
+            progressFill.style.width = `${Math.min(100, ((idx + 1) / totalSlides) * 100)}%`;
+        };
+
+        new Swiper(timelineEl, {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 28,
+            speed: 650,
+            grabCursor: totalSlides > 1,
+            slideToClickedSlide: true,
+            watchSlidesProgress: true,
+            observer: true,
+            observeParents: true,
+            navigation: {
+                prevEl: section.querySelector('.sg-history-timeline__nav-btn--prev'),
+                nextEl: section.querySelector('.sg-history-timeline__nav-btn--next'),
+            },
+            breakpoints: {
+                0: { spaceBetween: 20 },
+                768: { spaceBetween: 28 },
+                1200: { spaceBetween: 32 },
+            },
+            on: {
+                init(swiper) { updateProgress(swiper); },
+                slideChange(swiper) { updateProgress(swiper); },
+                resize(swiper) { updateProgress(swiper); },
+            },
+        });
+    });
+
 }
+
+// ── History Video Player ──────────────────────────────────
+document.querySelectorAll('.sg-history-video').forEach((wrap) => {
+    const video = wrap.querySelector('.sg-history-video__player');
+    const playBtn = wrap.querySelector('.sg-history-video__play-btn');
+    if (!video || !playBtn) return;
+    let playing = false;
+
+    wrap.addEventListener('mouseenter', () => {
+        if (playing) return;
+        video.muted = true;
+        video.play().catch(() => {});
+        wrap.classList.add('sg-history-video--previewing');
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+        if (playing) return;
+        video.pause();
+        video.currentTime = 0;
+        wrap.classList.remove('sg-history-video--previewing');
+    });
+
+    playBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playing = true;
+        video.muted = false;
+        video.currentTime = 0;
+        video.controls = true;
+        video.play();
+        wrap.classList.remove('sg-history-video--previewing');
+        wrap.classList.add('sg-history-video--playing');
+    });
+
+    video.addEventListener('ended', () => {
+        playing = false;
+        video.controls = false;
+        video.muted = true;
+        video.currentTime = 0;
+        wrap.classList.remove('sg-history-video--playing');
+    });
+});
 
 initAppSwipers();
 
