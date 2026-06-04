@@ -1532,65 +1532,9 @@ function initAppSwipers() {
     // ── History Timeline ──────────────────────────────────
     document.querySelectorAll('[data-history-timeline]').forEach((section) => {
         const timelineEl = section.querySelector('.sg-history-timeline__swiper');
-        const wrapper = section.querySelector('[data-history-timeline-slides]');
-        const dataEl = section.querySelector('.sg-history-timeline__data');
-        if (!timelineEl || !wrapper || !dataEl) return;
+        if (!timelineEl) return;
 
-        let items = [];
-        try { items = JSON.parse(dataEl.textContent || '[]'); } catch (e) { items = []; }
-
-        if (Array.isArray(items) && items.length) {
-            const fragment = document.createDocumentFragment();
-            items.forEach((item) => {
-                const slide = document.createElement('div');
-                slide.className = 'swiper-slide sg-history-timeline__slide';
-
-                const card = document.createElement('div');
-                card.className = 'sg-history-timeline__card';
-
-                const year = document.createElement('p');
-                year.className = 'sg-history-timeline__year';
-                year.textContent = item.year || '';
-
-                const imageWrap = document.createElement('div');
-                imageWrap.className = 'sg-history-timeline__img-wrap';
-
-                if (item.image) {
-                    const img = document.createElement('img');
-                    img.src = item.image;
-                    img.alt = item.alt || item.title || item.year || '';
-                    img.loading = 'lazy';
-                    img.decoding = 'async';
-                    imageWrap.appendChild(img);
-                } else {
-                    imageWrap.classList.add('sg-history-timeline__img-wrap--placeholder');
-                    imageWrap.textContent = item.year || '';
-                }
-
-                const title = document.createElement('h3');
-                title.className = 'sg-history-timeline__milestone';
-                title.textContent = item.title || '';
-
-                const text = document.createElement('div');
-                text.className = 'sg-history-timeline__text';
-                (Array.isArray(item.text) ? item.text : [item.text]).filter(Boolean).forEach((paragraphText) => {
-                    const p = document.createElement('p');
-                    p.textContent = paragraphText;
-                    text.appendChild(p);
-                });
-
-                card.appendChild(year);
-                card.appendChild(imageWrap);
-                card.appendChild(title);
-                card.appendChild(text);
-                slide.appendChild(card);
-                fragment.appendChild(slide);
-            });
-            wrapper.innerHTML = '';
-            wrapper.appendChild(fragment);
-        }
-
-        const totalSlides = wrapper.querySelectorAll('.swiper-slide').length;
+        const totalSlides = timelineEl.querySelectorAll('.swiper-slide').length;
         const progressFill = section.querySelector('.sg-history-timeline__progress-fill');
         if (!totalSlides) return;
 
