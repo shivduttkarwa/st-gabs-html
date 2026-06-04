@@ -891,10 +891,11 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   }
 
   .is-offset-top:not(.disable-offset-top) .sg-header__logo-banner {
-    height: 5.5rem;
-    padding: 0 0.5rem;
-    display: flex;
-    align-items: center;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .is-offset-top:not(.disable-offset-top) .sg-header__logo {
+    width: 7.5rem;
   }
 
   /* ── Mobile menu open: white header, navy icons ── */
@@ -1001,6 +1002,10 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
       .sg-header__logo-banner {
         width: fit-content;
         padding: 1rem 0.5rem;
+      }
+
+      .sg-header__logo {
+        width: 7.5rem;
       }
     }
   }

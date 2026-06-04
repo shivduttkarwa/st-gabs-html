@@ -1208,10 +1208,10 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
     background: rgba(0, 57, 118, 0.12);
   }
   .is-offset-top:not(.disable-offset-top) .sg-header__logo-banner {
-    height: 5.5rem;
-    padding: 0 0.5rem;
-    display: flex;
-    align-items: center;
+    padding: 0.5rem 0.5rem;
+  }
+  .is-offset-top:not(.disable-offset-top) .sg-header__logo {
+    width: 7.5rem;
   }
   /* ── Mobile menu open: white header, navy icons ── */
   .is-open-menu .sg-header {
@@ -1299,6 +1299,9 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   .sg-header .sg-header__inner .sg-header__logo-banner {
     width: fit-content;
     padding: 1rem 0.5rem;
+  }
+  .sg-header .sg-header__inner .sg-header__logo {
+    width: 7.5rem;
   }
 }
 @media (max-width: 1279px) and (min-width: 992px) {
