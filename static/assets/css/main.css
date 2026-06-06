@@ -4874,7 +4874,7 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   }
 }
 .sg-staff-quotes-slider {
-  padding: 5rem 0;
+  padding: 0;
   background: var(--basic-white);
 }
 .sg-staff-quotes-slider__heading {
@@ -4903,16 +4903,6 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 }
 .sg-staff-quotes-slider__nav {
   margin-top: 2rem;
-}
-@media (max-width: 991px) {
-  .sg-staff-quotes-slider {
-    padding: 3.5rem 0;
-  }
-}
-@media (max-width: 767px) {
-  .sg-staff-quotes-slider {
-    padding: 2.5rem 0;
-  }
 }
 .sg-job-listings {
   padding: 5rem 0;
