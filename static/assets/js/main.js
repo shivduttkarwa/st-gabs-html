@@ -1594,7 +1594,7 @@ function initAppSwipers() {
         if (nextBtn) nextBtn.classList.toggle('is-disabled', current === total - 1);
     }
 
-    // Hide items of non-first slides only — slides themselves are transparent
+    // Hide items of non-first slides only — first slide entrance handled by sg-anim-item--static
     slides.forEach(function (slide, i) {
         if (i === 0) return;
         gsap.set(slide.querySelectorAll('.sq-anim-item'), { y: IN_Y, opacity: 0 });
