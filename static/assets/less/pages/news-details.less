@@ -79,6 +79,15 @@
 // Half image height (19.85625rem) sits inside the hero, half in the article area.
 // Uses same SVG clip-path shape as sg-promo-card-frame (rounded rect + bottom tab).
 
+.sg-news-details-featured.sg-mask-sweep-reveal {
+  opacity: 0;
+  animation: nd-feat-unhide 0s 0.2s forwards;
+}
+
+@keyframes nd-feat-unhide {
+  to { opacity: 1; }
+}
+
 .sg-news-details-featured {
   width: 66.1875rem;
   height: 39.7125rem;

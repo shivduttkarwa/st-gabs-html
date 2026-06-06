@@ -5103,6 +5103,83 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 .sg-news-load-more.sg-hidden {
   display: none !important;
 }
+.sg-featured-event {
+  padding: 5rem 0 2.5rem;
+  background: var(--color-white);
+}
+.sg-featured-event__section-title {
+  margin: 0 0 1.5625rem;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h2);
+  line-height: 1;
+  letter-spacing: 0;
+}
+.sg-featured-event .sg-story-content {
+  padding: 0.5rem 4.5rem 0.5rem 3.125rem;
+}
+.sg-featured-event__headings {
+  margin-bottom: 1.5625rem;
+}
+.sg-featured-event__date {
+  margin: 0;
+  color: var(--color-mid-grey);
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-b3);
+  line-height: 1.4;
+}
+.sg-featured-event__title,
+.sg-featured-event__location {
+  margin: 0;
+  font-size: var(--fz-h3);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+.sg-featured-event__title {
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+}
+.sg-featured-event__location {
+  color: var(--color-cyan);
+  font-family: var(--font-fraunces-9pt);
+}
+.sg-featured-event__copy {
+  margin-bottom: 1.5625rem;
+}
+.sg-featured-event__button {
+  padding: 1.25rem 1.875rem;
+}
+.sg-featured-event + .sg-internal-local-nav {
+  padding-top: 0.5rem;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .sg-featured-event .sg-story-content {
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
+}
+@media (max-width: 991px) {
+  .sg-featured-event {
+    padding: 3.5rem 0 2.5rem;
+  }
+  .sg-featured-event__section-title {
+    font-size: clamp(2rem, 7vw, var(--fz-h2));
+  }
+  .sg-featured-event .sg-story-content {
+    padding: 0;
+  }
+}
+@media (max-width: 767px) {
+  .sg-featured-event {
+    padding: 2.5rem 0 2rem;
+  }
+  .sg-featured-event__title,
+  .sg-featured-event__location {
+    font-size: clamp(1.875rem, 8vw, var(--fz-h3));
+  }
+  .sg-featured-event__button {
+    width: 100%;
+  }
+}
 .sg-news-details-hero {
   background-color: var(--color-navy-dark);
   height: 56.25rem;
@@ -5162,6 +5239,15 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 }
 .sg-news-details-hero .sg-internal-hero-title-serif {
   letter-spacing: -0.15rem;
+}
+.sg-news-details-featured.sg-mask-sweep-reveal {
+  opacity: 0;
+  animation: nd-feat-unhide 0s 0.2s forwards;
+}
+@keyframes nd-feat-unhide {
+  to {
+    opacity: 1;
+  }
 }
 .sg-news-details-featured {
   width: 66.1875rem;
