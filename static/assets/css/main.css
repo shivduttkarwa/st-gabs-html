@@ -5021,6 +5021,18 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
     padding: 3.5rem 0 5rem;
   }
 }
+.sg-news-browse__header {
+  margin-bottom: 2.5rem;
+}
+.sg-news-browse__title {
+  margin: 0;
+  scroll-margin-top: 9rem;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h2);
+  line-height: 1;
+  letter-spacing: 0;
+}
 .sg-news-filter-pills {
   display: flex;
   flex-wrap: wrap;
