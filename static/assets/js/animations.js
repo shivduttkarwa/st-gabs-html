@@ -799,8 +799,31 @@
                 const selector = group.dataset.sweepStaggerSelector || '.sg-mask-sweep-reveal';
                 const groupBlocks = Array.from(group.querySelectorAll(selector));
                 const blockIndex = groupBlocks.indexOf(block);
+                if (blockIndex < 0) return 0;
 
-                return blockIndex >= 0 ? blockIndex * staggerStep : 0;
+                if (group.dataset.sweepStaggerMode === 'row') {
+                    const getGroupItem = (item) => {
+                        let current = item;
+                        while (current.parentElement && current.parentElement !== group) {
+                            current = current.parentElement;
+                        }
+                        return current.parentElement === group ? current : item;
+                    };
+
+                    const currentItem = getGroupItem(block);
+                    const currentTop = currentItem.offsetTop;
+                    const sameRowBlocks = groupBlocks.filter((item) => (
+                        Math.abs(getGroupItem(item).offsetTop - currentTop) < 2
+                    ));
+                    const rowIndex = sameRowBlocks.indexOf(block);
+
+                    return rowIndex >= 0 ? rowIndex * staggerStep : 0;
+                }
+
+                const cycle = parseInt(group.dataset.sweepStaggerCycle, 10);
+                const staggerIndex = Number.isFinite(cycle) && cycle > 0 ? blockIndex % cycle : blockIndex;
+
+                return staggerIndex * staggerStep;
             };
 
             blocks.forEach((block, blockIndex) => {
@@ -836,7 +859,6 @@
                     force3D: true,
                 });
 
-                const sweepDelay = getSweepDelay(block);
                 const sweepStart = block.dataset.sweepStart || 'top 55%';
 
                 ScrollTrigger.create({
@@ -845,7 +867,7 @@
                     once: true,
                     onEnter: () => {
                         gsap.timeline({
-                            delay: sweepDelay,
+                            delay: getSweepDelay(block),
                             defaults: { overwrite: 'auto' },
                             onComplete: () => {
                                 gsap.set(maskPath, { clearProps: 'transform,willChange' });
