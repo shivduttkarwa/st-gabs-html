@@ -5176,9 +5176,6 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   .sg-featured-event__location {
     font-size: clamp(1.875rem, 8vw, var(--fz-h3));
   }
-  .sg-featured-event__button {
-    width: 100%;
-  }
 }
 .sg-events-browse {
   padding: 5rem 0;
@@ -5346,9 +5343,6 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   }
   .sg-event-card__description {
     overflow-wrap: anywhere;
-  }
-  .sg-events-load-more {
-    width: 100%;
   }
 }
 .sg-news-details-hero {
