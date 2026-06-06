@@ -74,6 +74,9 @@
 
 
 // ── Bridge: featured image between hero and article ───────────────────────────
+// Image is clipped to a custom shape: rounded top corners + downward drip at
+// bottom center. The SVG clipPath (#news-bridge-clip) is defined inline in the
+// HTML. objectBoundingBox coordinates (0–1) make it responsive.
 
 .sg-news-details-bridge {
   background-color: var(--color-navy-dark);
@@ -84,10 +87,9 @@
 }
 
 .sg-news-details-bridge-inner {
-  position: relative;
-  border-radius: 4rem 4rem 0 0;
-  overflow: hidden;
-  height: 39.7125rem;
+  // Height = photo height (39.7125rem) + drip depth (2rem)
+  height: 41.7125rem;
+  clip-path: url(#news-bridge-clip);
 }
 
 .sg-news-details-bridge-img {
@@ -97,25 +99,11 @@
   object-position: center 30%;
 }
 
-// White arch — sits in normal flow below the image, inside navy bridge div
-.sg-news-details-bridge-tail {
-  display: flex;
-  justify-content: center;
-  line-height: 0;
-
-  svg {
-    display: block;
-    width: 12.4375rem;
-    height: 1.5625rem;
-    position: relative;
-    bottom: -1px;
-  }
-}
-
 
 // ── News Article Body ─────────────────────────────────────────────────────────
 
-// Sits behind bridge (z-index: 1); padding-top clears the 4rem overhang
+// Sits behind bridge (z-index: 1); padding-top clears the 4rem bridge overhang
+// plus adds breathing room below the drip tip
 .sg-news-article {
   position: relative;
   z-index: 1;
@@ -175,7 +163,8 @@
   }
 
   .sg-news-details-bridge-inner {
-    height: 32rem;
+    // 32rem photo + 2rem drip
+    height: 34rem;
   }
 }
 
@@ -200,12 +189,12 @@
   }
 
   .sg-news-details-bridge-inner {
-    height: 22rem;
-    border-radius: 2rem 2rem 0 0;
+    // 22rem photo + 2rem drip
+    height: 24rem;
   }
 
   .sg-news-article {
-    padding: 3rem 0 3.5rem;
+    padding: calc(3rem + 2.5rem) 0 3.5rem;
   }
 
   .sg-news-article__lead {
