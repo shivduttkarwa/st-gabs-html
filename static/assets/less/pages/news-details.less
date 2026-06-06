@@ -1,0 +1,219 @@
+// ── News Details Hero ────────────────────────────────────────────────────────
+
+.sg-news-details-hero {
+  background-color: var(--color-navy-dark);
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12.125rem 11.875rem 5rem;
+  gap: 4.8125rem;
+  position: relative;
+  overflow: visible;
+}
+
+.sg-news-details-hero-bc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sg-news-details-hero-bc__link {
+  color: var(--color-white);
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-b3);
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-cyan-bright);
+  }
+}
+
+.sg-news-details-hero-bc__sep {
+  color: var(--color-white-sec);
+  flex-shrink: 0;
+}
+
+.sg-news-details-hero {
+  .sg-internal-hero-content {
+    max-width: 66.25rem;
+    width: 100%;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5625rem;
+    flex-shrink: 0;
+  }
+
+  .sg-internal-hero-label {
+    font-family: var(--font-satoshi-medium);
+  }
+
+  .sg-internal-hero-title-sans,
+  .sg-internal-hero-title-serif {
+    font-size: clamp(2.25rem, 4.2vw, var(--fz-h1));
+    text-align: center;
+  }
+
+  .sg-internal-hero-title-sans {
+    letter-spacing: -0.1125rem;
+  }
+
+  .sg-internal-hero-title-serif {
+    letter-spacing: -0.15rem;
+  }
+}
+
+
+// ── Bridge: featured image between hero and article ───────────────────────────
+
+.sg-news-details-bridge {
+  background-color: var(--color-navy-dark);
+  padding: 0 11.875rem;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -4rem;
+}
+
+.sg-news-details-bridge-inner {
+  position: relative;
+  border-radius: 4rem 4rem 0 0;
+  overflow: hidden;
+  height: 39.7125rem;
+}
+
+.sg-news-details-bridge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+// White arch — sits in normal flow below the image, inside navy bridge div
+.sg-news-details-bridge-tail {
+  display: flex;
+  justify-content: center;
+  line-height: 0;
+
+  svg {
+    display: block;
+    width: 12.4375rem;
+    height: 1.5625rem;
+    position: relative;
+    bottom: -1px;
+  }
+}
+
+
+// ── News Article Body ─────────────────────────────────────────────────────────
+
+// Sits behind bridge (z-index: 1); padding-top clears the 4rem overhang
+.sg-news-article {
+  position: relative;
+  z-index: 1;
+  padding: calc(4.6875rem + 4rem) 0 5rem;
+}
+
+.sg-news-article__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 52rem;
+  margin: 0 auto;
+
+  .sg-internal-resources__quote-box {
+    margin-top: 0;
+  }
+}
+
+.sg-news-article__lead {
+  margin: 0;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-h5);
+  line-height: 1.3;
+
+  a {
+    color: var(--color-navy);
+  }
+}
+
+.sg-news-article__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sg-news-article__body p,
+.sg-news-article__closing {
+  margin: 0;
+  color: var(--color-dark-grey);
+  font-family: var(--font-satoshi-regular);
+  font-size: var(--fz-b1);
+  line-height: 1.4;
+}
+
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 1199px) {
+  .sg-news-details-hero {
+    padding: 10rem 5rem 4rem;
+    gap: 3.5rem;
+  }
+
+  .sg-news-details-bridge {
+    padding: 0 5rem;
+  }
+
+  .sg-news-details-bridge-inner {
+    height: 32rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .sg-news-details-hero {
+    padding: 9rem 1.25rem 3.5rem;
+    gap: 2.5rem;
+
+    .sg-internal-hero-content {
+      gap: 1rem;
+    }
+
+    .sg-internal-hero-title-sans,
+    .sg-internal-hero-title-serif {
+      font-size: clamp(1.875rem, 7vw, 2.75rem);
+    }
+  }
+
+  .sg-news-details-bridge {
+    padding: 0 1.25rem;
+    margin-bottom: -2.5rem;
+  }
+
+  .sg-news-details-bridge-inner {
+    height: 22rem;
+    border-radius: 2rem 2rem 0 0;
+  }
+
+  .sg-news-article {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .sg-news-article__lead {
+    font-size: var(--fz-h6);
+  }
+
+  .sg-news-article__body p,
+  .sg-news-article__closing {
+    font-size: var(--fz-b2);
+  }
+}
