@@ -1771,9 +1771,19 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     const grid = document.getElementById('sg-news-grid');
     if (!grid) return;
 
-    const BATCH = 6;
+    // ── Configure here ────────────────────────────────────────
+    const INITIAL_COUNT = 12;  // items visible on page load
+    const LOAD_MORE_COUNT = 6; // items revealed per "Load More" click
+    // ─────────────────────────────────────────────────────────
+
     let currentFilter = '*';
     let iso = null;
+
+    // Reveal the first INITIAL_COUNT items immediately
+    const allPending = Array.from(grid.querySelectorAll('.sg-news-item--pending'));
+    allPending.slice(0, INITIAL_COUNT).forEach(function (item) {
+        item.classList.remove('sg-news-item--pending');
+    });
 
     function initIso() {
         if (typeof Isotope === 'undefined') return;
@@ -1783,6 +1793,11 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             percentPosition: true,
             transitionDuration: '0.35s',
         });
+
+        // Hide load more if nothing is pending
+        if (!grid.querySelector('.sg-news-item--pending') && loadMoreBtn) {
+            loadMoreBtn.classList.add('sg-hidden');
+        }
     }
 
     // Filter buttons
@@ -1803,7 +1818,7 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
         loadMoreBtn.addEventListener('click', function () {
             if (!iso) return;
 
-            var pending = Array.from(grid.querySelectorAll('.sg-news-item--pending')).slice(0, BATCH);
+            var pending = Array.from(grid.querySelectorAll('.sg-news-item--pending')).slice(0, LOAD_MORE_COUNT);
             if (!pending.length) return;
 
             // Reveal items — set opacity 0 first so we can fade in
