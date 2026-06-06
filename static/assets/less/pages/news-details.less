@@ -171,8 +171,10 @@
 
 .sg-news-article-footer__inner {
   display: flex;
-  align-items: center;
+  width: 52.5rem;
   justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .sg-news-article-footer__back {
@@ -266,6 +268,12 @@
     aspect-ratio: 400 / 257;
     margin-top: 0;
     margin-bottom: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .sg-news-article-footer__inner {
+    width: 100%;
   }
 }
 
