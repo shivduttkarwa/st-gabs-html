@@ -4106,6 +4106,17 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   font-size: var(--fz-b2);
   line-height: 1.4;
 }
+.sg-internal-body a {
+  color: var(--color-cyan);
+  font-family: var(--font-satoshi-bold);
+  text-decoration: none;
+  border-bottom: 0.0625rem solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.sg-internal-body a:hover {
+  color: var(--color-navy);
+  border-bottom-color: var(--color-navy);
+}
 .sg-internal-links li {
   border-top: 0.0625rem solid var(--color-light-grey);
 }
