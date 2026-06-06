@@ -1642,6 +1642,65 @@ if (window.SGAnimations) {
 }
 
 
+function getCurrentPageScrollTop() {
+    if (bodyScrollBar) {
+        return bodyScrollBar.scrollTop || bodyScrollBar.offset?.y || 0;
+    }
+
+    if (lenis && typeof lenis.scroll === 'number') {
+        return lenis.scroll;
+    }
+
+    return window.pageYOffset || document.documentElement.scrollTop || 0;
+}
+
+function setCurrentPageScrollTop(value) {
+    var nextValue = Math.max(0, value);
+
+    if (bodyScrollBar) {
+        bodyScrollBar.scrollTop = nextValue;
+        return;
+    }
+
+    if (lenis && typeof lenis.scrollTo === 'function') {
+        lenis.scrollTo(nextValue, { immediate: true });
+        return;
+    }
+
+    window.scrollTo(0, nextValue);
+}
+
+var activeAccordionAnchorKeeper = null;
+
+function keepAccordionTriggerAnchored(trigger) {
+    if (!trigger || typeof gsap === 'undefined') return;
+
+    if (activeAccordionAnchorKeeper) {
+        gsap.ticker.remove(activeAccordionAnchorKeeper);
+        activeAccordionAnchorKeeper = null;
+    }
+
+    var initialTop = trigger.getBoundingClientRect().top;
+    var startTime = performance.now();
+    var maxDuration = 420;
+
+    activeAccordionAnchorKeeper = function() {
+        var currentTop = trigger.getBoundingClientRect().top;
+        var delta = currentTop - initialTop;
+
+        if (Math.abs(delta) > 0.5) {
+            setCurrentPageScrollTop(getCurrentPageScrollTop() + delta);
+        }
+
+        if (performance.now() - startTime > maxDuration) {
+            gsap.ticker.remove(activeAccordionAnchorKeeper);
+            activeAccordionAnchorKeeper = null;
+        }
+    };
+
+    gsap.ticker.add(activeAccordionAnchorKeeper);
+}
+
 document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     var items = list.querySelectorAll('.sg-accordion-item');
     if (!items.length || typeof gsap === 'undefined') return;
@@ -1682,6 +1741,8 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
 
     animations.forEach(function(entry) {
         entry.trigger.addEventListener('click', function() {
+            keepAccordionTriggerAnchored(entry.trigger);
+
             var isOpen = entry.tl.reversed() === false;
 
             animations.forEach(function(other) {
