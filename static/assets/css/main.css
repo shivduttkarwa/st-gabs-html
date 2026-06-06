@@ -3287,10 +3287,7 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   padding: 0.625rem;
   color: var(--color-cyan-bright);
   flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-.sg-accordion-item.is-open .sg-accordion-icon {
-  transform: rotate(180deg);
+  will-change: transform;
 }
 .sg-accordion-body {
   overflow: hidden;

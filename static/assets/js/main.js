@@ -1705,62 +1705,75 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     var items = list.querySelectorAll('.sg-accordion-item');
     if (!items.length || typeof gsap === 'undefined') return;
 
-    var animations = [];
+    var DUR = 0.42;
+    var EASE = 'power3.inOut';
+    var activeEntry = null;
+    var entries = [];
 
-    items.forEach(function(item, index) {
+    function closeEntry(entry) {
+        var h = entry.body.getBoundingClientRect().height;
+        entry.item.classList.remove('is-open');
+        entry.trigger.setAttribute('aria-expanded', 'false');
+        gsap.to(entry.body, { height: 0, duration: DUR, ease: EASE, overwrite: true });
+        if (entry.icon) gsap.to(entry.icon, { rotation: 0, duration: DUR, ease: EASE, overwrite: true });
+    }
+
+    function openEntry(entry) {
+        // Measure natural height without flicker
+        gsap.set(entry.body, { height: 'auto' });
+        var targetH = entry.body.scrollHeight;
+        gsap.set(entry.body, { height: 0 });
+
+        entry.item.classList.add('is-open');
+        entry.trigger.setAttribute('aria-expanded', 'true');
+        gsap.to(entry.body, {
+            height: targetH,
+            duration: DUR,
+            ease: EASE,
+            overwrite: true,
+            onComplete: function() { gsap.set(entry.body, { height: 'auto' }); }
+        });
+        if (entry.icon) gsap.to(entry.icon, { rotation: 180, duration: DUR, ease: EASE, overwrite: true });
+    }
+
+    items.forEach(function(item) {
         var trigger = item.querySelector('.sg-accordion-trigger');
         var body = item.querySelector('.sg-accordion-body');
+        var icon = item.querySelector('.sg-accordion-icon');
         if (!trigger || !body) return;
 
         body.style.overflow = 'hidden';
-        gsap.set(body, { height: 'auto' });
 
-        var tl = gsap.timeline()
-            .from(body, {
-                height: 0,
-                duration: 0.32,
-                ease: 'power2.inOut',
-                onReverseComplete: function() { gsap.set(body, { height: 0 }); }
-            })
-            .reverse();
+        var isOpen = item.classList.contains('is-open');
+        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 
-        var isInitiallyOpen = item.classList.contains('is-open');
-        item.classList.remove('is-open');
-
-        if (isInitiallyOpen) {
-            tl.play();
-            trigger.setAttribute('aria-expanded', 'true');
-            item.classList.add('is-open');
-        } else {
+        if (!isOpen) {
             gsap.set(body, { height: 0 });
-            trigger.setAttribute('aria-expanded', 'false');
+        } else {
+            gsap.set(icon, { rotation: 180 });
         }
 
-        animations.push({ item: item, trigger: trigger, tl: tl });
+        var entry = { item: item, trigger: trigger, body: body, icon: icon };
+        entries.push(entry);
+        if (isOpen) activeEntry = entry;
     });
 
-    animations.forEach(function(entry) {
+    entries.forEach(function(entry) {
         entry.trigger.addEventListener('click', function() {
-            keepAccordionTriggerAnchored(entry.trigger);
+            var isOpen = entry.item.classList.contains('is-open');
 
-            var isOpen = entry.tl.reversed() === false;
-
-            animations.forEach(function(other) {
-                if (other !== entry) {
-                    other.tl.reverse();
-                    other.trigger.setAttribute('aria-expanded', 'false');
-                    other.item.classList.remove('is-open');
+            entries.forEach(function(other) {
+                if (other !== entry && other.item.classList.contains('is-open')) {
+                    closeEntry(other);
                 }
             });
 
             if (isOpen) {
-                entry.tl.reverse();
-                entry.trigger.setAttribute('aria-expanded', 'false');
-                entry.item.classList.remove('is-open');
+                closeEntry(entry);
+                activeEntry = null;
             } else {
-                entry.tl.play();
-                entry.trigger.setAttribute('aria-expanded', 'true');
-                entry.item.classList.add('is-open');
+                openEntry(entry);
+                activeEntry = entry;
             }
         });
     });
