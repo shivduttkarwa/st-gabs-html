@@ -2314,7 +2314,6 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   margin-top: auto;
   padding-top: 2.375rem;
   display: inline-flex;
-  align-items: center;
   font-family: var(--font-satoshi-bold);
   font-size: 1.125rem;
   line-height: 1.4;
@@ -5002,7 +5001,6 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   .sg-features-link {
     grid-column: 2;
     grid-row: 1 / 3;
-    align-self: center;
   }
 }
 .sg-news-browse {
