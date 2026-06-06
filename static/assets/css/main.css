@@ -4876,6 +4876,96 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
     padding-bottom: 2.5rem;
   }
 }
+.sg-news-browse {
+  padding: 2.5rem 0 4rem;
+}
+@media (min-width: 992px) {
+  .sg-news-browse {
+    padding: 3.5rem 0 5rem;
+  }
+}
+.sg-news-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 2.5rem;
+}
+.sg-news-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9375rem 1.25rem;
+  border: 1px solid var(--color-navy);
+  border-radius: 0.625rem;
+  background: transparent;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-medium);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sg-news-filter-btn.is-active,
+.sg-news-filter-btn:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.sg-news-grid {
+  position: relative;
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+}
+.sg-news-item {
+  float: left;
+  width: 100%;
+  padding: 0 1.25rem;
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 768px) {
+  .sg-news-item {
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .sg-news-item {
+    width: 33.3333%;
+  }
+}
+.sg-news-item--pending {
+  display: none !important;
+}
+.sg-news-load-more-wrap {
+  text-align: center;
+  padding-top: 0.5rem;
+  clear: both;
+}
+.sg-news-load-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1.875rem;
+  border: 1px solid var(--color-navy);
+  border-radius: 0.625rem;
+  background: transparent;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sg-news-load-more:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.sg-news-load-more.sg-hidden {
+  display: none !important;
+}
 @media only screen and (min-device-width: 380px) and (max-device-width: 991px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
   body .sg-hero .sg-hero__content {
     padding: 2rem 9.5rem 1.5rem 1.5rem;

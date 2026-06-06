@@ -1765,4 +1765,91 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
         });
     });
 });
+
+// ── News Browse: Isotope filter + load more ───────────────────
+(function () {
+    const grid = document.getElementById('sg-news-grid');
+    if (!grid) return;
+
+    const BATCH = 6;
+    let currentFilter = '*';
+    let iso = null;
+
+    function initIso() {
+        if (typeof Isotope === 'undefined') return;
+        iso = new Isotope(grid, {
+            itemSelector: '.sg-news-item:not(.sg-news-item--pending)',
+            layoutMode: 'fitRows',
+            percentPosition: true,
+            transitionDuration: '0.35s',
+        });
+    }
+
+    // Filter buttons
+    const filterBtns = Array.from(document.querySelectorAll('.sg-news-filter-btn'));
+    filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            if (!iso) return;
+            filterBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            currentFilter = btn.dataset.filter || '*';
+            iso.arrange({ filter: currentFilter });
+        });
+    });
+
+    // Load more
+    var loadMoreBtn = document.getElementById('sg-news-load-more');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function () {
+            if (!iso) return;
+
+            var pending = Array.from(grid.querySelectorAll('.sg-news-item--pending')).slice(0, BATCH);
+            if (!pending.length) return;
+
+            // Reveal items — set opacity 0 first so we can fade in
+            pending.forEach(function (item) {
+                item.classList.remove('sg-news-item--pending');
+                item.style.opacity = '0';
+            });
+
+            // Re-init isotope so it picks up the newly visible items
+            iso.destroy();
+            iso = new Isotope(grid, {
+                itemSelector: '.sg-news-item:not(.sg-news-item--pending)',
+                layoutMode: 'fitRows',
+                percentPosition: true,
+                transitionDuration: '0.35s',
+                filter: currentFilter === '*' ? '' : currentFilter,
+            });
+
+            // Fade new items in after Isotope positions them
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    pending.forEach(function (item) {
+                        item.style.transition = 'opacity 0.4s ease';
+                        item.style.opacity = '1';
+                    });
+                    setTimeout(function () {
+                        pending.forEach(function (item) {
+                            item.style.transition = '';
+                            item.style.opacity = '';
+                        });
+                    }, 450);
+                });
+            });
+
+            // Hide load more when nothing pending remains
+            if (!grid.querySelector('.sg-news-item--pending')) {
+                loadMoreBtn.classList.add('sg-hidden');
+            }
+        });
+    }
+
+    // Init after page scripts are ready
+    if (typeof Isotope !== 'undefined') {
+        initIso();
+    } else {
+        window.addEventListener('load', initIso);
+    }
+})();
 document.body.classList.add('scripts-loaded');
