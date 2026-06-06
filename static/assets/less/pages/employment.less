@@ -62,14 +62,127 @@
   .sg-staff-quotes-slider {
     padding: 3.5rem 0;
   }
-
-  .sg-staff-quotes-slider__heading {
-    margin-bottom: 2rem;
-  }
 }
 
 @media (max-width: 767px) {
   .sg-staff-quotes-slider {
     padding: 2.5rem 0;
+  }
+}
+
+// ── Job Listings ─────────────────────────────────────────
+
+.sg-job-listings {
+  padding: 5rem 0;
+  background: var(--basic-white);
+}
+
+.sg-job-listings__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+
+.sg-job-listings__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-light-grey);
+}
+
+.sg-job-listing-item {
+  display: grid;
+  grid-template-columns: 10rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.375rem 0;
+  border-bottom: 1px solid var(--color-light-grey);
+  transition: background 0.2s ease;
+}
+
+.sg-job-listing-item__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sg-job-listing-item__category {
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-b3);
+  color: var(--color-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.sg-job-listing-item__date {
+  font-family: var(--font-satoshi-medium);
+  font-size: var(--fz-b3);
+  color: var(--color-mid-grey);
+  line-height: 1;
+}
+
+.sg-job-listing-item__title {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h5);
+  line-height: 1.1;
+  letter-spacing: -0.03125rem;
+  color: var(--color-navy);
+}
+
+
+@media (max-width: 991px) {
+  .sg-job-listings {
+    padding: 3.5rem 0;
+  }
+
+  .sg-job-listing-item {
+    grid-template-columns: 8rem 1fr auto;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .sg-job-listings {
+    padding: 2.5rem 0;
+  }
+
+  .sg-job-listings__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sg-job-listing-item {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1rem;
+    padding: 1.25rem 0;
+  }
+
+  .sg-job-listing-item__meta {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .sg-job-listing-item__title {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .sg-features-link {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
   }
 }
