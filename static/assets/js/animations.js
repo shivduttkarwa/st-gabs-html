@@ -119,12 +119,24 @@
                 }
             }
 
-            const textBlocks = document.querySelectorAll('.sg-children-anim > *:not(blockquote)');
+            const childrenAnimContainers = Array.from(document.querySelectorAll('.sg-children-anim')).filter((container) => (
+                !container.closest('[data-card-animation="fade"]')
+            ));
+            const textBlocks = [];
+            const blockquoteBlocks = [];
+            childrenAnimContainers.forEach((container) => {
+                Array.from(container.children).forEach((child) => {
+                    if (child.matches('blockquote')) {
+                        blockquoteBlocks.push(child);
+                    } else {
+                        textBlocks.push(child);
+                    }
+                });
+            });
             if (textBlocks.length > 0) {
                 textBlocks.forEach((el) => el.classList.add('sg-anim-item', 'sg-anim-item--static'));
             }
 
-            const blockquoteBlocks = document.querySelectorAll('.sg-children-anim > blockquote');
             if (blockquoteBlocks.length > 0) {
                 blockquoteBlocks.forEach((el) => {
                     const line1 = document.createElement('div');
@@ -507,6 +519,7 @@
             const maskBlocks = Array.from(document.querySelectorAll(
                 '.sg-promo-card-frame, .sg-news-card-frame, .sg-school-life-tile, .sg-split-slider-pic-slider, .sg-profile-card-image, .sg-contact-map-wrap'
             )).filter((block) => {
+                if (block.closest('[data-card-animation="fade"]')) return false;
                 if (block.classList.contains('sg-mask-sweep-reveal')) return false;
                 return !(isHomepage && block.matches('.sg-promo-card-frame, .sg-news-card-frame'));
             });
@@ -719,7 +732,9 @@
             if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-            const blocks = document.querySelectorAll('.sg-mask-sweep-reveal');
+            const blocks = Array.from(document.querySelectorAll('.sg-mask-sweep-reveal')).filter((block) => (
+                !block.closest('[data-card-animation="fade"]')
+            ));
             if (!blocks.length) return;
 
             const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -811,9 +826,9 @@
                     };
 
                     const currentItem = getGroupItem(block);
-                    const currentTop = currentItem.offsetTop;
+                    const currentTop = currentItem.getBoundingClientRect().top;
                     const sameRowBlocks = groupBlocks.filter((item) => (
-                        Math.abs(getGroupItem(item).offsetTop - currentTop) < 2
+                        Math.abs(getGroupItem(item).getBoundingClientRect().top - currentTop) < 2
                     ));
                     const rowIndex = sameRowBlocks.indexOf(block);
 
@@ -883,6 +898,49 @@
                                 duration: 0.26,
                                 ease: 'power1.out',
                             }, '-=0.18');
+                    },
+                });
+            });
+        },
+
+        initCardFadeReveal() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const fadeGroups = Array.from(document.querySelectorAll('[data-card-animation="fade"]'));
+            if (!fadeGroups.length) return;
+
+            fadeGroups.forEach((group) => {
+                const selector = group.dataset.cardAnimationSelector || '.sg-news-item:not(.sg-news-item--pending) .sg-news-card';
+                const cards = Array.from(group.querySelectorAll(selector)).filter((card) => (
+                    card.dataset.cardFadeReady !== 'true'
+                    && card.getClientRects().length
+                ));
+                if (!cards.length) return;
+
+                const step = parseFloat(group.dataset.cardStaggerStep);
+                const staggerStep = Number.isFinite(step) ? step : 0.08;
+
+                cards.forEach((card) => {
+                    card.dataset.cardFadeReady = 'true';
+                });
+
+                gsap.set(cards, {
+                    autoAlpha: 0,
+                    willChange: 'opacity',
+                });
+
+                ScrollTrigger.batch(cards, {
+                    start: 'top bottom-=80',
+                    once: true,
+                    onEnter: (batch) => {
+                        gsap.to(batch, {
+                            autoAlpha: 1,
+                            duration: 0.58,
+                            ease: 'power2.out',
+                            stagger: staggerStep,
+                            clearProps: 'opacity,visibility,willChange',
+                        });
                     },
                 });
             });
@@ -1226,6 +1284,7 @@ initPreloaderHeroFlow() {
             this.initMaskShapeReveal();
             this.initMaskSweepReveal();
             this.initMaskClipReveal();
+            this.initCardFadeReveal();
             this.initPreloaderHeroFlow();
             this.initInternalHeroIntro();
             this.initRibbonGrow();

@@ -1778,6 +1778,20 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
 
     let currentFilter = '*';
     let iso = null;
+    const usesCardFade = grid.dataset.cardAnimation === 'fade';
+
+    function refreshNewsCardAnimations() {
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                if (window.SGAnimations && typeof window.SGAnimations.initCardFadeReveal === 'function') {
+                    window.SGAnimations.initCardFadeReveal();
+                }
+                if (typeof ScrollTrigger !== 'undefined') {
+                    ScrollTrigger.refresh(true);
+                }
+            });
+        });
+    }
 
     // Reveal the first INITIAL_COUNT items immediately
     const allPending = Array.from(grid.querySelectorAll('.sg-news-item--pending'));
@@ -1798,6 +1812,8 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
         if (!grid.querySelector('.sg-news-item--pending') && loadMoreBtn) {
             loadMoreBtn.classList.add('sg-hidden');
         }
+
+        refreshNewsCardAnimations();
     }
 
     // Filter buttons
@@ -1809,6 +1825,7 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             btn.classList.add('is-active');
             currentFilter = btn.dataset.filter || '*';
             iso.arrange({ filter: currentFilter });
+            refreshNewsCardAnimations();
         });
     });
 
@@ -1821,10 +1838,18 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             var pending = Array.from(grid.querySelectorAll('.sg-news-item--pending')).slice(0, LOAD_MORE_COUNT);
             if (!pending.length) return;
 
-            // Reveal items — set opacity 0 first so we can fade in
+            // Reveal items; latest-news can opt into card-level fade animation.
             pending.forEach(function (item) {
                 item.classList.remove('sg-news-item--pending');
-                item.style.opacity = '0';
+                if (usesCardFade) {
+                    var card = item.querySelector('.sg-news-card');
+                    if (card && card.dataset.cardFadeReady !== 'true') {
+                        card.style.opacity = '0';
+                        card.style.visibility = 'hidden';
+                    }
+                } else {
+                    item.style.opacity = '0';
+                }
             });
 
             // Re-init isotope so it picks up the newly visible items
@@ -1840,6 +1865,11 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             // Fade new items in after Isotope positions them
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
+                    if (usesCardFade) {
+                        refreshNewsCardAnimations();
+                        return;
+                    }
+
                     pending.forEach(function (item) {
                         item.style.transition = 'opacity 0.4s ease';
                         item.style.opacity = '1';
