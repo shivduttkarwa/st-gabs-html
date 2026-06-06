@@ -784,6 +784,25 @@
                 return { svg, maskPath };
             };
 
+            const getSweepDelay = (block) => {
+                const explicitDelay = block.dataset.sweepDelay;
+                if (explicitDelay !== undefined && explicitDelay !== '') {
+                    const parsedDelay = parseFloat(explicitDelay);
+                    return Number.isFinite(parsedDelay) ? parsedDelay : 0;
+                }
+
+                const group = block.closest('[data-sweep-stagger-group]');
+                if (!group) return 0;
+
+                const step = parseFloat(group.dataset.sweepStaggerStep);
+                const staggerStep = Number.isFinite(step) ? step : 0.2;
+                const selector = group.dataset.sweepStaggerSelector || '.sg-mask-sweep-reveal';
+                const groupBlocks = Array.from(group.querySelectorAll(selector));
+                const blockIndex = groupBlocks.indexOf(block);
+
+                return blockIndex >= 0 ? blockIndex * staggerStep : 0;
+            };
+
             blocks.forEach((block, blockIndex) => {
                 const setup = ensureSweepMask(block, blockIndex);
                 if (!setup) return;
@@ -817,7 +836,7 @@
                     force3D: true,
                 });
 
-                const sweepDelay = parseFloat(block.dataset.sweepDelay) || 0;
+                const sweepDelay = getSweepDelay(block);
                 const sweepStart = block.dataset.sweepStart || 'top 55%';
 
                 ScrollTrigger.create({
