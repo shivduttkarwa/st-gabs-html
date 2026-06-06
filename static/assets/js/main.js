@@ -1779,6 +1779,7 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     let currentFilter = '*';
     let iso = null;
     const usesCardFade = grid.dataset.cardAnimation === 'fade';
+    var loadMoreBtn = document.getElementById('sg-news-load-more');
 
     function refreshNewsCardAnimations() {
         requestAnimationFrame(function () {
@@ -1793,27 +1794,81 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
         });
     }
 
-    // Reveal the first INITIAL_COUNT items immediately
-    const allPending = Array.from(grid.querySelectorAll('.sg-news-item--pending'));
-    allPending.slice(0, INITIAL_COUNT).forEach(function (item) {
-        item.classList.remove('sg-news-item--pending');
-    });
+    function itemMatchesFilter(item, filter) {
+        return filter === '*' || filter === '' || item.matches(filter);
+    }
 
-    function initIso() {
+    function getItemsForFilter(filter) {
+        return Array.from(grid.querySelectorAll('.sg-news-item')).filter(function (item) {
+            return itemMatchesFilter(item, filter);
+        });
+    }
+
+    function getPendingItemsForFilter(filter) {
+        return getItemsForFilter(filter).filter(function (item) {
+            return item.classList.contains('sg-news-item--pending');
+        });
+    }
+
+    function updateLoadMoreVisibility() {
+        if (!loadMoreBtn) return;
+        loadMoreBtn.classList.toggle('sg-hidden', getPendingItemsForFilter(currentFilter).length === 0);
+    }
+
+    function prepareItemForReveal(item, animate) {
+        item.classList.remove('sg-news-item--pending');
+        if (!animate) return;
+
+        if (usesCardFade) {
+            var card = item.querySelector('.sg-news-card');
+            if (card && card.dataset.cardFadeReady !== 'true') {
+                card.style.opacity = '0';
+                card.style.visibility = 'hidden';
+            }
+        } else {
+            item.style.opacity = '0';
+        }
+    }
+
+    function revealItems(items, animate) {
+        items.forEach(function (item) {
+            prepareItemForReveal(item, animate);
+        });
+        return items;
+    }
+
+    function revealInitialItemsForFilter(filter) {
+        var matchingItems = getItemsForFilter(filter);
+        var visibleMatchingItems = matchingItems.filter(function (item) {
+            return !item.classList.contains('sg-news-item--pending');
+        });
+        var revealCount = Math.max(0, INITIAL_COUNT - visibleMatchingItems.length);
+        if (!revealCount) return [];
+
+        return revealItems(getPendingItemsForFilter(filter).slice(0, revealCount), true);
+    }
+
+    function rebuildIso(filter) {
         if (typeof Isotope === 'undefined') return;
+        if (iso) iso.destroy();
         iso = new Isotope(grid, {
             itemSelector: '.sg-news-item:not(.sg-news-item--pending)',
             layoutMode: 'fitRows',
             percentPosition: true,
             transitionDuration: '0.35s',
+            filter: filter === '*' ? '' : filter,
         });
-
-        // Hide load more if nothing is pending
-        if (!grid.querySelector('.sg-news-item--pending') && loadMoreBtn) {
-            loadMoreBtn.classList.add('sg-hidden');
-        }
-
+        updateLoadMoreVisibility();
         refreshNewsCardAnimations();
+    }
+
+    // Reveal the first INITIAL_COUNT items immediately
+    const allPending = Array.from(grid.querySelectorAll('.sg-news-item--pending'));
+    revealItems(allPending.slice(0, INITIAL_COUNT), false);
+
+    function initIso() {
+        if (typeof Isotope === 'undefined') return;
+        rebuildIso(currentFilter);
     }
 
     // Filter buttons
@@ -1824,49 +1879,29 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             filterBtns.forEach(function (b) { b.classList.remove('is-active'); });
             btn.classList.add('is-active');
             currentFilter = btn.dataset.filter || '*';
-            iso.arrange({ filter: currentFilter });
-            refreshNewsCardAnimations();
+            revealInitialItemsForFilter(currentFilter);
+            rebuildIso(currentFilter);
         });
     });
 
     // Load more
-    var loadMoreBtn = document.getElementById('sg-news-load-more');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function () {
             if (!iso) return;
 
-            var pending = Array.from(grid.querySelectorAll('.sg-news-item--pending')).slice(0, LOAD_MORE_COUNT);
+            var pending = getPendingItemsForFilter(currentFilter).slice(0, LOAD_MORE_COUNT);
             if (!pending.length) return;
 
             // Reveal items; latest-news can opt into card-level fade animation.
-            pending.forEach(function (item) {
-                item.classList.remove('sg-news-item--pending');
-                if (usesCardFade) {
-                    var card = item.querySelector('.sg-news-card');
-                    if (card && card.dataset.cardFadeReady !== 'true') {
-                        card.style.opacity = '0';
-                        card.style.visibility = 'hidden';
-                    }
-                } else {
-                    item.style.opacity = '0';
-                }
-            });
+            revealItems(pending, true);
 
             // Re-init isotope so it picks up the newly visible items
-            iso.destroy();
-            iso = new Isotope(grid, {
-                itemSelector: '.sg-news-item:not(.sg-news-item--pending)',
-                layoutMode: 'fitRows',
-                percentPosition: true,
-                transitionDuration: '0.35s',
-                filter: currentFilter === '*' ? '' : currentFilter,
-            });
+            rebuildIso(currentFilter);
 
             // Fade new items in after Isotope positions them
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
                     if (usesCardFade) {
-                        refreshNewsCardAnimations();
                         return;
                     }
 
@@ -1882,11 +1917,6 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
                     }, 450);
                 });
             });
-
-            // Hide load more when nothing pending remains
-            if (!grid.querySelector('.sg-news-item--pending')) {
-                loadMoreBtn.classList.add('sg-hidden');
-            }
         });
     }
 
