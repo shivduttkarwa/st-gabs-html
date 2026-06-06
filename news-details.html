@@ -682,17 +682,20 @@
 </section>
 
 <!-- Featured image — same promo-card-frame shape, straddles hero bottom / article top -->
-<div class="sg-news-details-featured">
+<div class="sg-news-details-featured sg-mask-sweep-reveal" data-sweep-start="bottom 85%" data-sweep-origin="bottom">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img" aria-label="MiniFit activity session">
     <defs>
       <clipPath id="nd-feat-clip" clipPathUnits="userSpaceOnUse">
-        <path d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 0 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z"/>
+        <path class="sg-mask-grow-shape" d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 0 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z"/>
       </clipPath>
     </defs>
-    <image href="static/assets/images/school-life-tile-1.jpg"
-           clip-path="url(#nd-feat-clip)"
-           preserveAspectRatio="xMidYMid slice"
-           width="400" height="257"/>
+    <g class="sg-mask-grow-shell">
+      <image class="sg-mask-grow-image"
+             href="static/assets/images/school-life-tile-1.jpg"
+             clip-path="url(#nd-feat-clip)"
+             preserveAspectRatio="xMidYMid slice"
+             width="400" height="257"/>
+    </g>
   </svg>
 </div>
 
