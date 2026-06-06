@@ -688,12 +688,12 @@
       src="static/assets/images/school-life-tile-1.jpg"
       alt="Students participating in MiniFit physical education sessions"
       class="sg-news-details-bridge-img">
-    <!-- White arch — same transition tip as other hero sections -->
-    <div class="sg-news-details-bridge-tail" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="199" height="25" viewBox="0 0 199 25" fill="none">
-        <path d="M99.5 25H0C34.1202 25 66.2366 16.4195 94.3039 1.31397C97.5515 -0.437992 101.449 -0.437992 104.696 1.31397C132.763 16.4195 164.88 25 199 25H99.5Z" fill="white"/>
-      </svg>
-    </div>
+  </div>
+  <!-- White arch — outside overflow:hidden wrapper so it isn't clipped -->
+  <div class="sg-news-details-bridge-tail" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="199" height="25" viewBox="0 0 199 25" fill="none">
+      <path d="M99.5 25H0C34.1202 25 66.2366 16.4195 94.3039 1.31397C97.5515 -0.437992 101.449 -0.437992 104.696 1.31397C132.763 16.4195 164.88 25 199 25H99.5Z" fill="white"/>
+    </svg>
   </div>
 </div>
 
@@ -777,6 +777,118 @@
     </div>
   </div>
 </section>
+
+<!-- News Preview Row -->
+<section class="sg-news-preview">
+  <div class="container">
+    <div class="row align-items-end gy-3 sg-news-preview-top sg-children-anim">
+      <div class="col">
+        <h2>News and Updates</h2>
+      </div>
+      <div class="col-auto">
+        <a href="#" class="d-inline-flex align-items-center gap-1 text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
+          </svg>
+          <span>View All News</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-4 sg-news-preview-row" data-sweep-stagger-group data-sweep-stagger-step="0.25" data-sweep-stagger-mode="row">
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="sg-news-card">
+          <div class="sg-news-card-frame sg-mask-sweep-reveal" data-sweep-start="top 85%" data-sweep-origin="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img" aria-label="Wellbeing activity session">
+              <defs>
+                <clipPath id="sg-news-card-clip-1" clipPathUnits="userSpaceOnUse">
+                  <path class="sg-mask-grow-shape" d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 6.4426e-07 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z"/>
+                </clipPath>
+              </defs>
+              <g class="sg-mask-grow-shell">
+                <image class="sg-mask-grow-image"
+                       href="static/assets/images/image-7.jpg"
+                       width="400"
+                       height="257"
+                       preserveAspectRatio="xMidYMid slice"
+                       clip-path="url(#sg-news-card-clip-1)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="sg-news-card-content sg-children-anim">
+            <div class="sg-news-card-meta">
+              <span class="sg-news-card-category"><a href="#">Wellbeing</a></span>
+              <span class="sg-news-card-separator">|</span>
+              <span class="sg-news-card-date">February 26, 2026</span>
+            </div>
+            <h3><a href="#">Anthony Minichiello and his team from MiniFit create fun and engaging sessions</a></h3>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="sg-news-card">
+          <div class="sg-news-card-frame sg-mask-sweep-reveal" data-sweep-start="top 85%" data-sweep-origin="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img" aria-label="Disability expo event floor">
+              <defs>
+                <clipPath id="sg-news-card-clip-2" clipPathUnits="userSpaceOnUse">
+                  <path class="sg-mask-grow-shape" d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 6.4426e-07 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z"/>
+                </clipPath>
+              </defs>
+              <g class="sg-mask-grow-shell">
+                <image class="sg-mask-grow-image"
+                       href="static/assets/images/image-2.jpg"
+                       width="400"
+                       height="257"
+                       preserveAspectRatio="xMidYMid slice"
+                       clip-path="url(#sg-news-card-clip-2)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="sg-news-card-content sg-children-anim">
+            <div class="sg-news-card-meta">
+              <span class="sg-news-card-category"><a href="#">Whole School</a></span>
+              <span class="sg-news-card-separator">|</span>
+              <span class="sg-news-card-date">February 26, 2026</span>
+            </div>
+            <h3><a href="#">St Gabe&rsquo;s to host the 2026 Sydney North West Disability Expo</a></h3>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="sg-news-card">
+          <div class="sg-news-card-frame sg-mask-sweep-reveal" data-sweep-start="top 85%" data-sweep-origin="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img" aria-label="Students at fundraising stall">
+              <defs>
+                <clipPath id="sg-news-card-clip-3" clipPathUnits="userSpaceOnUse">
+                  <path class="sg-mask-grow-shape" d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 6.4426e-07 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z"/>
+                </clipPath>
+              </defs>
+              <g class="sg-mask-grow-shell">
+                <image class="sg-mask-grow-image"
+                       href="static/assets/images/image-3.jpg"
+                       width="400"
+                       height="257"
+                       preserveAspectRatio="xMidYMid slice"
+                       clip-path="url(#sg-news-card-clip-3)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="sg-news-card-content sg-children-anim">
+            <div class="sg-news-card-meta">
+              <span class="sg-news-card-category"><a href="#">Wellbeing</a></span>
+              <span class="sg-news-card-separator">|</span>
+              <span class="sg-news-card-date">February 26, 2026</span>
+            </div>
+            <h3><a href="#">Mt Sion House Day raises money for Starlight Children's Foundation</a></h3>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="sg-about-grid">
   <div class="container">
