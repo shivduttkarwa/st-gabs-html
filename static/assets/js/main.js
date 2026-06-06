@@ -1575,6 +1575,57 @@ function initAppSwipers() {
 
 }
 
+// ── Staff Quotes Slider ───────────────────────────────────
+(function () {
+    var section = document.querySelector('.sg-staff-quotes-slider');
+    if (!section || typeof gsap === 'undefined') return;
+
+    var slides = Array.from(section.querySelectorAll('.sg-staff-quotes-slider__slide'));
+    var prevBtn = section.querySelector('.sg-staff-quotes-prev');
+    var nextBtn = section.querySelector('.sg-staff-quotes-next');
+    var total = slides.length;
+    var current = 0;
+    var animating = false;
+    var IN_Y = 28;
+    var OUT_Y = 18;
+
+    function updateBtnStates() {
+        if (prevBtn) prevBtn.classList.toggle('is-disabled', current === 0);
+        if (nextBtn) nextBtn.classList.toggle('is-disabled', current === total - 1);
+    }
+
+    // Hide items of non-first slides only — slides themselves are transparent
+    slides.forEach(function (slide, i) {
+        if (i === 0) return;
+        gsap.set(slide.querySelectorAll('.sq-anim-item'), { y: IN_Y, opacity: 0 });
+    });
+    updateBtnStates();
+
+    function goToSlide(index) {
+        if (animating || index === current || index < 0 || index >= total) return;
+        animating = true;
+
+        var direction = index > current ? 1 : -1;
+        var prevItems = slides[current].querySelectorAll('.sq-anim-item');
+        var nextItems = slides[index].querySelectorAll('.sq-anim-item');
+
+        gsap.set(nextItems, { y: direction * IN_Y, opacity: 0 });
+
+        gsap.timeline({
+            onComplete: function () {
+                current = index;
+                animating = false;
+                updateBtnStates();
+            },
+        })
+            .to(prevItems, { y: direction * -OUT_Y, opacity: 0, duration: 0.45, stagger: { each: 0.05, from: direction > 0 ? 'start' : 'end' }, ease: 'power3.in' }, 0)
+            .to(nextItems, { y: 0, opacity: 1, duration: 0.55, stagger: { each: 0.07, from: direction > 0 ? 'start' : 'end' }, ease: 'power3.out' }, '-=0.25');
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { goToSlide(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goToSlide(current + 1); });
+}());
+
 // ── History Video Player ──────────────────────────────────
 document.querySelectorAll('.sg-history-video').forEach((wrap) => {
     const video = wrap.querySelector('.sg-history-video__player');
