@@ -1836,8 +1836,10 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     if (!grid) return;
 
     // ── Configure here ────────────────────────────────────────
-    const INITIAL_COUNT = 12;  // items visible on page load
-    const LOAD_MORE_COUNT = 6; // items revealed per "Load More" click
+    const configuredInitialCount = parseInt(grid.dataset.initialCount, 10);
+    const configuredLoadMoreCount = parseInt(grid.dataset.loadMoreCount, 10);
+    const INITIAL_COUNT = Number.isFinite(configuredInitialCount) && configuredInitialCount > 0 ? configuredInitialCount : 12;  // items visible on page load
+    const LOAD_MORE_COUNT = Number.isFinite(configuredLoadMoreCount) && configuredLoadMoreCount > 0 ? configuredLoadMoreCount : 6; // items revealed per "Load More" click
     // ─────────────────────────────────────────────────────────
 
     let currentFilter = '*';

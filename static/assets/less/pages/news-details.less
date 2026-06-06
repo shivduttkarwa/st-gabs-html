@@ -163,6 +163,93 @@
 }
 
 
+// ── News Article Footer Bar ───────────────────────────────────────────────────
+
+.sg-news-article-footer {
+  padding: 0 0 3.75rem;
+}
+
+.sg-news-article-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sg-news-article-footer__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  text-decoration: none;
+  color: var(--color-navy);
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-b2);
+  line-height: 1.4;
+  transition: color 0.2s ease, transform 0.2s ease;
+
+  i {
+    color: var(--color-cyan);
+    font-size: 1rem;
+    width: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--color-cyan);
+    transform: translateX(-0.1875rem);
+  }
+}
+
+.sg-news-article-footer__share {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.sg-news-article-footer__share-label {
+  color: var(--color-navy-dark);
+  font-family: var(--font-satoshi-regular);
+  font-size: var(--fz-b2);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.sg-news-article-footer__share-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.9375rem;
+}
+
+.sg-news-article-footer__share-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-navy-dark);
+  text-decoration: none;
+  width: 1.5625rem;
+  height: 1.5625rem;
+  transition: color 0.2s ease;
+
+  i {
+    font-size: 1.25rem;
+    display: block;
+  }
+
+  &.sg-share-brand {
+    width: 1.875rem;
+    height: 1.875rem;
+
+    i { font-size: 1.5rem; }
+  }
+
+  &:hover {
+    color: var(--color-cyan);
+  }
+}
+
+
 // ── Responsive ────────────────────────────────────────────────────────────────
 
 @media (max-width: 1199px) {
@@ -181,6 +268,15 @@
     margin-bottom: 0;
   }
 }
+
+@media (max-width: 767px) {
+  .sg-news-article-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}
+
 
 @media (max-width: 991px) {
   .sg-news-details-hero {
