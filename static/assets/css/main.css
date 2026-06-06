@@ -5212,6 +5212,15 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 .sg-news-details-hero-bc__link:hover {
   color: var(--color-cyan-bright);
 }
+.sg-news-details-hero-bc {
+  opacity: 0;
+  animation: nd-bc-fadein 0.5s ease 0.18s forwards;
+}
+@keyframes nd-bc-fadein {
+  to {
+    opacity: 1;
+  }
+}
 .sg-news-details-hero-bc__sep {
   color: var(--color-white-sec);
   flex-shrink: 0;
