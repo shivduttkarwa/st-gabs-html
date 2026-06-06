@@ -1,16 +1,17 @@
 // ── News Details Hero ────────────────────────────────────────────────────────
+// Figma spec: width 90rem (full viewport at 1440px), height 56.25rem
 
 .sg-news-details-hero {
   background-color: var(--color-navy-dark);
-  height: auto;
-  min-height: 0;
+  height: 56.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12.125rem 11.875rem 5rem;
+  padding: 12.125rem 11.875rem 0;
   gap: 4.8125rem;
   position: relative;
-  overflow: visible;
+  z-index: 1;
+  overflow: visible; // allow featured image to extend below
 }
 
 .sg-news-details-hero-bc {
@@ -73,41 +74,35 @@
 }
 
 
-// ── Bridge: featured image between hero and article ───────────────────────────
-// Image is clipped to a custom shape: rounded top corners + downward drip at
-// bottom center. The SVG clipPath (#news-bridge-clip) is defined inline in the
-// HTML. objectBoundingBox coordinates (0–1) make it responsive.
+// ── Featured image — straddles hero bottom / article top ──────────────────────
+// Figma spec: width 66.1875rem, height 39.7125rem
+// Half image height (19.85625rem) sits inside the hero, half in the article area.
+// Uses same SVG clip-path shape as sg-promo-card-frame (rounded rect + bottom tab).
 
-.sg-news-details-bridge {
-  background-color: var(--color-navy-dark);
-  padding: 0 11.875rem;
+.sg-news-details-featured {
+  width: 66.1875rem;
+  height: 39.7125rem;
+  margin: 0 auto;
+  margin-top: -19.85625rem; // pulls up by half image height → center at hero bottom edge
   position: relative;
-  z-index: 2;
-  margin-bottom: -4rem;
-}
+  z-index: 3; // above hero (z:1) and article (z:1)
 
-.sg-news-details-bridge-inner {
-  // Height = photo height (39.7125rem) + drip depth (2rem)
-  height: 41.7125rem;
-  clip-path: url(#news-bridge-clip);
-}
-
-.sg-news-details-bridge-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 
 // ── News Article Body ─────────────────────────────────────────────────────────
+// padding-top = gap below the featured image bottom (half image = 19.85625rem
+// is already cleared by the featured div's flow contribution).
 
-// Sits behind bridge (z-index: 1); padding-top clears the 4rem bridge overhang
-// plus adds breathing room below the drip tip
 .sg-news-article {
   position: relative;
   z-index: 1;
-  padding: calc(4.6875rem + 4rem) 0 5rem;
+  padding: 4.6875rem 0 5rem;
 }
 
 .sg-news-article__inner {
@@ -154,23 +149,24 @@
 
 @media (max-width: 1199px) {
   .sg-news-details-hero {
-    padding: 10rem 5rem 4rem;
+    height: auto;
+    min-height: 0;
+    padding: 10rem 5rem 5rem;
     gap: 3.5rem;
   }
 
-  .sg-news-details-bridge {
-    padding: 0 5rem;
-  }
-
-  .sg-news-details-bridge-inner {
-    // 32rem photo + 2rem drip
-    height: 34rem;
+  .sg-news-details-featured {
+    width: calc(100% - 10rem);
+    height: auto;
+    aspect-ratio: 400 / 257;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
 @media (max-width: 991px) {
   .sg-news-details-hero {
-    padding: 9rem 1.25rem 3.5rem;
+    padding: 9rem 1.25rem 4rem;
     gap: 2.5rem;
 
     .sg-internal-hero-content {
@@ -183,18 +179,12 @@
     }
   }
 
-  .sg-news-details-bridge {
-    padding: 0 1.25rem;
-    margin-bottom: -2.5rem;
-  }
-
-  .sg-news-details-bridge-inner {
-    // 22rem photo + 2rem drip
-    height: 24rem;
+  .sg-news-details-featured {
+    width: calc(100% - 2.5rem);
   }
 
   .sg-news-article {
-    padding: calc(3rem + 2.5rem) 0 3.5rem;
+    padding: 3rem 0 3.5rem;
   }
 
   .sg-news-article__lead {
