@@ -483,7 +483,6 @@
                     type: 'words,chars',
                     wordsClass: 'sg-title-word',
                     charsClass: 'sg-title-char',
-                    aria: 'none',
                 });
 
                 const chars = split.chars || [];
@@ -504,7 +503,11 @@
                             ease: 'none',
                             stagger: 0.02,
                             duration: 0.045,
-                            onComplete: () => split.revert(),
+                            onComplete: () => {
+                                // Keep SplitText markup so heading spacing does not snap after reveal.
+                                gsap.set(chars, { clearProps: 'opacity,visibility' });
+                                title.dataset.sgTitleWriteComplete = 'true';
+                            },
                         });
                     },
                 });
