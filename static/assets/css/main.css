@@ -4860,12 +4860,126 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   padding: 0 0 5rem;
   background: var(--basic-white);
 }
+.sg-employment-benefits {
+  padding: 5rem 0;
+  background: var(--color-cyan-tint);
+}
+.sg-employment-benefits-head {
+  margin-bottom: 3.125rem;
+}
+.sg-employment-benefits-lead {
+  color: var(--color-navy);
+  font-family: var(--font-fraunces-9pt);
+  font-size: 1.5625rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+.sg-employment-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+.sg-employment-benefit-card {
+  grid-column: span 4;
+  width: 100%;
+  min-height: 24rem;
+  padding: 2rem;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  position: relative;
+}
+.sg-employment-benefit-card--wide {
+  grid-column: span 8;
+  min-height: 18rem;
+}
+.sg-employment-benefit-card__label {
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 0.0625rem solid currentColor;
+  border-radius: var(--radius-xsmall);
+  color: inherit;
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-label-sm);
+  line-height: 1;
+  letter-spacing: 0;
+}
+.sg-employment-benefit-card .sg-full-width-promo-headings {
+  gap: 0;
+}
+.sg-employment-benefit-card .sg-full-width-promo-headings h3 {
+  margin: 0;
+  font-family: var(--font-satoshi-bold);
+  font-size: 1.875rem;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.sg-employment-benefit-card .sg-full-width-promo-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.sg-employment-benefit-card .sg-full-width-promo-copy p {
+  margin: 0;
+  font-family: var(--font-satoshi-regular);
+  font-size: var(--fz-b2);
+  line-height: 1.45;
+}
+.sg-employment-benefit-card--navy {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.sg-employment-benefit-card--cyan {
+  background: var(--color-cyan);
+  color: var(--color-white);
+}
+.sg-employment-benefit-card--light {
+  background: var(--color-white);
+  color: var(--color-navy);
+}
+.sg-employment-benefit-card--white {
+  background: var(--color-white);
+  color: var(--color-navy);
+}
+.sg-employment-benefit-card--light .sg-full-width-promo-copy p,
+.sg-employment-benefit-card--white .sg-full-width-promo-copy p {
+  color: var(--color-dark-grey);
+}
+.sg-employment-benefit-card--navy .sg-full-width-promo-copy p,
+.sg-employment-benefit-card--cyan .sg-full-width-promo-copy p {
+  color: var(--color-white);
+}
 @media (max-width: 991px) {
   .sg-employment-intro {
     padding: 3.5rem 0 2rem;
   }
   .sg-employment-accordion-section {
     padding-bottom: 3.5rem;
+  }
+  .sg-employment-benefits {
+    padding: 3.5rem 0;
+  }
+  .sg-employment-benefits-head {
+    margin-bottom: 2rem;
+  }
+  .sg-employment-benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sg-employment-benefit-card,
+  .sg-employment-benefit-card--wide {
+    grid-column: span 1;
+    min-height: auto;
+  }
+  .sg-employment-benefit-card .sg-full-width-promo-headings h3 {
+    font-size: 1.5625rem;
+  }
+  .sg-employment-benefit-card .sg-full-width-promo-copy p {
+    font-size: 1rem;
   }
 }
 @media (max-width: 767px) {
@@ -4874,6 +4988,15 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   }
   .sg-employment-accordion-section {
     padding-bottom: 2.5rem;
+  }
+  .sg-employment-benefits {
+    padding: 2.5rem 0;
+  }
+  .sg-employment-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  .sg-employment-benefit-card {
+    padding: 1.5rem;
   }
 }
 @media only screen and (min-device-width: 380px) and (max-device-width: 991px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
