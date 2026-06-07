@@ -35,7 +35,7 @@
       <div
         class="sg-news-item sg-news-item--pending {% for cat in item.news_category.all %}{{ cat.category.slug}} {% endfor %}">
         <article class="sg-news-card position-relative">
-          <a href="{% url 'news_detail_page' item.slug %}" class="link-mask"></a>
+          <a href="{% url 'news_detail_page' item.slug %}" class="link-mask" aria-label="{{ item.title }}"></a>
           <div class="sg-news-card-frame sg-mask-sweep-reveal" data-sweep-start="top 85%" data-sweep-origin="bottom">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img"
               aria-label="Career expo">
