@@ -3442,7 +3442,7 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
 }
 .sg-photo-grid__overlay i {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 2.625rem;
 }
 .sg-photo-grid__item:hover .sg-photo-grid__overlay {
   opacity: 1;
