@@ -1,283 +1,84 @@
-<section>
-    <div class="page-title-wrapper">
-        <h1 class="page-title">Current Employment Opportunities</h1>
+{% extends 'base.html' %}
+
+{% load static wagtailcore_tags wagtailimages_tags news_tags %}
+{% block body_class %}general-page innerpage news-listing-page{% endblock %}
+
+{% block content %}
+{% include "pages/hero.html" with type="internal" page=page %}
+
+{% get_news_category as categories %}
+{% get_news_items as news_listing %}
+{% get_category_name_from_url as cat_name %}
+
+<!-- News Browse -->
+<section class="sg-news-browse">
+  <div class="container">
+
+    <div class="col">
+      <h2>Browser News</h2>
     </div>
 
-
-
-<section data-test="page-section" data-section-theme="white" class="page-section 
-    
-      content-collection
-      full-bleed-section
-      collection-type-blog-side-by-side
-    
-    background-width--full-bleed
-    
-      section-height--medium
-    
-    
-      content-width--wide
-    
-    horizontal-alignment--center
-    vertical-alignment--middle
-    
-      
-    
-    
-    white" data-section-id="636a013bb3fad96ca7e99209" data-controller="SectionWrapperController" data-current-styles="{
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;imageOverlayOpacity&quot;: 0.15,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;sectionHeight&quot;: &quot;section-height--medium&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;contentWidth&quot;: &quot;content-width--wide&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;sectionTheme&quot;: &quot;white&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;sectionAnimation&quot;: &quot;none&quot;,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;backgroundMode&quot;: &quot;image&quot;
-                                                                                                                                                                                                                                                                                                                                                                                                      }" data-current-context="{
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;video&quot;: {
-                                                                                                                                                                                                                                                                                                                                                                                                          &quot;playbackSpeed&quot;: 0.5,
-                                                                                                                                                                                                                                                                                                                                                                                                          &quot;filter&quot;: 1,
-                                                                                                                                                                                                                                                                                                                                                                                                          &quot;filterStrength&quot;: 0,
-                                                                                                                                                                                                                                                                                                                                                                                                          &quot;zoom&quot;: 0,
-                                                                                                                                                                                                                                                                                                                                                                                                          &quot;videoSourceProvider&quot;: &quot;none&quot;
-                                                                                                                                                                                                                                                                                                                                                                                                        },
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;backgroundImageId&quot;: null,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;backgroundMediaEffect&quot;: null,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;divider&quot;: null,
-                                                                                                                                                                                                                                                                                                                                                                                                        &quot;typeName&quot;: &quot;blog-side-by-side&quot;
-                                                                                                                                                                                                                                                                                                                                                                                                      }" data-animation="none" data-sqsp-section="blog-list" data-controllers-bound="SectionWrapperController" data-active="true">
-  <div class="section-border">
-    <div class="section-background">
-    
-      
-    
+    <!-- Filter Pills -->
+    <div class="sg-news-filter-pills sg-children-anim" role="group" aria-label="Filter news by category">
+      <button class="sg-news-filter-btn is-active" data-filter="*" type="button">All</button>
+      {% for category in categories.items %}
+      <button class="sg-news-filter-btn" data-filter=".{{ category.slug|safe }}" type="button">
+        {{ category.title|safe}}
+      </button>
+      {% endfor %}
     </div>
-  </div>
-  <div class="content-wrapper" style="
-      
-      
-    ">
-    <div class="content">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="blog-side-by-side collection-content-wrapper" data-controller="BlogImageLoader">
-  <div class="blog-side-by-side-wrapper">
-    
-    <article class="hentry author-sarah-stevens post-type-text article-index-1 blog-item entry no-image-fade-in">
-      <section class="blog-image-wrapper">
-      
-      </section>
-      <section class="blog-item-summary">
-        <div class="blog-item-text">
-          <div class="blog-meta-section">
-  <span class="blog-meta-primary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.348066s;">5/5/26</time>
-  </span>
-  <span class="blog-meta-delimiter"></span>
-  
-  <span class="blog-meta-secondary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade fadeIn" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.351381s;">5/5/26</time>
-  </span>
-  
-  
-  
-</div>
-<h1 class="blog-title preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.354696s;">
-  
-    <a href="/employment/classroom-teacher-hg9d2-p24zs" data-no-animation="">
-  
-    Teacher Visual Arts
-  </a>
-</h1>
-<div class="blog-excerpt">
-  <div class="blog-excerpt-wrapper"></div>
-  
-</div>
 
-<a class="blog-more-link preFade fadeIn" href="/employment/classroom-teacher-hg9d2-p24zs" data-animation-role="content" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.358011s;">Read More</a>
-
-
-        </div>
-      </section>
-    </article>
-    
-    <article class="hentry author-sarah-stevens post-type-text article-index-2 blog-item entry no-image-fade-in">
-      <section class="blog-image-wrapper">
-      
-      </section>
-      <section class="blog-item-summary">
-        <div class="blog-item-text">
-          <div class="blog-meta-section">
-  <span class="blog-meta-primary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.361326s;">4/5/26</time>
-  </span>
-  <span class="blog-meta-delimiter"></span>
-  
-  <span class="blog-meta-secondary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade fadeIn" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.364641s;">4/5/26</time>
-  </span>
-  
-  
-  
-</div>
-<h1 class="blog-title preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.367956s;">
-  
-    <a href="/employment/classroom-teacher" data-no-animation="">
-  
-    Classroom Teacher
-  </a>
-</h1>
-<div class="blog-excerpt">
-  <div class="blog-excerpt-wrapper"></div>
-  
-</div>
-
-<a class="blog-more-link preFade fadeIn" href="/employment/classroom-teacher" data-animation-role="content" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.371271s;">Read More</a>
-
-
-        </div>
-      </section>
-    </article>
-    
-    <article class="hentry author-sarah-stevens post-type-text article-index-3 blog-item entry no-image-fade-in">
-      <section class="blog-image-wrapper">
-      
-      </section>
-      <section class="blog-item-summary">
-        <div class="blog-item-text">
-          <div class="blog-meta-section">
-  <span class="blog-meta-primary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.374586s;">30/4/26</time>
-  </span>
-  <span class="blog-meta-delimiter"></span>
-  
-  <span class="blog-meta-secondary">
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade fadeIn" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.377901s;">30/4/26</time>
-  </span>
-  
-  
-  
-</div>
-<h1 class="blog-title preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.381215s;">
-  
-    <a href="/employment/classroom-teacher-hg9d2" data-no-animation="">
-  
-    Teacher Librarian
-  </a>
-</h1>
-<div class="blog-excerpt">
-  <div class="blog-excerpt-wrapper"></div>
-  
-</div>
-
-<a class="blog-more-link preFade fadeIn" href="/employment/classroom-teacher-hg9d2" data-animation-role="content" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.38453s;">Read More</a>
-
-
-        </div>
-      </section>
-    </article>
-    
-    <article class="hentry category-teaching author-sarah-stevens post-type-text article-index-4 blog-item entry no-image-fade-in">
-      <section class="blog-image-wrapper">
-      
-      </section>
-      <section class="blog-item-summary">
-        <div class="blog-item-text">
-          <div class="blog-meta-section">
-  <span class="blog-meta-primary">
-    
-      <span class="blog-categories-list">
-        
-          <a href="/employment/category/Teaching" class="blog-categories">Teaching</a>
-      </span>
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.387845s;">11/3/26</time>
-  </span>
-  <span class="blog-meta-delimiter"></span>
-  
-    <span class="blog-meta-delimiter blog-category-delimiter"></span>
-  
-  <span class="blog-meta-secondary">
-    
-      <span class="blog-categories-list">
-        
-          <a href="/employment/category/Teaching" class="blog-categories">Teaching</a>
-      </span>
-    
-    
-      <span class="blog-author">Sarah Stevens</span>
-    
-    <time class="blog-date preFade fadeIn" pubdate="" data-animation-role="date" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.39116s;">11/3/26</time>
-  </span>
-  
-  
-  
-</div>
-<h1 class="blog-title preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.394475s;">
-  
-    <a href="/employment/casual-classroom-teachers-primary-and-secondary" data-no-animation="">
-  
-    Classroom Teachers (Casual)
-  </a>
-</h1>
-<div class="blog-excerpt">
-  <div class="blog-excerpt-wrapper"></div>
-  
-</div>
-
-<a class="blog-more-link preFade fadeIn" href="/employment/casual-classroom-teachers-primary-and-secondary" data-animation-role="content" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.39779s;">Read More</a>
-
-
-        </div>
-      </section>
-    </article>
-    
-  </div>
-
-  
-</div>
-
+    <!-- Isotope Grid -->
+    <div class="sg-news-grid" id="sg-news-grid" data-card-animation="fade" data-card-stagger-step="0.08">
+      {% for item in news_listing.items %}
+      {% image item.image fill-600x375-c100 format-webp as img %}
+      <div
+        class="sg-news-item sg-news-item--pending {% for cat in item.news_category.all %}{{ cat.category.slug}} {% endfor %}">
+        <article class="sg-news-card position-relative">
+          <a href="{% url 'news_detail_page' item.slug %}" class="link-mask"></a>
+          <div class="sg-news-card-frame sg-mask-sweep-reveal" data-sweep-start="top 85%" data-sweep-origin="bottom">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 257" fill="none" role="img"
+              aria-label="Career expo">
+              <defs>
+                <clipPath id="sg-browse-clip-24" clipPathUnits="userSpaceOnUse">
+                  <path class="sg-mask-grow-shape"
+                    d="M150 240H30C13.4315 240 0 226.569 0 210V30C0 13.4315 13.4315 6.4426e-07 30 0H370C386.569 0 400 13.4315 400 30V210C400 226.569 386.569 240 370 240H250C232.854 240 216.715 245.835 202.611 256.106C200.979 257.298 199.021 257.298 197.389 256.106C183.285 245.835 167.146 240 150 240Z" />
+                </clipPath>
+              </defs>
+              <g class="sg-mask-grow-shell">
+                <image class="sg-mask-grow-image" href="{{ img.url }}" width="400" height="257"
+                  preserveAspectRatio="xMidYMid slice" clip-path="url(#sg-browse-clip-24)" />
+              </g>
+            </svg>
+          </div>
+          <div class="sg-news-card-content sg-children-anim">
+            <div class="sg-news-card-meta">
+              <span class="sg-news-card-category">
+                {% for cat in item.news_category.all %}
+                {% if forloop.first %}{{ cat.category.title }}{% endif %}
+                {% endfor %}
+              </span>
+              <span class="sg-news-card-separator">|</span>
+              <span class="sg-news-card-date">{{ item.release_date|date:"F j, Y" }}</span>
+            </div>
+            <h3>{{ item.title }}</h3>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
     </div>
-  
+
+    <!-- Load More -->
+    <div class="sg-news-load-more-wrap">
+      <button class="sg-news-load-more" type="button" id="sg-news-load-more">Load More</button>
+    </div>
+
   </div>
-  
 </section>
 
-
-</section>
+{% with blocks=page.body %}
+{% for block in blocks %}
+{% include_block block %}
+{% endfor %}
+{% endwith %}
+{% endblock %}
