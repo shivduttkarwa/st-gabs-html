@@ -1102,8 +1102,9 @@ initPreloaderHeroFlow() {
                     ease: hero?.dataset.heroAnimEase || DEFAULTS.ease,
                 };
 
+                const skipTitleSplit = hero?.classList.contains('sg-news-details-hero') || hero?.dataset.heroTitleSplit === 'false';
                 const hasSplitText = typeof SplitText !== 'undefined';
-                const shouldSplitTitle = !!titleSans && hasSplitText && window.innerWidth >= 992;
+                const shouldSplitTitle = !!titleSans && !skipTitleSplit && hasSplitText && window.innerWidth >= 992;
                 let titleSplit = null;
                 let titleAnimTargets = titleSans ? [titleSans] : [];
                 if (shouldSplitTitle) {
