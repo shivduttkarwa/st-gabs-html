@@ -70,6 +70,56 @@ body.vbox-open .scrollbar-track {
   display: none !important;
 }
 
+.vbox-overlay .vbox-container {
+  overflow: hidden;
+  padding: 56px 72px;
+}
+
+.vbox-overlay .vbox-content {
+  min-height: 100%;
+  padding: 0;
+}
+
+.vbox-overlay .vbox-child {
+  background: transparent !important;
+  max-height: calc(100vh - 112px);
+  max-width: calc(100vw - 144px);
+}
+
+.vbox-overlay .vbox-child img {
+  display: block;
+  height: auto;
+  max-height: calc(100vh - 112px);
+  max-width: calc(100vw - 144px);
+  object-fit: contain;
+  width: auto;
+}
+
+.vbox-overlay .vbox-close {
+  top: 16px;
+  right: 18px;
+}
+
+@media (max-width: 767px) {
+  .vbox-overlay .vbox-container {
+    padding: 56px 20px 72px;
+  }
+
+  .vbox-overlay .vbox-child,
+  .vbox-overlay .vbox-child img {
+    max-height: calc(100vh - 128px);
+    max-width: calc(100vw - 40px);
+  }
+
+  .vbox-overlay .vbox-prev {
+    left: 8px;
+  }
+
+  .vbox-overlay .vbox-next {
+    right: 8px;
+  }
+}
+
 .Scrollbar-init body {
   height: 100%;
   width: 100%;
