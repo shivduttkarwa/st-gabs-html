@@ -919,79 +919,58 @@
 
 
 <!-- ═══════════════════════════════════════════════════════
-     CURRENT VACANCIES
+     BROWSE VACANCIES
 ════════════════════════════════════════════════════════ -->
-<section class="sg-job-listings">
-  <div class="container">
-    <div class="sg-job-listings__top sg-children-anim">
-      <h2>Current Employment<br>Opportunities</h2>
-      <a href="#" class="sg-features-link sg-anim-item sg-anim-item--static d-inline-flex align-items-center gap-1 text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-          <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
-        </svg>
-        <span>View All Positions</span>
-      </a>
+<section class="sg-job-listings" aria-labelledby="sg-job-listings-title">
+  <div class="container sg-job-listings__container">
+    <h2 class="sg-job-listings__title sg-anim-item sg-anim-item--static" id="sg-job-listings-title">Browse Vacancies</h2>
+
+    <div class="sg-job-listings__filters sg-children-anim" aria-label="Filter vacancies by category">
+      <button class="btn btn-outline-navy sg-job-listings__filter is-active active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="teaching" aria-pressed="false">Teaching</button>
+      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="non-teaching" aria-pressed="false">Non-teaching</button>
+      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="casual" aria-pressed="false">Casual</button>
+      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="leadership" aria-pressed="false">Leadership</button>
     </div>
 
-    <ul class="sg-job-listings__list sg-children-anim">
+    <div class="sg-job-listings__content">
+      <div class="sg-job-listings__amount sg-anim-item sg-anim-item--static" data-job-count aria-live="polite">4 Current Vacancies</div>
+      <p class="sg-job-listings__empty" hidden>No result found.</p>
 
-      <li class="sg-job-listing-item">
-        <div class="sg-job-listing-item__meta">
-          <span class="sg-job-listing-item__category">Teaching</span>
-          <span class="sg-job-listing-item__date">5 May 2026</span>
-        </div>
-        <h3 class="sg-job-listing-item__title">Teacher Visual Arts</h3>
-        <a href="#" class="sg-features-link d-inline-flex align-items-center gap-1 text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-            <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
-          </svg>
-          <span>View Position</span>
-        </a>
-      </li>
+      <div class="sg-job-listings__items sg-children-anim" id="sg-job-listings-grid">
+        <article class="sg-job-listing-item cat-teaching">
+          <h3 class="sg-job-listing-item__title">Primary Classroom Teacher</h3>
+          <div class="sg-job-listing-item__body">
+            <p>St Gabriel&rsquo;s School is seeking a primary teacher to deliver engaging, differentiated learning experiences for students in a supportive special education environment.</p>
+            <time class="sg-job-listing-item__date" datetime="2026-07-24">Closes: Jul. 24, 2026</time>
+          </div>
+        </article>
 
-      <li class="sg-job-listing-item">
-        <div class="sg-job-listing-item__meta">
-          <span class="sg-job-listing-item__category">Teaching</span>
-          <span class="sg-job-listing-item__date">4 May 2026</span>
-        </div>
-        <h3 class="sg-job-listing-item__title">Classroom Teacher</h3>
-        <a href="#" class="sg-features-link d-inline-flex align-items-center gap-1 text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-            <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
-          </svg>
-          <span>View Position</span>
-        </a>
-      </li>
+        <article class="sg-job-listing-item cat-non-teaching">
+          <h3 class="sg-job-listing-item__title">Learning Support Assistant</h3>
+          <div class="sg-job-listing-item__body">
+            <p>Work alongside classroom teachers and allied health staff to support students with diverse needs across daily learning, wellbeing and participation programs.</p>
+            <time class="sg-job-listing-item__date" datetime="2026-08-07">Closes: Aug. 7, 2026</time>
+          </div>
+        </article>
 
-      <li class="sg-job-listing-item">
-        <div class="sg-job-listing-item__meta">
-          <span class="sg-job-listing-item__category">Teaching</span>
-          <span class="sg-job-listing-item__date">30 April 2026</span>
-        </div>
-        <h3 class="sg-job-listing-item__title">Teacher Librarian</h3>
-        <a href="#" class="sg-features-link d-inline-flex align-items-center gap-1 text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-            <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
-          </svg>
-          <span>View Position</span>
-        </a>
-      </li>
+        <article class="sg-job-listing-item cat-casual">
+          <h3 class="sg-job-listing-item__title">Casual Teacher - Primary &amp; Secondary</h3>
+          <div class="sg-job-listing-item__body">
+            <p>St Gabriel&rsquo;s School maintains a list of casual teaching staff to fill short term positions. Both Primary and Secondary teachers can apply. Casual teaching staff must submit an application.</p>
+            <time class="sg-job-listing-item__date" datetime="2026-12-31">Closes: Dec. 31, 2026</time>
+          </div>
+        </article>
 
-      <li class="sg-job-listing-item">
-        <div class="sg-job-listing-item__meta">
-          <span class="sg-job-listing-item__category">Teaching</span>
-          <span class="sg-job-listing-item__date">11 March 2026</span>
-        </div>
-        <h3 class="sg-job-listing-item__title">Classroom Teachers (Casual)</h3>
-        <a href="#" class="sg-features-link d-inline-flex align-items-center gap-1 text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-            <path d="M13.7188 9.28125C14.125 9.6875 14.125 10.3125 13.7188 10.7188L8.71875 15.7188C8.34375 16.0938 7.6875 16.0938 7.3125 15.7188C6.90625 15.3125 6.90625 14.6875 7.3125 14.2812L11.5938 10L7.3125 5.71875C6.90625 5.3125 6.90625 4.6875 7.3125 4.28125C7.6875 3.90625 8.34375 3.90625 8.71875 4.28125L13.7188 9.28125Z" fill="#00A99D"/>
-          </svg>
-          <span>View Position</span>
-        </a>
-      </li>
-
-    </ul>
+        <article class="sg-job-listing-item cat-leadership">
+          <h3 class="sg-job-listing-item__title">Head of Student Wellbeing</h3>
+          <div class="sg-job-listing-item__body">
+            <p>Lead whole-school wellbeing initiatives, mentor staff and partner with families to strengthen inclusive, student-centred support across St Gabriel&rsquo;s School.</p>
+            <time class="sg-job-listing-item__date" datetime="2026-09-18">Closes: Sep. 18, 2026</time>
+          </div>
+        </article>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1261,6 +1240,7 @@
     </div>
 
     <!-- ── Scripts ─────────────────────────────────────────── -->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="static/assets/js/libraries.js"></script>
     <script src="static/assets/js/swiper.min.js"></script>
     <script src="static/assets/js/venobox.min.js"></script>

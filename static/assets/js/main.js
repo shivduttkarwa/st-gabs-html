@@ -1830,6 +1830,99 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
     });
 });
 
+// ── Employment Vacancies: Isotope filters ───────────────────
+(function () {
+    const section = document.querySelector('.sg-job-listings');
+    const grid = document.getElementById('sg-job-listings-grid');
+    if (!section || !grid) return;
+
+    const filterBtns = Array.from(section.querySelectorAll('.sg-job-listings__filter'));
+    const amount = section.querySelector('[data-job-count]');
+    const emptyState = section.querySelector('.sg-job-listings__empty');
+    const items = Array.from(grid.querySelectorAll('.sg-job-listing-item'));
+    let iso = null;
+    let currentFilter = '*';
+
+    function normalizeFilter(value) {
+        if (!value || value === 'all' || value === '*') return '*';
+        if (value.charAt(0) === '.' || value.charAt(0) === '[') return value;
+        return `.cat-${value}`;
+    }
+
+    function getMatchingItems(filter) {
+        return items.filter(function (item) {
+            return filter === '*' || item.matches(filter);
+        });
+    }
+
+    function updateResultState(filter) {
+        const count = getMatchingItems(filter).length;
+
+        if (amount) {
+            amount.textContent = `${count} Current Vacancies`;
+        }
+
+        if (emptyState) {
+            emptyState.hidden = count !== 0;
+        }
+
+        requestAnimationFrame(function () {
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh(true);
+            }
+        });
+    }
+
+    function fallbackFilter(filter) {
+        items.forEach(function (item) {
+            item.style.display = filter === '*' || item.matches(filter) ? '' : 'none';
+        });
+    }
+
+    function arrange(filter) {
+        if (iso) {
+            iso.arrange({ filter });
+        } else {
+            fallbackFilter(filter);
+        }
+        updateResultState(filter);
+    }
+
+    function initIso() {
+        if (typeof Isotope !== 'undefined') {
+            iso = new Isotope(grid, {
+                itemSelector: '.sg-job-listing-item',
+                layoutMode: 'fitRows',
+                percentPosition: true,
+                transitionDuration: '0.35s',
+            });
+        }
+
+        arrange(currentFilter);
+    }
+
+    filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            currentFilter = normalizeFilter(btn.dataset.filter);
+
+            filterBtns.forEach(function (button) {
+                const isActive = button === btn;
+                button.classList.toggle('is-active', isActive);
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+
+            arrange(currentFilter);
+        });
+    });
+
+    if (typeof Isotope !== 'undefined') {
+        initIso();
+    } else {
+        window.addEventListener('load', initIso);
+    }
+})();
+
 // ── News Browse: Isotope filter + load more ───────────────────
 (function () {
     const grid = document.getElementById('sg-news-grid');
