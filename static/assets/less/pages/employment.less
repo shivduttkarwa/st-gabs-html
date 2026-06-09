@@ -62,42 +62,40 @@
 // ── Job Listings ─────────────────────────────────────────
 
 .sg-job-listings {
-  padding: 5.25rem 0 5.5rem;
+  padding: 2.5rem 0 4rem;
   background: var(--color-white);
+
+  @media (min-width: 992px) {
+    padding: 3.5rem 0 5rem;
+  }
 }
 
-.sg-job-listings__container {
-  max-width: 81rem;
+.sg-job-listings__header {
+  margin-bottom: 2.5rem;
 }
 
 .sg-job-listings__title {
-  margin: 0 0 2.125rem;
+  margin: 0;
+  scroll-margin-top: 9rem;
   color: var(--color-navy);
-  font-family: var(--font-fraunces-9pt);
-  font-size: var(--fz-h1);
-  font-weight: 400;
+  font-family: var(--font-satoshi-bold);
+  font-size: var(--fz-h2);
   line-height: 1;
   letter-spacing: 0;
-  text-align: center;
-  text-transform: uppercase;
 }
 
 .sg-job-listings__filters {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-  margin-bottom: 2.3125rem;
-}
-
-.sg-job-listings__filter {
-  white-space: nowrap;
+  gap: 0.375rem;
+  margin-bottom: 2.5rem;
 }
 
 .sg-job-listings__content {
   width: 76%;
   max-width: 61.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sg-job-listings__amount {
@@ -170,11 +168,6 @@
 }
 
 @media (max-width: 1199px) {
-  .sg-job-listings__container {
-    width: calc(100% - 2rem);
-    max-width: calc(100% - 2rem);
-  }
-
   .sg-job-listings__content {
     width: 100%;
     max-width: none;
@@ -183,11 +176,7 @@
 
 @media (max-width: 991px) {
   .sg-job-listings {
-    padding: 3.75rem 0;
-  }
-
-  .sg-job-listings__title {
-    font-size: var(--fz-h2);
+    padding: 2.5rem 0 4rem;
   }
 }
 
@@ -196,17 +185,12 @@
     padding: 3rem 0;
   }
 
-  .sg-job-listings__title {
+  .sg-job-listings__header {
     margin-bottom: 1.5rem;
   }
 
   .sg-job-listings__filters {
-    justify-content: flex-start;
     margin-bottom: 2rem;
-  }
-
-  .sg-job-listings__filter {
-    white-space: normal;
   }
 
   .sg-job-listings__amount {

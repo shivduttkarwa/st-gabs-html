@@ -922,15 +922,17 @@
      BROWSE VACANCIES
 ════════════════════════════════════════════════════════ -->
 <section class="sg-job-listings" aria-labelledby="sg-job-listings-title">
-  <div class="container sg-job-listings__container">
-    <h2 class="sg-job-listings__title sg-anim-item sg-anim-item--static" id="sg-job-listings-title">Browse Vacancies</h2>
+  <div class="container">
+    <div class="sg-job-listings__header sg-children-anim">
+      <h2 class="sg-job-listings__title" id="sg-job-listings-title">Browse Vacancies</h2>
+    </div>
 
-    <div class="sg-job-listings__filters sg-children-anim" aria-label="Filter vacancies by category">
-      <button class="btn btn-outline-navy sg-job-listings__filter is-active active" type="button" data-filter="all" aria-pressed="true">All</button>
-      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="teaching" aria-pressed="false">Teaching</button>
-      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="non-teaching" aria-pressed="false">Non-teaching</button>
-      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="casual" aria-pressed="false">Casual</button>
-      <button class="btn btn-outline-navy sg-job-listings__filter" type="button" data-filter="leadership" aria-pressed="false">Leadership</button>
+    <div class="sg-job-listings__filters sg-children-anim" role="group" aria-label="Filter vacancies by category">
+      <button class="sg-news-filter-btn sg-job-listings__filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="sg-news-filter-btn sg-job-listings__filter" type="button" data-filter="teaching" aria-pressed="false">Teaching</button>
+      <button class="sg-news-filter-btn sg-job-listings__filter" type="button" data-filter="non-teaching" aria-pressed="false">Non-teaching</button>
+      <button class="sg-news-filter-btn sg-job-listings__filter" type="button" data-filter="casual" aria-pressed="false">Casual</button>
+      <button class="sg-news-filter-btn sg-job-listings__filter" type="button" data-filter="leadership" aria-pressed="false">Leadership</button>
     </div>
 
     <div class="sg-job-listings__content">

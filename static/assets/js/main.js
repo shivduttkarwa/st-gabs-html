@@ -1908,7 +1908,6 @@ document.querySelectorAll('.sg-accordion-list').forEach(function(list) {
             filterBtns.forEach(function (button) {
                 const isActive = button === btn;
                 button.classList.toggle('is-active', isActive);
-                button.classList.toggle('active', isActive);
                 button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
 
