@@ -2763,6 +2763,9 @@ body.is-offset-top:has(.sg-header__nav-panel.is-mega-open)::after {
   bottom: 3.125rem;
   z-index: 3;
 }
+.sg-split-slider--single-slide .sg-split-slider-nav-global {
+  display: none !important;
+}
 .sg-split-slider-text-slide {
   position: absolute;
   top: 0;

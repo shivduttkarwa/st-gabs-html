@@ -1318,12 +1318,24 @@ function initAppSwipers() {
                 const prevBtn = item.querySelector('.sg-split-slider-nav-prev-global');
                 const nextBtn = item.querySelector('.sg-split-slider-nav-next-global');
                 const navWrap = item.querySelector('.sg-split-slider-nav-global');
+                const hasMultipleSlides = textSlides.length > 1;
 
-                if (textSlides.length <= 1) {
-                    if (navWrap) navWrap.style.display = 'none';
+                if (!hasMultipleSlides) {
+                    item.classList.add('sg-split-slider--single-slide');
+                    if (navWrap) {
+                        navWrap.hidden = true;
+                        navWrap.setAttribute('aria-hidden', 'true');
+                    }
+                    [prevBtn, nextBtn].forEach((btn) => {
+                        if (!btn) return;
+                        btn.classList.add('is-disabled');
+                        btn.disabled = true;
+                        btn.setAttribute('aria-disabled', 'true');
+                    });
                 }
 
                 const updateBtnStates = () => {
+                    if (!hasMultipleSlides) return;
                     if (prevBtn) prevBtn.classList.toggle('is-disabled', currentIndex === 0);
                     if (nextBtn) nextBtn.classList.toggle('is-disabled', currentIndex === textSlides.length - 1);
                 };
@@ -1348,7 +1360,7 @@ function initAppSwipers() {
                 updateBtnStates();
 
                 const goToSlide = (index) => {
-                    if (isAnimating || index < 0 || index >= textSlides.length || index === currentIndex) return;
+                    if (!hasMultipleSlides || isAnimating || index < 0 || index >= textSlides.length || index === currentIndex) return;
                     isAnimating = true;
 
                     const direction = index > currentIndex ? 1 : -1;
