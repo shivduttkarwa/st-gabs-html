@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG Line Grow Test</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #004733;
+    }
+
+    .svg-wrapper {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #004733;
+    }
+
+    .preloader-trace-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #preloaderTracePath {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: drawLine 5s ease-in-out forwards;
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="svg-wrapper">
+    <svg
+      class="preloader-trace-svg"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1225 912"
+      fill="none"
+      preserveAspectRatio="xMinYMid meet"
+    >
+      <path
+        id="preloaderTracePath"
+        pathLength="1"
+        d="
+          M 0 190
+          C 110 230, 220 220, 330 165
+          C 430 115, 505 70, 595 95
+          C 670 116, 690 178, 652 255
+          C 622 316, 610 370, 608 425
+          C 606 486, 638 526, 720 540
+          C 835 560, 1000 505, 1105 522
+          C 1190 536, 1242 590, 1222 660
+          C 1195 755, 1035 775, 875 790
+          C 740 803, 645 812, 615 858
+          C 602 878, 600 892, 598 910
+        "
+        stroke="#96A50B"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+        fill="none"
+      />
+    </svg>
+  </div>
+</body>
+</html>
