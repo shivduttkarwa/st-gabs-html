@@ -118,18 +118,17 @@
       color: rgba(150, 165, 11, 0.20);
       transition: color 1s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      display: inline-block;
-      transform-origin: 50% 60%;
+      text-shadow: none;
     }
     .pl-word.pl-lit {
       color: #ffffff;
       z-index: 10;
-      animation: pl-word-zoom 1.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+      animation: pl-word-glow 1.35s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
-    @keyframes pl-word-zoom {
-      0% { transform: scale(1); }
-      55% { transform: scale(1.08); }
-      100% { transform: scale(1); }
+    @keyframes pl-word-glow {
+      0% { text-shadow: 0 2px 18px rgba(255, 255, 255, 0); }
+      45% { text-shadow: 0 2px 18px rgba(255, 255, 255, 0.7); }
+      100% { text-shadow: 0 2px 18px rgba(255, 255, 255, 0); }
     }
 
     .preloader-br { display: block; }
